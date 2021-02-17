@@ -1,25 +1,27 @@
-const { ApolloServer, gql } = require("apollo-server");
+const express = require("express");
+const { ApolloServer } = require("apollo-server-express");
+const { typeDefs } = require("./typeDefs");
+const { resolvers } = require("./resolvers");
+const mongoose = require("mongoose");
 
-// The GraphQL schema
-const typeDefs = gql`
-  type Query {
-    "A simple type for getting started!"
-    hello: String
-  }
-`;
+const startServer = async () => {
+  const app = express();
 
-// A map of functions which return data for the schema.
-const resolvers = {
-  Query: {
-    hello: () => "world",
-  },
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+
+  server.applyMiddleware({ app });
+
+  await mongoose.connect("mongodb://localhost:27017/test", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
 };
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+startServer();

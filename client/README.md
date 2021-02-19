@@ -2,6 +2,7 @@
 
 - Expo
 - [React-Navigation](https://reactnavigation.org/docs/getting-started)
+- [styled-components](https://styled-components.com)
 
 ### How to Run?
 

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "client",
-    "slug": "client",
+    "name": "Career-Compass",
+    "slug": "career-compass",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

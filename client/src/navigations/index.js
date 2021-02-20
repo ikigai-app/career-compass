@@ -8,7 +8,7 @@ import ScreenTwo from "../screens/ScreenTwo";
 const config = {
   screens: {
     Home: "home",
-    Settings: "settings",
+    Graphql: "graphql",
   },
 };
 
@@ -21,9 +21,9 @@ const HomeStack = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Graphql">
       <Stack.Screen name="Home" component={ScreenOne} />
-      <Stack.Screen name="Settings" component={ScreenTwo} />
+      <Stack.Screen name="Graphql" component={ScreenTwo} />
     </Stack.Navigator>
   );
 };

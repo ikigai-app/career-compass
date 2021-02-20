@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Test from "../components/Test";
+import { View, Text, ScrollView } from "react-native";
+import GraphqlTest from "../components/GraphqlTest";
 
 export default function ScreenTwo() {
   return (
-    <View style={{ flex: 1 }}>
-      <Test />
-    </View>
+    <ScrollView style={{ flex: 1 }}>
+      <GraphqlTest />
+    </ScrollView>
   );
 }

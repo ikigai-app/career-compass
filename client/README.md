@@ -1,8 +1,9 @@
 # Client
 
-- Expo
+- [Expo](https://docs.expo.io)
 - [React-Navigation](https://reactnavigation.org/docs/getting-started)
 - [styled-components](https://styled-components.com)
+- [Apollo Client](https://www.apollographql.com/docs/react/get-started/)
 
 ### How to Run?
 

@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, SafeAreaView } from "react-native";
 import GraphqlTest from "../components/GraphqlTest";
 
 export default function ScreenTwo() {
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <GraphqlTest />
-    </ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView>
+        <GraphqlTest />
+      </ScrollView>
+    </SafeAreaView>
   );
 }

@@ -11,8 +11,6 @@ const EXCHANGE_RATES = gql`
   }
 `;
 
-function ExchangeRates() {}
-
 export default function GraphqlTest() {
   const { loading, error, data } = useQuery(EXCHANGE_RATES);
 

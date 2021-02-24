@@ -49,9 +49,9 @@ $ expo publish
 
 ```
 
-Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
-
 ### QR CODE
+
+Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
 
 Scan the QR code and run the app.
 <img src="../QR.png" alt="QRcode"/>

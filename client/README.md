@@ -10,7 +10,14 @@
 
 - [react-responsive](https://github.com/contra/react-responsive) & [@expo/match-media](https://blog.expo.io/media-queries-with-react-native-for-ios-android-and-web-e0b73ed5777b?gi=ce988226212c) - To render the web & mobile component separately
 
-### How to Run?
+##### Expo
+
+```shell
+#if not installed
+$ npm install -g expo-cli
+```
+
+#### How to Run?
 
 ```shell
 
@@ -19,13 +26,12 @@ $ npm i
 $ expo start or npm start
 
 # Connect to iOS simulator
-expo start --ios
+$ expo start --ios
 
 # Or connect to Android devices or simulators
-expo start --android
+$ expo start --android
 
-#
-expo start --web
+$ expo start --web
 
 ```
 
@@ -43,4 +49,9 @@ $ expo publish
 
 ```
 
-Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
+Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
+
+### QR CODE
+
+Scan the QR code and run the app.
+<img src="../QR.png" alt="QRcode"/>

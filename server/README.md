@@ -1,40 +1,42 @@
 # Server
 
-- [Apollo-Server-Express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/): GraphQL Server
+- [apollo-server-express](https://www.apollographql.com/docs/apollo-server/integrations/middleware/) : GraphQL Server with express as a middleware.
 
-- [Dgraph](https://github.com/dgraph-io/dgraph): Native GraphQL Database With A Graph Backend.
+- [apollo-link-http](https://www.apollographql.com/docs/link/#usage) : Apollo Link is a standard interface for modifying control flow of GraphQL requests and fetching GraphQL results.
 
-```
-docker pull dgraph/standalone
-```
+- [node-fetch](https://github.com/node-fetch/node-fetch) : A light-weight module that brings the Fetch API to Node.js
 
-Let’s create a folder for storing Dgraph data outside of the container:
+- [graphql-tools](https://www.graphql-tools.com/docs/introduction) : Stitch multiple GraphQL Schemas
 
-```
-mkdir -p ~/dgraph
+- [Dgraph](https://github.com/dgraph-io/dgraph) : Native GraphQL Database With A Graph Backend.
 
+### Run Dgraph
 
-docker run -it -p 5080:5080 -p 6080:6080 -p 8080:8080 \
+```shell
+$ docker pull dgraph/standalone
+
+$ mkdir -p ~/dgraph #create a folder for storing Dgraph data outside of the container
+
+$ docker run -it -p 5080:5080 -p 6080:6080 -p 8080:8080 \
   -p 9080:9080 -p 8000:8000 -v ~/dgraph:/dgraph --name dgraph \
   dgraph/standalone:v20.11.0
 ```
 
+##### Send the schema to Dgraph
+
 ```shell
 
 curl -X POST localhost:8080/admin/schema --data-binary '
-
 type Book{
-
     title: String! @id,
     author:String!
 }
-
 '
 ```
 
-http://localhost:8080/graphql
+Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql
 
-Add some book:
+##### Add some book:
 
 ```shell
 mutation {
@@ -64,14 +66,19 @@ mutation {
 
 ```
 
-basic query
+###### Query
 
 ```shell
-
 {
-  queryBook {
+  queryBook{
     title
     author
   }
 }
+```
+
+## Run Server
+
+```shell
+$ npm i && npm start
 ```

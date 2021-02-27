@@ -1,28 +1,44 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import { useQuery, gql } from "@apollo/client";
+import { Card, Title, Container, SubTitle } from "../styles/Card";
 
-const EXCHANGE_RATES = gql`
-  query GetExchangeRates {
-    rates(currency: "USD") {
-      currency
-      rate
+const FETCH_BOOKS = gql`
+  {
+    queryBook {
+      title
+      author
     }
   }
 `;
 
-export default function GraphqlTest() {
-  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+const BookCard = ({ bookDetails }) => (
+  <Card>
+    <Title>{bookDetails.title}</Title>
+    <SubTitle>{bookDetails.author}</SubTitle>
+  </Card>
+);
+
+const GraphqlTest = () => {
+  const renderBook = ({ item }) => <BookCard bookDetails={item} />;
+
+  const { loading, error, data } = useQuery(FETCH_BOOKS);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
 
-  return data.rates.map(({ currency, rate }) => (
-    <View key={currency}>
-      <Text>
-        {" "}
-        {currency}: {rate}
-      </Text>
-    </View>
-  ));
-}
+  return (
+    <Container>
+      <FlatList
+        data={data.queryBook}
+        renderItem={renderBook}
+        keyExtractor={(item) => item.title}
+        ItemSeparatorComponent={() => {
+          return <View style={{ margin: 5 }} />;
+        }}
+      />
+    </Container>
+  );
+};
+
+export default GraphqlTest;

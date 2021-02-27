@@ -5,8 +5,8 @@
 - [React Native Web](https://necolas.github.io/react-native-web/)
 
 - [React-Navigation](https://reactnavigation.org/docs/getting-started) - Use for the main navigation
-- [styled-components](https://styled-components.com) - CSS
-- [Apollo Client](https://www.apollographql.com/docs/react/get-started/)
+- [styled-components](https://styled-components.com) - css-in-js
+- [Apollo Client](https://www.apollographql.com/docs/react/get-started/) : A comprehensive state management library for JavaScript that enables you to manage both local and remote data with GraphQL.
 
 - [react-responsive](https://github.com/contra/react-responsive) & [@expo/match-media](https://blog.expo.io/media-queries-with-react-native-for-ios-android-and-web-e0b73ed5777b?gi=ce988226212c) - To render the web & mobile component separately
 
@@ -53,5 +53,5 @@ $ expo publish
 
 Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
 
-Scan the QR code and run the app.
+Scan the QR code and run the app. (Expo Published)
 <img src="../QR.png" alt="QRcode"/>

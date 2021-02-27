@@ -1,0 +1,33 @@
+type Query {
+  getBook(title: String!): Book
+  queryBook(
+    filter: BookFilter
+    order: BookOrder
+    first: Int
+    offset: Int
+  ): [Book]
+}
+
+type Book {
+  title: String!
+  author: String!
+}
+
+input BookFilter {
+  title: StringHashFilter
+}
+
+input StringHashFilter {
+  eq: String
+}
+
+enum BookOrderable {
+  title
+  author
+}
+
+input BookOrder {
+  asc: BookOrderable
+  desc: BookOrderable
+  then: BookOrder
+}

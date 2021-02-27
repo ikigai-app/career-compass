@@ -82,3 +82,31 @@ mutation {
 ```shell
 $ npm i && npm start
 ```
+
+Use GraphQL Playground to run following queries and mutations at http://localhost:4000/graphql
+
+```shell
+
+#getbook
+query($title: String!) {
+  getBook(title: $title) {
+    title
+    author
+  }
+}
+
+#set variable
+{
+  "title": "Deep Work"
+}
+
+
+#fetch all book
+{
+  queryBook{
+    title
+    author
+  }
+}
+
+```

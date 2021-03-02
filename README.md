@@ -45,3 +45,17 @@ $ cd server/ #check the README.md files
 ```shell
 $ cd client/ #check the README.md files
 ```
+
+## Learning Resources
+
+#### GraphQL
+
+[Learn GraphQL with Apollo](https://odyssey.apollographql.com)
+
+#### Docker
+
+[Node image setup](https://docs.docker.com/language/nodejs/build-images/)
+
+#### Dgraph
+
+[Serverless GraphQL with Slash GraphQL](https://www.youtube.com/watch?v=xnlDE5P2lCo)

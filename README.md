@@ -55,6 +55,7 @@ $ cd client/ #check the README.md files
 #### Docker
 
 [Node image setup](https://docs.docker.com/language/nodejs/build-images/)
+[Deploying Docker containers on ECS](https://docs.docker.com/cloud/ecs-integration/)
 
 #### Dgraph
 

@@ -17,9 +17,9 @@ $ docker pull dgraph/standalone
 
 $ mkdir -p ~/dgraph #create a folder for storing Dgraph data outside of the container
 
-$ docker run -it -p 5080:5080 -p 6080:6080 -p 8080:8080 \
-  -p 9080:9080 -p 8000:8000 -v ~/dgraph:/dgraph --name dgraph \
-  dgraph/standalone:v20.11.0
+$ docker run -it --rm  -p 8080:8080 \
+-v ~/dgraph:/dgraph --name dgraph \
+ dgraph/standalone:v20.11.0
 ```
 
 ##### Send the schema to Dgraph

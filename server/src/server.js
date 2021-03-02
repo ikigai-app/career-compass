@@ -1,14 +1,16 @@
-import express from "express";
-import { ApolloServer, gql } from "apollo-server-express";
-import compression from "compression";
-import cors from "cors";
-import { buildSchema } from "./schema";
+const express = require("express");
+const { ApolloServer } = require("apollo-server-express");
+const compression = require("compression");
+const cors = require("cors");
+const { buildSchema } = require("./schema.js");
 
 const startServer = async () => {
   const app = express();
 
   const server = new ApolloServer({
     schema: await buildSchema(),
+    introspection: true,
+    playground: true,
 
     context: ({ req, res }) => {
       return;

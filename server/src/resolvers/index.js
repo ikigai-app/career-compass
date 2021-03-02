@@ -1,8 +1,7 @@
-import { buildQuery } from "./query";
-// import { buildMutation } from "./mutation";
-import { getDgSchema } from "../dgraph";
+const { buildQuery } = require("./query");
+const { getDgSchema } = require("../dgraph/index.js");
 
-export async function buildResolvers() {
+async function buildResolvers() {
   const dg = await getDgSchema();
 
   return {
@@ -10,3 +9,5 @@ export async function buildResolvers() {
     // Mutation: buildMutation(dg),
   };
 }
+
+exports.buildResolvers = buildResolvers;

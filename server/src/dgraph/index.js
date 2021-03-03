@@ -10,7 +10,6 @@ const link = new HttpLink({
   uri: `http://${process.env.DGRAPH_HOST || DGRAPH_HOST}:${
     process.env.DGRAPH_PORT || DGRAPH_PORT
   }/graphql`,
-  // uri: `http://0.0.0.0:${process.env.DGRAPH_PORT || DGRAPH_PORT}/graphql`,
   fetch,
 });
 

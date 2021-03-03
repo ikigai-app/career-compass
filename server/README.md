@@ -10,12 +10,13 @@
 
 - [Dgraph](https://github.com/dgraph-io/dgraph) : Native GraphQL Database With A Graph Backend.
 
-## RUN
+### RUN
 
 Download the docker if not installed from following [link](https://www.docker.com/products/docker-desktop)
 
-```
+```shell
 $ docker-compose up -d --build
+# -d run the container in detached mode (in the background)
 ```
 
 In case of localhost port issue
@@ -24,7 +25,7 @@ In case of localhost port issue
 $ docker network ls
 
 $ docker network inspect <NETWORK_ID or NAME/>
-# take dgraph alpha server IP and save it to .env DGRAPH_HOST
+# take dgraph alpha server IP and pass it to .env DGRAPH_HOST
 ```
 
 ##### Send the schema to Dgraph
@@ -80,12 +81,6 @@ mutation {
     author
   }
 }
-```
-
-## Run Server
-
-```shell
-$ npm i && npm start
 ```
 
 Use GraphQL Playground to run following queries and mutations at http://localhost:4000/graphql

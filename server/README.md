@@ -10,16 +10,21 @@
 
 - [Dgraph](https://github.com/dgraph-io/dgraph) : Native GraphQL Database With A Graph Backend.
 
-### Run Dgraph
+## RUN
+
+Download the docker if not installed from following [link](https://www.docker.com/products/docker-desktop)
+
+```
+$ docker-compose up -d --build
+```
+
+In case of localhost port issue
 
 ```shell
-$ docker pull dgraph/standalone
+$ docker network ls
 
-$ mkdir -p ~/dgraph #create a folder for storing Dgraph data outside of the container
-
-$ docker run -it --rm  -p 8080:8080 \
--v ~/dgraph:/dgraph --name dgraph \
- dgraph/standalone:v20.11.0
+$ docker network inspect <NETWORK_ID or NAME/>
+# take dgraph alpha server IP and save it to .env DGRAPH_HOST
 ```
 
 ##### Send the schema to Dgraph

@@ -3,6 +3,7 @@ const { ApolloServer } = require("apollo-server-express");
 const compression = require("compression");
 const cors = require("cors");
 const { buildSchema } = require("./schema.js");
+const { SERVER_PORT } = require("../config");
 
 const startServer = async () => {
   const app = express();
@@ -26,8 +27,12 @@ const startServer = async () => {
 
   server.applyMiddleware({ app });
 
-  app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  app.listen({ port: `${process.env.SERVER_PORT || SERVER_PORT}` }, () =>
+    console.log(
+      `🚀 Server ready at ${process.env.SERVER_PORT || SERVER_PORT}${
+        server.graphqlPath
+      }`
+    )
   );
 };
 

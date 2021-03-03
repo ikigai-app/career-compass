@@ -1,0 +1,44 @@
+# It mounts /tmp/data on the host machine to /dgraph within the
+# container. You can change /tmp/data to a more appropriate location.
+version: "3.8"
+services:
+  zero:
+    image: dgraph/dgraph:latest
+    volumes:
+      - /tmp/data:/dgraph
+    ports:
+      - 5080:5080
+      - 6080:6080
+    restart: on-failure
+    command: dgraph zero --my=zero:5080
+  alpha:
+    image: dgraph/dgraph:latest
+    volumes:
+      - /tmp/data:/dgraph
+    ports:
+      - 8080:8080
+      - 9080:9080
+    restart: on-failure
+    command: dgraph alpha --my=alpha:7080 --lru_mb=2048 --zero=zero:5080 --whitelist 172.17.0.0:172.30.0.0,192.168.1.1
+  ratel:
+    image: dgraph/dgraph:latest
+    ports:
+      - 8000:8000
+    command: dgraph-ratel
+
+  server:
+    build:
+      context: .
+      network: host
+    ports:
+      - 4000:4000
+    environment:
+      - SERVER_PORT=4000
+      - DGRAPH_PORT=8080
+    # - DGRAPH_HOST=
+    volumes:
+      - ./:/app
+    expose:
+      - "4000"
+      - "8080"
+    command: "npm start"

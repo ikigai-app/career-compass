@@ -4,8 +4,15 @@ const {
   makeRemoteExecutableSchema,
   introspectSchema,
 } = require("apollo-server-express");
+const { DGRAPH_HOST, DGRAPH_PORT } = require("../../config");
 
-const link = new HttpLink({ uri: "http://localhost:8080/graphql", fetch });
+const link = new HttpLink({
+  uri: `http://${process.env.DGRAPH_HOST || DGRAPH_HOST}:${
+    process.env.DGRAPH_PORT || DGRAPH_PORT
+  }/graphql`,
+  // uri: `http://0.0.0.0:${process.env.DGRAPH_PORT || DGRAPH_PORT}/graphql`,
+  fetch,
+});
 
 const getDgSchema = async () => {
   const schema = await introspectSchema(link);

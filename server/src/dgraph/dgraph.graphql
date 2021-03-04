@@ -1,4 +1,5 @@
-type Book {
-  title: String! @id
-  author: String!
+type User {
+  userName: String! @id
+  firstName: String!
+  lastName: String!
 }

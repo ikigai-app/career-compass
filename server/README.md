@@ -33,80 +33,70 @@ $ docker network inspect <NETWORK_ID or NAME/>
 ```shell
 
 curl -X POST localhost:8080/admin/schema --data-binary '
-type Book{
-    title: String! @id,
-    author:String!
+type User {
+  userName: String! @id
+  firstName: String!
+  lastName: String!
 }
 '
 ```
 
-Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql
+Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
 
-##### Add some book:
+##### Add some data:
 
 ```shell
 mutation {
-  addBook(input: [
- {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-  {
-    title:"Deep Work",
-    author:"Cal Newport"
-  },
-  {
-    title:"Before you startup",
-    author:"Pankaj Goyal"
-  }
-  ]) {
-    book {
-      title
+  addUser(
+    input: [
+      { userName: "mks", firstName: "MKS", lastName: "mks" }
+      { userName: "dev", firstName: "Dev", lastName: "test" }
+    ]
+  ) {
+    user {
+      userName
     }
   }
 }
-
 ```
 
-###### Query
+##### Query
 
 ```shell
 {
-  queryBook{
-    title
-    author
+  queryUser {
+    userName
+    firstName
+    lastName
   }
 }
+
 ```
 
 Use GraphQL Playground to run following queries and mutations at http://localhost:4000/graphql
 
 ```shell
 
-#getbook
-query($title: String!) {
-  getBook(title: $title) {
-    title
-    author
+#getUser
+query($userName: String!) {
+  getUser(userName: $userName) {
+    userName
+    firstName
+    lastName
   }
 }
 
 #set variable
 {
-  "title": "Deep Work"
+  "userName":"dev"
 }
 
-
-#fetch all book
+#fetch all users
 {
-  queryBook{
-    title
-    author
+  queryUser {
+    userName
+    firstName
+    lastName
   }
 }
-
 ```

@@ -1,33 +1,35 @@
 type Query {
-  getBook(title: String!): Book
-  queryBook(
-    filter: BookFilter
-    order: BookOrder
+  getUser(userName: String!): User
+  queryUser(
+    filter: UserFilter
+    order: UserOrder
     first: Int
     offset: Int
-  ): [Book]
+  ): [User]
 }
 
-type Book {
-  title: String!
-  author: String!
+type User {
+  userName: String!
+  firstName: String!
+  lastName: String!
 }
 
-input BookFilter {
-  title: StringHashFilter
+input UserFilter {
+  userName: StringHashFilter
 }
 
 input StringHashFilter {
   eq: String
 }
 
-enum BookOrderable {
-  title
-  author
+enum UserOrderable {
+  userName
+  firstName
+  lastName
 }
 
-input BookOrder {
-  asc: BookOrderable
-  desc: BookOrderable
-  then: BookOrder
+input UserOrder {
+  asc: UserOrderable
+  desc: UserOrderable
+  then: UserOrder
 }

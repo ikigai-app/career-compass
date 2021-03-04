@@ -8,6 +8,16 @@ type Query {
   ): [User]
 }
 
+type Mutation {
+  addUser(input: AddUserInput!): User
+}
+
+input AddUserInput {
+  userName: String!
+  firstName: String!
+  lastName: String!
+}
+
 type User {
   userName: String!
   firstName: String!

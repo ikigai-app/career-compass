@@ -12,6 +12,7 @@ const startServer = async () => {
     schema: await buildSchema(),
     introspection: true,
     playground: true,
+    debug: true,
 
     context: ({ req, res }) => {
       return;

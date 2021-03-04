@@ -99,4 +99,15 @@ query($userName: String!) {
     lastName
   }
 }
+
+#add user
+mutation {
+  addUser(input: { userName: "test", firstName: "dev", lastName: "test" }) {
+    userName
+    # firstName
+    # lastNa
+  }
+}
+
+
 ```

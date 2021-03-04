@@ -1,4 +1,5 @@
 const { buildQuery } = require("./query");
+const { buildMutation } = require("./mutation");
 const { getDgSchema } = require("../dgraph/index.js");
 
 async function buildResolvers() {
@@ -6,7 +7,7 @@ async function buildResolvers() {
 
   return {
     Query: buildQuery(dg),
-    // Mutation: buildMutation(dg),
+    Mutation: buildMutation(dg),
   };
 }
 

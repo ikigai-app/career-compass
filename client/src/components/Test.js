@@ -24,9 +24,7 @@ export default function Test() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-device-width: 1224px)",
   });
-  const isBigScreen = useMediaQuery({
-    query: "(min-device-width: 1824px)",
-  });
+
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 1224px)",
@@ -41,7 +39,7 @@ export default function Test() {
       {isDesktopOrLaptop && (
         <>
           <Text>You are a desktop or laptop</Text>
-          {isBigScreen && <Text>You also have a huge screen</Text>}
+          {/* {isBigScreen && <Text>You also have a huge screen</Text>} */}
           {isTabletOrMobile && (
             <Text>You are sized like a tablet or mobile phone though</Text>
           )}

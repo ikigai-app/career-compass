@@ -111,3 +111,17 @@ mutation {
 
 
 ```
+
+##### Before connecting to the client. Run
+
+```shell
+$ ngrok http http://localhost:4000
+```
+
+And copy the new generated url to the `client/.env`
+
+```
+GRAPHQL_ENDPOINT=" "
+```
+
+Save it and flow rest client cmd to run the app locally.

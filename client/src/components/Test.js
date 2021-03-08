@@ -21,35 +21,15 @@ function Header({ style, ...props } = {}) {
 }
 
 export default function Test() {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
 
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
-  });
-
-  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-  const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
+  const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Header>Device Test!</Header>
-      {isDesktopOrLaptop && (
-        <>
-          <Text>You are a desktop or laptop</Text>
-          {/* {isBigScreen && <Text>You also have a huge screen</Text>} */}
-          {isTabletOrMobile && (
-            <Text>You are sized like a tablet or mobile phone though</Text>
-          )}
-        </>
-      )}
-      {isTabletOrMobileDevice && <Text>You are a tablet or mobile phone</Text>}
-      <Text>
-        Your are in {isPortrait ? "portrait" : "landscape"} orientation
-      </Text>
-      {isRetina && <Text>You are retina</Text>}
+      {isMobile && <Text>Mobile</Text>}
+      {isDesktop && <Text>Desktop</Text>}
     </View>
   );
 }

@@ -3,26 +3,27 @@ import { View, Text, FlatList } from "react-native";
 import { useQuery, gql } from "@apollo/client";
 import { Card, Title, Container, SubTitle } from "../styles/Card";
 
-const FETCH_BOOKS = gql`
+const FETCH_USERS = gql`
   {
-    queryBook {
-      title
-      author
+    queryUser {
+      userName
+      firstName
+      lastName
     }
   }
 `;
 
-const BookCard = ({ bookDetails }) => (
+const UserCard = ({ userDetails }) => (
   <Card>
-    <Title>{bookDetails.title}</Title>
-    <SubTitle>{bookDetails.author}</SubTitle>
+    <Title>{userDetails.userName}</Title>
+    <SubTitle>{userDetails.firstName}</SubTitle>
   </Card>
 );
 
 const GraphqlTest = () => {
-  const renderBook = ({ item }) => <BookCard bookDetails={item} />;
+  const renderUser = ({ item }) => <UserCard userDetails={item} />;
 
-  const { loading, error, data } = useQuery(FETCH_BOOKS);
+  const { loading, error, data } = useQuery(FETCH_USERS);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
@@ -30,8 +31,8 @@ const GraphqlTest = () => {
   return (
     <Container>
       <FlatList
-        data={data.queryBook}
-        renderItem={renderBook}
+        data={data.queryUser}
+        renderItem={renderUser}
         keyExtractor={(item) => item.title}
         ItemSeparatorComponent={() => {
           return <View style={{ margin: 5 }} />;

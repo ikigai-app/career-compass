@@ -6,8 +6,8 @@ import { RootSafeAreaView } from "../../styles/RootView";
 export default function HomeScreen() {
   return (
     <RootSafeAreaView style={{ flex: 1 }}>
-      <Test />
-      {/* <GraphqlTest /> */}
+      {/* <Test /> */}
+      <GraphqlTest />
     </RootSafeAreaView>
   );
 }

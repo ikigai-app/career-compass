@@ -15,8 +15,12 @@ const FETCH_USERS = gql`
 
 const UserCard = ({ userDetails }) => (
   <Card>
+    {console.log("user", userDetails)}
     <Title>{userDetails.userName}</Title>
-    <SubTitle>{userDetails.firstName}</SubTitle>
+    <SubTitle>
+      {userDetails.firstName}
+      {userDetails.lastName}
+    </SubTitle>
   </Card>
 );
 

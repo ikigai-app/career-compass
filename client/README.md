@@ -19,19 +19,29 @@ $ npm install -g expo-cli
 
 #### How to Run?
 
+Before running update .env in your root directive
+
+```shell
+GRAPHQL_ENDPOINT = " "
+```
+
+run
+
 ```shell
 
 $ npm i
 
 $ expo start or npm start
 
-# Connect to iOS simulator
-$ expo start --ios
+# Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
 
-# Or connect to Android devices or simulators
-$ expo start --android
+› Press a │ open Android
+› Press i │ open iOS simulator
+› Press w │ open web
 
-$ expo start --web
+› Press d │ open developer tools
+› shift+d │ toggle auto opening developer tools on startup (disabled)
+› Press e │ share the app link by email
 
 ```
 

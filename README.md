@@ -27,6 +27,10 @@ Setup nvm [Deeper Shell Integration for NVM](https://github.com/nvm-sh/nvm#deepe
 
 Download the docker if not installed from following [link](https://www.docker.com/products/docker-desktop)
 
+### Ngrok
+
+Ngrok exposes local servers behind NATs and firewalls to the public internet over secure tunnels. Download the ngrok if not installed from following [link](https://ngrok.com/download). Will use to connect expo to local servers.
+
 ### QR CODE (Expo published)
 
 Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)

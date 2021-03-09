@@ -124,4 +124,4 @@ And copy the new generated url to the `client/.env`
 GRAPHQL_ENDPOINT=" "
 ```
 
-Save it and flow rest client cmd to run the app locally.
+Save it and follow client readme to run the app locally.

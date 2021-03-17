@@ -19,13 +19,13 @@ export const Card = styled.View`
 
 export const Title = styled.Text`
   color: ${BLACK};
-  font-size: 16;
+  font-size: 16px;
   font-weight: 600;
   line-height: 20px;
 `;
 
 export const SubTitle = styled.Text`
   color: ${GRAY_DARK};
-  font-size: 14;
+  font-size: 14px;
   font-weight: 400;
 `;

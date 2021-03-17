@@ -21,8 +21,7 @@ function buildMutation(schema) {
         args: {
           input: {
             userName: args.input.userName,
-            firstName: args.input.firstName,
-            lastName: args.input.lastName,
+            resumeData: args.input.resumeData,
           },
         },
         context,

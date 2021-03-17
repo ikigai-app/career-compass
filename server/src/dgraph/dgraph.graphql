@@ -1,48 +1,49 @@
 type User {
   userName: String! @id
-  basic: BasicInformation
-  education: [Education!]
-  skills: [Skills!]
-  languages: [Language!]
+  resumeData: String
+  # basic: BasicInformation
+  # education: [Education!]
+  # skills: [Skills!]
+  # languages: [Language!]
 }
 
-type BasicInformation implements Location {
-  name: String!
-  label: String
-  email: String!
-  phone: String
-  # location: Location
-}
+# type BasicInformation implements Location {
+#   name: String!
+#   label: String
+#   email: String!
+#   phone: String
+#   # location: Location
+# }
 
-interface Location {
-  address: String!
-  postalCode: String
-  city: String
-  countryCode: String
-  region: String
-}
+# interface Location {
+#   address: String!
+#   postalCode: String
+#   city: String
+#   countryCode: String
+#   region: String
+# }
 
-type Education {
-  institution: String
-  area: String
-  studyType: String
-  startDate: DateTime
-  endDate: DateTime
-  gpa: Float
-}
+# type Education {
+#   institution: String
+#   area: String
+#   studyType: String
+#   startDate: DateTime
+#   endDate: DateTime
+#   gpa: Float
+# }
 
-type Skills {
-  name: String
-  level: String
-  keywords: [Keyword!]
-}
+# type Skills {
+#   name: String
+#   level: String
+#   keywords: [Keyword!]
+# }
 
-type Keyword {
-  keyword: String
-}
+# type Keyword {
+#   keyword: String
+# }
 
-type Language {
-  id: ID!
-  language: String
-  fluency: String
-}
+# type Language {
+#   id: ID!
+#   language: String
+#   fluency: String
+# }

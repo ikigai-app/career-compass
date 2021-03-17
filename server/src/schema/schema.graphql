@@ -14,14 +14,12 @@ type Mutation {
 
 input AddUserInput {
   userName: String!
-  firstName: String!
-  lastName: String!
+  resumeData: String
 }
 
 type User {
   userName: String!
-  firstName: String!
-  lastName: String!
+  resumeData: String
 }
 
 input UserFilter {
@@ -34,8 +32,6 @@ input StringHashFilter {
 
 enum UserOrderable {
   userName
-  firstName
-  lastName
 }
 
 input UserOrder {

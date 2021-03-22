@@ -1,0 +1,27 @@
+        {
+            "ContactInformation": {
+                "CandidateName": {
+                    "FormattedName": "Sreenivasan AC",
+                    "GivenName": "Sreenivasan",
+                    "FamilyName": "AC"
+                },
+                "Telephones": [
+                    {
+                        "Raw": "404-663-9270",
+                        "Normalized": "+1 404-663-9270",
+                        "InternationalCountryCode": "1",
+                        "AreaCityCode": "404",
+                        "SubscriberNumber": "663-9270"
+                    }
+                ],
+                "EmailAddresses": [
+                    "sreenivasan.nitt@gmail.com"
+                ],
+                "WebAddresses": [
+                    {
+                        "Address": "https://www.linkedin.com/in/sreenivasan-ac",
+                        "Type": "LinkedIn"
+                    }
+                ]
+            }
+        }

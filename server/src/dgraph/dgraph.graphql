@@ -1,49 +1,30 @@
 type User {
-  userName: String! @id
-  resumeData: String
-  # basic: BasicInformation
-  # education: [Education!]
-  # skills: [Skills!]
-  # languages: [Language!]
+  # userName: String! @id
+  ContactInformation: ContactInformation
 }
 
-# type BasicInformation implements Location {
-#   name: String!
-#   label: String
-#   email: String!
-#   phone: String
-#   # location: Location
+type ContactInformation {
+  CandidateName: CandidateName
+  # Telephones: [Telephones]
+  # EmailAddresses: [String]
+  # WebAddresses: [WebAddresses]
+}
+
+type CandidateName {
+  FormattedName: String
+  GivenName: String
+  FamilyName: String
+}
+
+# type Telephones {
+#   Raw: String
+#   Normalized: String
+#   InternationalCountryCode: String
+#   AreaCityCode: String
+#   SubscriberNumber: String
 # }
 
-# interface Location {
-#   address: String!
-#   postalCode: String
-#   city: String
-#   countryCode: String
-#   region: String
-# }
-
-# type Education {
-#   institution: String
-#   area: String
-#   studyType: String
-#   startDate: DateTime
-#   endDate: DateTime
-#   gpa: Float
-# }
-
-# type Skills {
-#   name: String
-#   level: String
-#   keywords: [Keyword!]
-# }
-
-# type Keyword {
-#   keyword: String
-# }
-
-# type Language {
-#   id: ID!
-#   language: String
-#   fluency: String
+# type WebAddresses {
+#   Address: String
+#   Type: String
 # }

@@ -10,18 +10,21 @@ import { ActivityIndicator, Text, View } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 
-const ADD_USER = gql`
-  mutation addUser($userName: String!, $resumeData: String) {
-    addUser(input: { userName: $userName, resumeData: $resumeData }) {
-      userName
-      resumeData
+const ADD_CANDIDATE = gql`
+  mutation addCandidateName($candidateName: AddCandidateNameInput!) {
+    addCandidateName(input: $candidateName) {
+      FamilyName
+      GivenName
+      FormattedName
     }
   }
 `;
 
 export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
-  const [addUser] = useMutation(ADD_USER);
+  // const [addUser] = useMutation(ADD_USER);
+
+  const [addCandidateName] = useMutation(ADD_CANDIDATE);
 
   const uploadDocument = async () => {
     let file = await DocumentPicker.getDocumentAsync({});
@@ -61,13 +64,23 @@ export default function HomeScreen() {
 
   //to upload to db
   const uploadResumeData = async () => {
-    // console.log(resume.Value.ResumeData.ContactInformation.EmailAddresses[0]); //email
-    await addUser({
+    const test = {
+      FamilyName: "Dev23",
+      FormattedName: "de",
+      GivenName: "dev342",
+    };
+    await addCandidateName({
       variables: {
-        userName: "test@mail.com",
-        resumeData: JSON.stringify(resume.Value),
+        candidateName: test,
       },
     });
+    // console.log(resume.Value.ResumeData.ContactInformation.EmailAddresses[0]); //email
+    // await addUser({
+    //   variables: {
+    //     userName: "test@mail.com",
+    //     resumeData: JSON.stringify(resume.Value),
+    //   },
+    // });
     setLoading(false);
   };
 
@@ -82,8 +95,8 @@ export default function HomeScreen() {
           <Button
             text="UPLOAD"
             onPress={
-              () => uploadDocument()
-              // uploadResumeData() //for mock test
+              // () => uploadDocument()
+              () => uploadResumeData() //for mock test
             }
           />
         </>

@@ -1,41 +1,73 @@
 type Query {
-  getUser(userName: String!): User
-  queryUser(
-    filter: UserFilter
-    order: UserOrder
-    first: Int
-    offset: Int
-  ): [User]
+  # getUser(userName: String!): User
+  # queryUser(
+  #   filter: UserFilter
+  #   order: UserOrder
+  #   first: Int
+  #   offset: Int
+  # ): [User]
+  # queryContactInformation(first: Int, offset: Int): [ContactInformation]
+  queryCandidateName(first: Int, offset: Int): [CandidateName]
 }
 
 type Mutation {
-  addUser(input: AddUserInput!): User
+  # addUser(input: AddUserInput!): User
+  # addContactInformation(input: AddContactInformationInput!): ContactInformation
+  # addCandidateName(input: [CandidateNameInput!]!): CandidateName
+  addCandidateName(input: AddCandidateNameInput!): CandidateName
 }
 
-input AddUserInput {
-  userName: String!
-  resumeData: String
+# type ContactInformation {
+#   CandidateName: CandidateName
+#   # Telephones: [Telephones]
+#   # EmailAddresses: [String]
+#   # WebAddresses: [WebAddresses]
+# }
+
+type CandidateName {
+  FormattedName: String
+  GivenName: String
+  FamilyName: String
 }
 
-type User {
-  userName: String!
-  resumeData: String
+# input AddContactInformationInput {
+#   # CandidateName: CandidateNameInput
+# }
+
+input AddCandidateNameInput {
+  FormattedName: String
+  GivenName: String
+  FamilyName: String
 }
 
-input UserFilter {
-  userName: StringHashFilter
-}
+# input ContactInformationFilter {
+#   userName: StringHashFilter
+# }
 
-input StringHashFilter {
-  eq: String
-}
+# input AddUserInput {
+#   userName: String!
+#   resumeData: String
+# }
 
-enum UserOrderable {
-  userName
-}
+# type User {
+#   userName: String!
+#   resumeData: String
+# }
 
-input UserOrder {
-  asc: UserOrderable
-  desc: UserOrderable
-  then: UserOrder
-}
+# input UserFilter {
+#   userName: StringHashFilter
+# }
+
+# input StringHashFilter {
+#   eq: String
+# }
+
+# enum UserOrderable {
+#   userName
+# }
+
+# input UserOrder {
+#   asc: UserOrderable
+#   desc: UserOrderable
+#   then: UserOrder
+# }

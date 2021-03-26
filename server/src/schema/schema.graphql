@@ -11,10 +11,10 @@ type Query {
 }
 
 type Mutation {
-  # addUser(input: AddUserInput!): User
+  addUser(input: AddUserInput!): User
   # addContactInformation(input: AddContactInformationInput!): ContactInformation
   # addCandidateName(input: [CandidateNameInput!]!): CandidateName
-  addCandidateName(input: AddCandidateNameInput!): CandidateName
+  # addCandidateName(input: AddCandidateNameInput!): CandidateName
 }
 
 type User {
@@ -48,29 +48,36 @@ type WebAddresses {
   Type: String
 }
 
-# input AddContactInformationInput {
-#   # CandidateName: CandidateNameInput
-# }
+input AddUserInput {
+  userName: String!
+  ContactInformation: ContactInformationInput
+}
 
-input AddCandidateNameInput {
+input ContactInformationInput {
+  CandidateName: CandidateNameInput
+  Telephones: [TelephonesInput]
+  EmailAddresses: [String]
+  WebAddresses: [WebAddressesInput]
+}
+
+input CandidateNameInput {
   FormattedName: String
   GivenName: String
   FamilyName: String
 }
 
-# input ContactInformationFilter {
-#   userName: StringHashFilter
-# }
+input TelephonesInput {
+  Raw: String
+  Normalized: String
+  InternationalCountryCode: String
+  AreaCityCode: String
+  SubscriberNumber: String
+}
 
-# input AddUserInput {
-#   userName: String!
-#   resumeData: String
-# }
-
-# type User {
-#   userName: String!
-#   resumeData: String
-# }
+input WebAddressesInput {
+  Address: String
+  Type: String
+}
 
 # input UserFilter {
 #   userName: StringHashFilter

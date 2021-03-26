@@ -6,25 +6,26 @@ import { resume } from "../../JSON/resume";
 import { RootSafeAreaView } from "../../styles/RootView";
 import { from, gql, useMutation } from "@apollo/client";
 import { ActivityIndicator, Text, View } from "react-native";
-
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
+import contactJSON from "../../JSON/ContactInformation.json";
 
-const ADD_CANDIDATE = gql`
-  mutation addCandidateName($candidateName: AddCandidateNameInput!) {
-    addCandidateName(input: $candidateName) {
-      FamilyName
-      GivenName
-      FormattedName
+const ADD_USER = gql`
+  mutation addUser(
+    $userName: String!
+    $ContactInformation: ContactInformationInput
+  ) {
+    addUser(
+      input: { userName: $userName, ContactInformation: $ContactInformation }
+    ) {
+      userName
     }
   }
 `;
 
 export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
-  // const [addUser] = useMutation(ADD_USER);
-
-  const [addCandidateName] = useMutation(ADD_CANDIDATE);
+  const [addUser] = useMutation(ADD_USER);
 
   const uploadDocument = async () => {
     let file = await DocumentPicker.getDocumentAsync({});
@@ -64,23 +65,17 @@ export default function HomeScreen() {
 
   //to upload to db
   const uploadResumeData = async () => {
-    const test = {
-      FamilyName: "Dev23",
-      FormattedName: "de",
-      GivenName: "dev342",
-    };
-    await addCandidateName({
+    const ContactInformation = contactJSON;
+
+    await addUser({
       variables: {
-        candidateName: test,
+        userName: "Test3",
+        ContactInformation: ContactInformation,
       },
     });
+
     // console.log(resume.Value.ResumeData.ContactInformation.EmailAddresses[0]); //email
-    // await addUser({
-    //   variables: {
-    //     userName: "test@mail.com",
-    //     resumeData: JSON.stringify(resume.Value),
-    //   },
-    // });
+
     setLoading(false);
   };
 

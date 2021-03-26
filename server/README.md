@@ -38,7 +38,7 @@ $ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
 
 Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
 
-Query
+##### Query
 
 ```
 query {
@@ -62,7 +62,7 @@ query {
 }
 ```
 
-Mutation
+##### Mutation
 
 ```shell
 mutation($userName: String!, $ContactInformation: ContactInformationRef) {
@@ -102,6 +102,12 @@ mutation($userName: String!, $ContactInformation: ContactInformationRef) {
 ```
 
 For Apollo Server `http://localhost:4000/graphql`
+
+##### Query
+
+Same as Dgraph
+
+##### Mutation
 
 ```shell
 mutation($userName: String!, $ContactInformation: ContactInformationInput) {

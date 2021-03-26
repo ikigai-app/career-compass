@@ -1,13 +1,13 @@
 type Query {
   # getUser(userName: String!): User
-  # queryUser(
-  #   filter: UserFilter
-  #   order: UserOrder
-  #   first: Int
-  #   offset: Int
-  # ): [User]
+  queryUser(
+    # filter: UserFilter
+    # order: UserOrder
+    first: Int
+    offset: Int
+  ): [User]
   # queryContactInformation(first: Int, offset: Int): [ContactInformation]
-  queryCandidateName(first: Int, offset: Int): [CandidateName]
+  # queryCandidateName(first: Int, offset: Int): [CandidateName]
 }
 
 type Mutation {
@@ -17,17 +17,35 @@ type Mutation {
   addCandidateName(input: AddCandidateNameInput!): CandidateName
 }
 
-# type ContactInformation {
-#   CandidateName: CandidateName
-#   # Telephones: [Telephones]
-#   # EmailAddresses: [String]
-#   # WebAddresses: [WebAddresses]
-# }
+type User {
+  userName: String!
+  ContactInformation: ContactInformation
+}
+
+type ContactInformation {
+  CandidateName: CandidateName
+  Telephones: [Telephones]
+  EmailAddresses: [String]
+  WebAddresses: [WebAddresses]
+}
 
 type CandidateName {
   FormattedName: String
   GivenName: String
   FamilyName: String
+}
+
+type Telephones {
+  Raw: String
+  Normalized: String
+  InternationalCountryCode: String
+  AreaCityCode: String
+  SubscriberNumber: String
+}
+
+type WebAddresses {
+  Address: String
+  Type: String
 }
 
 # input AddContactInformationInput {

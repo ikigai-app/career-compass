@@ -1,14 +1,14 @@
-# type User {
-#   # userName: String! @id
-#   ContactInformation: ContactInformation
-# }
+type User {
+  userName: String! @id
+  ContactInformation: ContactInformation
+}
 
-# type ContactInformation {
-#   CandidateName: CandidateName
-#   # Telephones: [Telephones]
-#   # EmailAddresses: [String]
-#   # WebAddresses: [WebAddresses]
-# }
+type ContactInformation {
+  CandidateName: CandidateName
+  Telephones: [Telephones]
+  EmailAddresses: [String]
+  WebAddresses: [WebAddresses]
+}
 
 type CandidateName {
   FormattedName: String
@@ -16,15 +16,15 @@ type CandidateName {
   FamilyName: String
 }
 
-# type Telephones {
-#   Raw: String
-#   Normalized: String
-#   InternationalCountryCode: String
-#   AreaCityCode: String
-#   SubscriberNumber: String
-# }
+type Telephones {
+  Raw: String
+  Normalized: String
+  InternationalCountryCode: String
+  AreaCityCode: String
+  SubscriberNumber: String
+}
 
-# type WebAddresses {
-#   Address: String
-#   Type: String
-# }
+type WebAddresses {
+  Address: String
+  Type: String
+}

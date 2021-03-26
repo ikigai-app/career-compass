@@ -3,34 +3,33 @@ const { delegateToSchema, WrapQuery } = require("apollo-server-express");
 
 function buildMutation(schema) {
   return {
-    addCandidateName: async (root, args, context, info) => {
-      const wrap = new WrapQuery(
-        ["addCandidateName"],
-        (subtree) => ({
-          kind: Kind.FIELD,
-          name: { kind: Kind.NAME, value: "candidateName" },
-          selectionSet: subtree,
-        }),
-        (result) => result.candidateName[0]
-      );
-      const result = await delegateToSchema({
-        schema,
-        operation: "mutation",
-        fieldName: "addCandidateName",
-        args: {
-          input: {
-            FormattedName: args.input.FormattedName,
-            GivenName: args.input.GivenName,
-            FamilyName: args.input.FamilyName,
-          },
-        },
-        context,
-        info,
-        transforms: [wrap],
-      });
-      return result;
-    },
-
+    // addCandidateName: async (root, args, context, info) => {
+    //   const wrap = new WrapQuery(
+    //     ["addCandidateName"],
+    //     (subtree) => ({
+    //       kind: Kind.FIELD,
+    //       name: { kind: Kind.NAME, value: "candidateName" },
+    //       selectionSet: subtree,
+    //     }),
+    //     (result) => result.candidateName[0]
+    //   );
+    //   const result = await delegateToSchema({
+    //     schema,
+    //     operation: "mutation",
+    //     fieldName: "addCandidateName",
+    //     args: {
+    //       input: {
+    //         FormattedName: args.input.FormattedName,
+    //         GivenName: args.input.GivenName,
+    //         FamilyName: args.input.FamilyName,
+    //       },
+    //     },
+    //     context,
+    //     info,
+    //     transforms: [wrap],
+    //   });
+    //   return result;
+    // },
     // addUser: async (root, args, context, info) => {
     //   const wrap = new WrapQuery(
     //     ["addUser"],

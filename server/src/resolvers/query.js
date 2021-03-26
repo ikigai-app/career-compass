@@ -13,26 +13,26 @@ function buildQuery(schema) {
     //     info,
     //   });
     // },
-    // queryUser: async (root, args, context, info) => {
-    //   return await delegateToSchema({
-    //     schema,
-    //     operation: "query",
-    //     fieldName: "queryUser",
-    //     args,
-    //     context,
-    //     info,
-    //   });
-    // },
-    queryCandidateName: async (root, args, context, info) => {
+    queryUser: async (root, args, context, info) => {
       return await delegateToSchema({
         schema,
         operation: "query",
-        fieldName: "queryCandidateName",
+        fieldName: "queryUser",
         args,
         context,
         info,
       });
     },
+    // queryCandidateName: async (root, args, context, info) => {
+    //   return await delegateToSchema({
+    //     schema,
+    //     operation: "query",
+    //     fieldName: "queryCandidateName",
+    //     args,
+    //     context,
+    //     info,
+    //   });
+    // },
   };
 }
 

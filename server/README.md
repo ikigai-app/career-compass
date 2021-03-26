@@ -28,19 +28,6 @@ $ docker network inspect <NETWORK_ID or NAME/>
 # take dgraph alpha server IP and pass it to .env DGRAPH_HOST
 ```
 
-<!-- ##### Send the schema to Dgraph
-
-```shell
-
-curl -X POST localhost:8080/admin/schema --data-binary '
-type User {
-  userName: String! @id
-  firstName: String!
-  lastName: String!
-}
-'
-``` -->
-
 #### Dgraph Schema
 
 Go to `src/dgraph` and run the following command to export the schema
@@ -48,9 +35,106 @@ Go to `src/dgraph` and run the following command to export the schema
 ```shell
 $ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
 ```
-<!-- 
-Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level -->
 
+Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
+
+Query
+
+```
+query {
+  queryUser {
+    userName
+    ContactInformation {
+      CandidateName {
+        FamilyName
+        GivenName
+      }
+      Telephones {
+        Raw
+        Normalized
+      }
+      EmailAddresses
+      WebAddresses {
+        Type
+      }
+    }
+  }
+}
+```
+
+Mutation
+
+```shell
+mutation($userName: String!, $ContactInformation: ContactInformationRef) {
+  addUser(
+    input: [{ userName: $userName, ContactInformation: $ContactInformation }]
+  ) {
+    user {
+      userName
+    }
+  }
+}
+
+
+#Under Query Variables GraphQL-Playground
+
+{
+  "userName": "Test1",
+  "ContactInformation": {
+    "CandidateName": {
+      "FormattedName": "Test",
+      "GivenName": "Test",
+      "FamilyName": "TEst"
+    },
+    "Telephones": [
+      {
+        "Raw": "456-78",
+        "Normalized": "45678",
+        "InternationalCountryCode": "1",
+        "AreaCityCode": "567",
+        "SubscriberNumber": "56789"
+        }
+    ],
+    "EmailAddresses": ["test@mail.com", "test2@mail.com"]
+  }
+
+}
+```
+
+For Apollo Server `http://localhost:4000/graphql`
+
+```shell
+mutation($userName: String!, $ContactInformation: ContactInformationInput) {
+  addUser(
+    input: { userName: $userName, ContactInformation: $ContactInformation }
+  ) {
+    userName
+  }
+}
+#Under Query Variables GraphQL-Playground
+
+{
+  "userName": "Test1",
+  "ContactInformation": {
+    "CandidateName": {
+      "FormattedName": "Test",
+      "GivenName": "Test",
+      "FamilyName": "TEst"
+    },
+    "Telephones": [
+      {
+        "Raw": "456-78",
+        "Normalized": "45678",
+        "InternationalCountryCode": "1",
+        "AreaCityCode": "567",
+        "SubscriberNumber": "56789"
+        }
+    ],
+    "EmailAddresses": ["test@mail.com", "test2@mail.com"]
+  }
+
+}
+```
 
 ##### Before connecting to the client. Run
 

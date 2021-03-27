@@ -1,19 +1,235 @@
 type User {
   userName: String! @id
-  ContactInformation: ContactInformation
+  SovrenResponse: SovrenResponse
 }
 
-type ContactInformation {
-  CandidateName: CandidateName
-  Telephones: [Telephones]
+type ParsingMetadata {
+  ElapsedMilliseconds: Int
+  TimedOut: Boolean
+}
+
+type ConversionMetadata {
+  DetectedType: String
+  SuggestedFileExtension: String
+  OutputValidityCode: String
+  ElapsedMilliseconds: Int
+}
+
+type Findings {
+  QualityCode: String
+  Message: String
+}
+
+type ResumeQuality {
+  Level: String
+  Findings: [Findings]
+}
+
+type FoundSections {
+  FirstLineNumber: Int
+  LastLineNumber: Int
+  SectionType: String
+  HeaderTextFound: String
+}
+
+type LanguageCompetencies {
+  Language: String
+  LanguageCode: String
+  FoundInContext: String
+}
+
+type Associations {
+  Organization: String
+  Role: String
+}
+
+type LastUsed {
+  Value: String
+}
+
+type MonthsExperience {
+  Value: Int
+}
+
+type FoundIn {
+  SectionType: String
+  Id: String
+}
+
+type Skills {
+  Id: String
+  Name: String
+  ExistsInText: Boolean
+  LastUsed: LastUsed
+  MonthsExperience: MonthsExperience
+  FoundIn: [FoundIn]
+}
+
+type SubTaxonomies {
+  SubTaxonomyId: String
+  SubTaxonomyName: String
+  PercentOfOverall: Int
+  PercentOfParent: Int
+  Skills: [Skills]
+}
+
+type Taxonomies {
+  Id: String
+  Name: String
+  PercentOfOverall: Int
+  SubTaxonomies: [SubTaxonomies]
+}
+
+type SkillsData {
+  Root: String
+  Taxonomies: [Taxonomies]
+}
+
+type EndDate {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
+}
+
+type StartDate {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
+}
+
+type JobTitle {
+  Raw: String
+  Normalized: String
+  Probability: String
+}
+
+type Location {
+  CountryCode: String
+  Municipality: String
+  Regions: [String]
+}
+
+type Name {
+  Probability: String
+  Raw: String
+  Normalized: String
+}
+
+type Employer {
+  Location: Location
+  Name: Name
+}
+
+type Positions {
+  Id: String
+  IsSelfEmployed: Boolean
+  IsCurrent: Boolean
+  JobType: String
+  TaxonomyName: String
+  SubTaxonomyName: String
+  JobLevel: String
+  TaxonomyPercentage: Int
+  Description: String
+  EndDate: EndDate
+  StartDate: StartDate
+  JobTitle: JobTitle
+  RelatedToByCompanyName: [String]
+  Employer: Employer
+}
+
+type ExperienceSummary {
+  Description: String
+  MonthsOfWorkExperience: Int
+  MonthsOfManagementExperience: Int
+  ExecutiveType: String
+  AverageMonthsPerEmployer: Int
+  FulltimeDirectHirePredictiveIndex: Int
+  ManagementStory: String
+  CurrentManagementLevel: String
+  ManagementScore: Int
+}
+
+type EmploymentHistory {
+  Positions: [Positions]
+  ExperienceSummary: ExperienceSummary
+}
+
+type LastEducationDate {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
+}
+
+type Degree {
+  Type: String
+  Name: Name
+}
+
+type SchoolName {
+  Raw: String
+  Normalized: String
+}
+
+type EducationDetails {
+  Id: String
+  Text: String
+  SchoolType: String
+  LastEducationDate: LastEducationDate
+  Majors: [String]
+  Degree: Degree
+  Location: Location
+  SchoolName: SchoolName
+}
+
+type HighestDegree {
+  Type: String
+  Name: Name
+}
+
+type Education {
+  EducationDetails: [EducationDetails]
+  HighestDegree: HighestDegree
+}
+
+type RedactedResumeData {
+  QualificationsSummary: String
+  ResumeMetadata: ResumeMetadata
+  Achievements: [String]
+  LanguageCompetencies: [LanguageCompetencies]
+  Associations: [Associations]
+  SkillsData: [SkillsData]
+  EmploymentHistory: EmploymentHistory
+  Education: Education
+}
+
+type ReservedData {
+  Urls: [String]
   EmailAddresses: [String]
-  WebAddresses: [WebAddresses]
+  Names: [String]
+  Phones: [String]
 }
 
-type CandidateName {
-  FormattedName: String
-  GivenName: String
-  FamilyName: String
+type ResumeMetadata {
+  PlainText: String
+  DocumentLanguage: String
+  DocumentCulture: String
+  ParserSettings: String
+  DocumentLastModified: String
+  SovrenSignature: [String]
+  ReservedData: ReservedData
+  ResumeQuality: [ResumeQuality]
+  FoundSections: [FoundSections]
+}
+
+type WebAddresses {
+  Address: String
+  Type: String
 }
 
 type Telephones {
@@ -24,7 +240,66 @@ type Telephones {
   SubscriberNumber: String
 }
 
-type WebAddresses {
-  Address: String
-  Type: String
+type CandidateName {
+  FormattedName: String
+  GivenName: String
+  FamilyName: String
+}
+
+type ContactInformation {
+  WebAddresses: [WebAddresses]
+  EmailAddresses: [String]
+  Telephones: [Telephones]
+  CandidateName: CandidateName
+}
+
+type ResumeData {
+  QualificationsSummary: String
+  ResumeMetadata: ResumeMetadata
+  Achievements: [String]
+  LanguageCompetencies: [LanguageCompetencies]
+  Associations: [Associations]
+  SkillsData: [SkillsData]
+  EmploymentHistory: EmploymentHistory
+  Education: Education
+  ContactInformation: ContactInformation
+}
+
+type ParsingResponse {
+  Code: String
+  Message: String
+}
+
+type Value {
+  ParsingMetadata: ParsingMetadata
+  ConversionMetadata: ConversionMetadata
+  RedactedResumeData: RedactedResumeData
+  ResumeData: ResumeData
+  ParsingResponse: ParsingResponse
+}
+
+type CustomerDetails {
+  AccountId: String
+  Name: String
+  IPAddress: String
+  Region: String
+  CreditsRemaining: Float
+  CreditsUsed: Int
+  ExpirationDate: String
+  MaximumConcurrentRequests: Int
+}
+
+type Info {
+  Code: String
+  Message: String
+  TransactionId: String
+  EngineVersion: String
+  ApiVersion: String
+  TotalElapsedMilliseconds: Int
+  CustomerDetails: CustomerDetails
+}
+
+type SovrenResponse {
+  Value: Value
+  Info: Info
 }

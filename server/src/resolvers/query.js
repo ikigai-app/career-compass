@@ -23,16 +23,6 @@ function buildQuery(schema) {
         info,
       });
     },
-    // queryCandidateName: async (root, args, context, info) => {
-    //   return await delegateToSchema({
-    //     schema,
-    //     operation: "query",
-    //     fieldName: "queryCandidateName",
-    //     args,
-    //     context,
-    //     info,
-    //   });
-    // },
   };
 }
 

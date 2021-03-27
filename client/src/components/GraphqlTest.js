@@ -15,7 +15,6 @@ const FETCH_USERS = gql`
 const UserCard = ({ userDetails }) => (
   <Card>
     <Title>{userDetails.userName}</Title>
-    {/* <SubTitle>{userDetails.resumeData}</SubTitle> */}
   </Card>
 );
 

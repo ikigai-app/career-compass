@@ -1,0 +1,524 @@
+{
+    "Info": {
+        "Code": "Success",
+        "Message": "Successful transaction",
+        "TransactionId": "edfb65fe-1bb3-4a91-9bee-49c61aa5f26a",
+        "EngineVersion": "9.5.2.0",
+        "ApiVersion": "10.0.0.0",
+        "TotalElapsedMilliseconds": 1312,
+        "CustomerDetails": {
+            "AccountId": "13430659",
+            "Name": "Sovren Web Demo",
+            "IPAddress": "52.31.11.178",
+            "Region": "eu-west-1",
+            "CreditsRemaining": 199540768.22,
+            "CreditsUsed": 459232,
+            "ExpirationDate": "2027-03-10",
+            "MaximumConcurrentRequests": 10
+        }
+    },
+    "Value": {
+        "ParsingResponse": {
+            "Code": "Success",
+            "Message": "Successful transaction"
+        },
+        "ResumeData": {
+            "ContactInformation": {
+                "CandidateName": {
+                    "FormattedName": "Sreenivasan AC",
+                    "GivenName": "Sreenivasan",
+                    "FamilyName": "AC"
+                },
+                "Telephones": [
+                    {
+                        "Raw": "404-663-9270",
+                        "Normalized": "+1 404-663-9270",
+                        "InternationalCountryCode": "1",
+                        "AreaCityCode": "404",
+                        "SubscriberNumber": "663-9270"
+                    }
+                ],
+                "EmailAddresses": [
+                    "sreenivasan.nitt@gmail.com"
+                ],
+                "WebAddresses": [
+                    {
+                        "Address": "https://www.linkedin.com/in/sreenivasan-ac",
+                        "Type": "LinkedIn"
+                    }
+                ]
+            },
+            "Education": {
+                "HighestDegree": {
+                    "Name": {
+                        "Raw": "Masters of Science in Computer Science",
+                        "Normalized": "masters"
+                    },
+                    "Type": "masters"
+                },
+                "EducationDetails": [
+                    {
+                        "Id": "DEG-1",
+                        "Text": "Georgia Institute of Technology\tAtlanta, Georgia, USA\n• Masters of Science in Computer Science;\tAug. 2017 - May. 2019\nSpecialization in Machine Learning",
+                        "SchoolName": {
+                            "Raw": "Georgia Institute of Technology",
+                            "Normalized": "Georgia Institute of Technology"
+                        },
+                        "SchoolType": "university",
+                        "Location": {
+                            "CountryCode": "US",
+                            "Regions": [
+                                "Georgia"
+                            ],
+                            "Municipality": "Atlanta"
+                        },
+                        "Degree": {
+                            "Name": {
+                                "Raw": "Masters of Science in Computer Science",
+                                "Normalized": "masters"
+                            },
+                            "Type": "masters"
+                        },
+                        "Majors": [
+                            "Machine Learning"
+                        ],
+                        "LastEducationDate": {
+                            "Date": "2019-05-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        }
+                    },
+                    {
+                        "Id": "DEG-2",
+                        "Text": "National Institute of Technology\tTiruchirapalli, India\n• Bachelors of Technology in Computer Science and Engineering\tAug. 2010 - June. 2014",
+                        "SchoolName": {
+                            "Raw": "National Institute of Technology",
+                            "Normalized": "National Institute of Technology"
+                        },
+                        "SchoolType": "university",
+                        "Location": {
+                            "CountryCode": "IN",
+                            "Municipality": "Tiruchirapalli"
+                        },
+                        "Degree": {
+                            "Name": {
+                                "Raw": "Bachelors of Technology in Computer Science and Engineering",
+                                "Normalized": "bachelors"
+                            },
+                            "Type": "bachelors"
+                        },
+                        "Majors": [
+                            "Computer Science and Engineering"
+                        ],
+                        "LastEducationDate": {
+                            "Date": "2014-06-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        }
+                    }
+                ]
+            },
+            "EmploymentHistory": {
+                "ExperienceSummary": {
+                    "Description": "Sreenivasan AC's experience appears to be mostly concentrated in Information Technology (mostly Programming) and slightly concentrated in Sales (mostly General). Sreenivasan AC's experience appears to be lower-to-mid level, with about 4 years of experience.",
+                    "MonthsOfWorkExperience": 49,
+                    "MonthsOfManagementExperience": 0,
+                    "ExecutiveType": "NONE",
+                    "AverageMonthsPerEmployer": 12,
+                    "FulltimeDirectHirePredictiveIndex": 40,
+                    "ManagementStory": "",
+                    "CurrentManagementLevel": "",
+                    "ManagementScore": 0
+                },
+                "Positions": [
+                    {
+                        "Id": "POS-1",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Georgia Institute of Technology",
+                                "Normalized": "Georgia Institute of Technology"
+                            },
+                            "Location": {
+                                "CountryCode": "US",
+                                "Regions": [
+                                    "Georgia"
+                                ],
+                                "Municipality": "Atlanta"
+                            }
+                        },
+                        "RelatedToByCompanyName": [
+                            "POS-2"
+                        ],
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "Graduate Teaching Assistant",
+                            "Normalized": "Graduate Teaching Assistant",
+                            "Probability": "Confident"
+                        },
+                        "StartDate": {
+                            "Date": "2019-01-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2019-04-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "directHire",
+                        "TaxonomyName": "Information Technology",
+                        "SubTaxonomyName": "Machine Learning",
+                        "JobLevel": "Experienced (non-manager)",
+                        "TaxonomyPercentage": 100,
+                        "Description": "Deep Learning CS7643: Assisted Professor Zsolt Kira in conducting the course Deep Learning"
+                    },
+                    {
+                        "Id": "POS-2",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Georgia Institute of Technology",
+                                "Normalized": "Georgia Institute of Technology"
+                            },
+                            "Location": {
+                                "CountryCode": "US",
+                                "Regions": [
+                                    "Georgia"
+                                ],
+                                "Municipality": "Atlanta"
+                            }
+                        },
+                        "RelatedToByCompanyName": [
+                            "POS-1"
+                        ],
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "Graduate Research Assistant",
+                            "Normalized": "Graduate Research Assistant",
+                            "Probability": "Confident"
+                        },
+                        "StartDate": {
+                            "Date": "2018-08-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2018-12-31",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "directHire",
+                        "TaxonomyName": "Engineering",
+                        "SubTaxonomyName": "Robotics and Automation",
+                        "JobLevel": "Experienced (non-manager)",
+                        "TaxonomyPercentage": 100,
+                        "Description": "Worked on Research project under Professor James Tsai Transportation Lab - Evaluation of Object detection of Tra c infrastructure using Registration and Fusion of 2D Camera and 3D LIDAR Point cloud Data."
+                    },
+                    {
+                        "Id": "POS-3",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Invento Robotics",
+                                "Normalized": "Invento Robotics"
+                            },
+                            "Location": {
+                                "CountryCode": "IN",
+                                "Municipality": "Bangalore"
+                            }
+                        },
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "AI Application Developer for Humanoid Robot Company",
+                            "Normalized": "AI Application Developer for Humanoid Robot Company"
+                        },
+                        "StartDate": {
+                            "Date": "2018-04-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2018-07-31",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "directHire",
+                        "TaxonomyName": "Engineering",
+                        "SubTaxonomyName": "Robotics and Automation",
+                        "JobLevel": "Experienced (non-manager)",
+                        "TaxonomyPercentage": 60,
+                        "Description": "O✏ine Conversation: Developed O✏ine Natural Language Understanding and Conversation Capability for a\nHumanoid Robot Mitra to understand context and Respond to users. Developed using RASA framework\n(Entity-Intent based). Setup the above as Alexa Skills for Guest registration and Movie recommendation using\nLambda Function. Developed web interface for testing Speech Conversation flows.\nEarly-stage growing Robotics AI Startup experience: worked directly under CEO Mr.Balaji Vishwanathan"
+                    },
+                    {
+                        "Id": "POS-4",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Groupon",
+                                "Normalized": "Groupon"
+                            },
+                            "Location": {
+                                "CountryCode": "US",
+                                "Regions": [
+                                    "CA"
+                                ],
+                                "Municipality": "Palo Alto"
+                            }
+                        },
+                        "RelatedToByCompanyName": [
+                            "POS-5"
+                        ],
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "#1 followed Top-writer",
+                            "Normalized": "1 followed Top writer",
+                            "Probability": "Confident"
+                        },
+                        "StartDate": {
+                            "Date": "2016-04-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2017-06-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "directHire",
+                        "TaxonomyName": "Information Technology",
+                        "SubTaxonomyName": "Mobile Applications",
+                        "JobLevel": "Experienced (non-manager)",
+                        "TaxonomyPercentage": 57,
+                        "Description": "(1.2 years)\n\nMerchant Tools: Co-owner to develop a mobile-friendly web-application in AngularJS for creating Card Linked\nO↵ers used by 1500+ Sales Representatives and Merchants to create Groupon Deals.\nAPI Services: Owner for managing Contract Service and Fine Print API service. Automated the manual\nContract-signing process by integrating with DocuSign API, saving Groupon atleast $40,000 per month.\nTransitioned the FinePrint Service workflow from reading from static Google Spreadsheet to consume from upstream services dynamically through API integrations.\nSelf Service workflows: Implemented features and updates like Redemption Window, Blackout Dates, Fine\nPrints, Groupon Delivery and Takeout to support Merchant Self-service to create various Deal types and workflows.\n\nDeployments: Point of contact for Deployments for di↵erent Merchant Tools and services like Fine Print Service,\nContract Service, Self-service Backend Service, etc. Created Splunk dashboards for visualisation and Nagios alerts when metrics exceed thresholds."
+                    },
+                    {
+                        "Id": "POS-5",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Groupon",
+                                "Normalized": "Groupon"
+                            },
+                            "Location": {
+                                "CountryCode": "IN",
+                                "Municipality": "Chennai"
+                            }
+                        },
+                        "RelatedToByCompanyName": [
+                            "POS-4"
+                        ],
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "Software Development Engineer (Full Stack Developer)",
+                            "Normalized": "Software Development Engineer Full Stack Developer",
+                            "Probability": "Confident"
+                        },
+                        "StartDate": {
+                            "Date": "2014-06-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2016-04-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "directHire",
+                        "TaxonomyName": "Information Technology",
+                        "SubTaxonomyName": "Big Data",
+                        "JobLevel": "Experienced (non-manager)",
+                        "TaxonomyPercentage": 25,
+                        "Description": "Deal Creation Tool: Worked on Product features for the Deal Creation Tool used by Sales representatives to create di↵erent kinds of Deals. Transferred to Groupon, Palo Alto, California based on consistent performance.\nImage Asset Management: Developed features like Keyword Metadata management, Internationalization,\nAttribution for the Image Asset Management Tool used for managing Images used at Groupon.\nTDD Automated Testing: Followed TDD Automated Testing with Karma, Jasmine, Mocha."
+                    },
+                    {
+                        "Id": "POS-6",
+                        "Employer": {
+                            "Name": {
+                                "Probability": "Confident",
+                                "Raw": "Defence Avionics Research Establishment",
+                                "Normalized": "Defence Avionics Research Establishment"
+                            },
+                            "Location": {
+                                "CountryCode": "IN",
+                                "Municipality": "Bangalore"
+                            }
+                        },
+                        "IsSelfEmployed": false,
+                        "IsCurrent": false,
+                        "JobTitle": {
+                            "Raw": "Intern",
+                            "Normalized": "Intern",
+                            "Probability": "Confident"
+                        },
+                        "StartDate": {
+                            "Date": "2012-05-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "EndDate": {
+                            "Date": "2012-06-01",
+                            "IsCurrentDate": false,
+                            "FoundYear": true,
+                            "FoundMonth": true,
+                            "FoundDay": false
+                        },
+                        "JobType": "internship",
+                        "TaxonomyName": "Information Technology",
+                        "SubTaxonomyName": "Privacy and Data Security",
+                        "JobLevel": "Entry Level",
+                        "TaxonomyPercentage": 100,
+                        "Description": "Security Testing and Analysis: Analysed Network security against attacks at Defence Organisation in their\ninternal networks and websites for vulnerabilities like SQL Injection, XSS Scripting, DDOS attack, and submitted a\nreport recommending 2 fixes."
+                    }
+                ]
+            },
+            "SkillsData": [
+                {
+                    "Root": "Sovren"
+                }
+            ],
+            "Associations": [
+                {
+                    "Organization": "Rocket from scratch and launched from a farm in Georgia, as member of Rocket Club at Georgia Tech",
+                    "Role": "member"
+                }
+            ],
+            "LanguageCompetencies": [
+                {
+                    "Language": "English",
+                    "LanguageCode": "en",
+                    "FoundInContext": "[RESUME_LANGUAGE]"
+                }
+            ],
+            "Achievements": [
+                "ACM ICPC Regionals: ACM ICPC Regionals 2013 Programming contest held in Amritapuri India --Our Team",
+                "ranked #30 out of 300+ National level competing teams",
+                "Top 1 percentile in National Level Engineering Entrance examination: Secured All India Rank #4120 out of 2",
+                "Million* students (<0.1 Percentile) taking the Indian National Level Engineering Entrance examination",
+                "Designed, built and Launch High power Rocket: Learnt to design, fabricate and Build High Power (NAR L1/L2)",
+                "Rocket from scratch and launched from a farm in Georgia, as member of Rocket Club at Georgia Tech"
+            ],
+            "QualificationsSummary": "Programming Skills\n• Scripting Languages: Python, C++ (Intermediate, >4000 Lines of Code)\n\n• Web Development: Frontend: Javascript, React.js, Bootstrap (Intermediate, >3000 LOC) Backend: Ruby\non Rails (Intermediate, >4000 LOC), Flask, REST APIs\n\n• Machine Learning / Computer Vision: scikit-learn, numpy, matplotlib, pandas, PyTorch (Intermediate,\n>2000 Lines of Code each)\n\n• Databases: MySQL, MongoDB\n\nCourses Competed\n• Graduate: Deep Learning, Computer Vision, Artificial Intelligence for Robotics, Reinforcement Learning,\nMachine Learning for Trading, Human Computer Interaction, Knowledge Based Artificial Intelligence,\nMachine Learning\n\n• Undergraduate: Algorithms and Datastructures, Database Management Systems, Operating Systems, Web\nTechnology.",
+            "ResumeMetadata": {
+                "FoundSections": [
+                    {
+                        "FirstLineNumber": 2,
+                        "LastLineNumber": 8,
+                        "SectionType": "EDUCATION",
+                        "HeaderTextFound": "Education"
+                    },
+                    {
+                        "FirstLineNumber": 9,
+                        "LastLineNumber": 56,
+                        "SectionType": "WORK HISTORY",
+                        "HeaderTextFound": "Experience"
+                    },
+                    {
+                        "FirstLineNumber": 57,
+                        "LastLineNumber": 78,
+                        "SectionType": "PROJECT_HEADERS",
+                        "HeaderTextFound": "Projects"
+                    },
+                    {
+                        "FirstLineNumber": 79,
+                        "LastLineNumber": 86,
+                        "SectionType": "PERSONAL INTERESTS AND ACCOMPLISHMENTS",
+                        "HeaderTextFound": "Achievements"
+                    },
+                    {
+                        "FirstLineNumber": 87,
+                        "LastLineNumber": 104,
+                        "SectionType": "SKILLS",
+                        "HeaderTextFound": "Programming Skills"
+                    }
+                ],
+                "ResumeQuality": [
+                    {
+                        "Level": "Data Missing",
+                        "Findings": [
+                            {
+                                "QualityCode": "213",
+                                "Message": "A street level address was not found in the contact information. A full contact address should always be included in a resume as it allows for location based searches."
+                            }
+                        ]
+                    },
+                    {
+                        "Level": "Suggested Improvements",
+                        "Findings": [
+                            {
+                                "QualityCode": "112",
+                                "Message": "The following section was identified as a skills section type: 'Programming Skills'. Skills should not be in a separate section, but instead, each skill should be included in the descriptions of work history or education."
+                            }
+                        ]
+                    }
+                ],
+                "ReservedData": {
+                    "Phones": [
+                        "Mobile: 404-663-9270",
+                        "404-663-9270"
+                    ],
+                    "Names": [
+                        "Sreenivasan AC",
+                        "sreenivasan-ac",
+                        "Sreenivasan AC\tEmail: sreenivasan.nitt@gmail.com"
+                    ],
+                    "EmailAddresses": [
+                        "sreenivasan.nitt@gmail.com"
+                    ],
+                    "Urls": [
+                        "https://www.linkedin.com/in/sreenivasan-ac"
+                    ]
+                },
+                "PlainText": "Sreenivasan AC\tEmail: sreenivasan.nitt@gmail.com\nhttps://www.linkedin.com/in/sreenivasan-ac/ LinkedIn Github Quora Medium\tMobile: 404-663-9270\nEducation\nGeorgia Institute of Technology\tAtlanta, Georgia, USA\n• Masters of Science in Computer Science;\tAug. 2017 - May. 2019\nSpecialization in Machine Learning\nNational Institute of Technology\tTiruchirapalli, India\n• Bachelors of Technology in Computer Science and Engineering\tAug. 2010 - June. 2014\n\nExperience\nGraduate Teaching Assistant\tAtlanta, Georgia\n• Georgia Institute of Technology\tJan 2019 - April 2019\n\nDeep Learning CS7643: Assisted Professor Zsolt Kira in conducting the course Deep Learning\nGraduate Research Assistant\tAtlanta, Georgia\n• Georgia Institute of Technology\tAug 2018 - Dec 2018\n\n: Worked on Research project under Professor James Tsai Transportation Lab - Evaluation of Object detection of\nTra c infrastructure using Registration and Fusion of 2D Camera and 3D LIDAR Point cloud Data.\nInvento Robotics\tBangalore, India\n• AI Application Developer for Humanoid Robot Company\tApr 2018 - July 2018 (4 months)\n\nO✏ine Conversation: Developed O✏ine Natural Language Understanding and Conversation Capability for a\nHumanoid Robot Mitra to understand context and Respond to users. Developed using RASA framework\n(Entity-Intent based). Setup the above as Alexa Skills for Guest registration and Movie recommendation using\nLambda Function. Developed web interface for testing Speech Conversation flows.\nEarly-stage growing Robotics AI Startup experience: worked directly under CEO Mr.Balaji Vishwanathan\n#1 followed Top-writer in Quora\nGroupon\tPalo Alto, CA\n• Software Development Engineer (Full Stack Developer)\tApril 2016 - June 2017 (1.2 years)\n\nMerchant Tools: Co-owner to develop a mobile-friendly web-application in AngularJS for creating Card Linked\nO↵ers used by 1500+ Sales Representatives and Merchants to create Groupon Deals.\nAPI Services: Owner for managing Contract Service and Fine Print API service. Automated the manual\nContract-signing process by integrating with DocuSign API, saving Groupon atleast $40,000 per month.\nTransitioned the FinePrint Service workflow from reading from static Google Spreadsheet to consume from\nupstream services dynamically through API integrations.\nSelf Service workflows: Implemented features and updates like Redemption Window, Blackout Dates, Fine\nPrints, Groupon Delivery and Takeout to support Merchant Self-service to create various Deal types and workflows.\n\nDeployments: Point of contact for Deployments for di↵erent Merchant Tools and services like Fine Print Service,\nContract Service, Self-service Backend Service, etc. Created Splunk dashboards for visualisation and Nagios alerts\nwhen metrics exceed thresholds.\nGroupon\tChennai, India\n• Software Development Engineer (Full Stack Developer)\tJune 2014 - April 2016 (2 years)\n\nDeal Creation Tool: Worked on Product features for the Deal Creation Tool used by Sales representatives to\ncreate di↵erent kinds of Deals. Transferred to Groupon, Palo Alto, California based on consistent performance.\nImage Asset Management: Developed features like Keyword Metadata management, Internationalization,\nAttribution for the Image Asset Management Tool used for managing Images used at Groupon.\nTDD Automated Testing: Followed TDD Automated Testing with Karma, Jasmine, Mocha.\nDefence Avionics Research Establishment\tBangalore, India\n• Intern\tMay 2012 - June 2012 (2 months)\n\nSecurity Testing and Analysis: Analysed Network security against attacks at Defence Organisation in their\ninternal networks and websites for vulnerabilities like SQL Injection, XSS Scripting, DDOS attack, and submitted a\nreport recommending 2 fixes.\nProjects\n• Computer Vision: 1. Implemented Image Convolution and generated Hybrid images. 2. Local feature matching\nbetween two images. 3. Implemented Scene Recognition with Bag of Words. 4. Implemented Face Detection with a\nSliding Window. 5. Deep CNN for scene recognition [Source]\n• Deep Learning: 1. Image Style transfer using CNN. 2. ConvNet on CIFAR-10 3. Image Captioning with LSTMs and\nRNNs.\n• Machine Learning: 1. Implemented Supervised and Unsupervised Learning algorithms using scikit-learn. 2. Used\nclustering (k-means, EM) and dimensionality reduction (PCA, ICA) to pre-process the data to train neural networks. 3.\nUsed Reinforcement Learning algorithms to navigate Grid world.\n• Machine Learning for Trading: Built a Market Simulator, Applied Machine Learning and Reinforcement Learning\n(Q-Learning) to past Stock data to compare and evaluate stock prediction accuracy. [Source]\n• Human-Robot Interaction: Analysed Human-Robot Interaction of Humanoid Robot acting as a Waiter in a\nRestaurant following HCI Design Cycle. [Report]\n• Augmented Reality: AR Mobile application Kasadara for school students to augment textbook images while learning.\nUsing Unity and C# [Details] [Demo]\n• Knowledge Based AI IQ solving Bot: Built an AI bot to solve Raven's Progressive Matrices Questions (IQ\nmeasurement test) using Case Based Reasoning approach - Fractal and A ne methods using Knowledge-Based Artificial\nIntelligence.\n• Virtual Reality application: Developed 360-degree Virtual Reality mobile application \"DejaVu\" during a Hackathon\nfor users to experience di↵erent Deal types like Hotels, Restaurants, Events in Google Cardboard VR as a Proof of\nConcept. [Demo]\n\nAchievements\n• ACM ICPC Regionals: ACM ICPC Regionals 2013 Programming contest held in Amritapuri India --Our Team\nranked #30 out of 300+ National level competing teams.\n• Top 1 percentile in National Level Engineering Entrance examination: Secured All India Rank #4120 out of 2\n*Million* students (<0.1 Percentile) taking the Indian National Level Engineering Entrance examination.\n• Designed, built and Launch High power Rocket: Learnt to design, fabricate and Build High Power (NAR L1/L2)\nRocket from scratch and launched from a farm in Georgia, as member of Rocket Club at Georgia Tech.\n\nProgramming Skills\n• Scripting Languages: Python, C++ (Intermediate, >4000 Lines of Code)\n\n• Web Development: Frontend: Javascript, React.js, Bootstrap (Intermediate, >3000 LOC) Backend: Ruby\non Rails (Intermediate, >4000 LOC), Flask, REST APIs\n\n• Machine Learning / Computer Vision: scikit-learn, numpy, matplotlib, pandas, PyTorch (Intermediate,\n>2000 Lines of Code each)\n\n• Databases: MySQL, MongoDB\n\nCourses Competed\n• Graduate: Deep Learning, Computer Vision, Artificial Intelligence for Robotics, Reinforcement Learning,\nMachine Learning for Trading, Human Computer Interaction, Knowledge Based Artificial Intelligence,\nMachine Learning\n\n• Undergraduate: Algorithms and Datastructures, Database Management Systems, Operating Systems, Web\nTechnology.",
+                "DocumentLanguage": "en",
+                "DocumentCulture": "en-US",
+                "ParserSettings": "Coverage.MilitaryHistoryAndSecurityCredentials = True; Coverage.PatentsPublicationsAndSpeakingEvents = True; Coverage.PersonalAttributes = True; Coverage.Training = True; Culture.CountryCodeForUnitedKingdomIsUK = True; Culture.DefaultCountryCode = US; Culture.Language = English; Culture.PreferEnglishVersionIfTwoLanguagesInDocument = False; Data.UserDefinedParsing = False; OutputFormat.AssumeCompanyNameFromPrecedingJob = False; OutputFormat.ContactMethod.PackStyle = Split; OutputFormat.DateOutputStyle = ExplicitlyKnownDateInfoOnly; OutputFormat.NestJobsBasedOnDateRanges = True; OutputFormat.NormalizeRegions = False; OutputFormat.SkillsStyle = Default; OutputFormat.StripParsedDataFromPositionHistoryDescription = True; OutputFormat.TelcomNumber.Style = Raw; OutputFormat.XmlFormat = HrXmlResume25",
+                "DocumentLastModified": "2019-09-10",
+                "SovrenSignature": [
+                    "idX+//////8="
+                ]
+            }
+        },
+        "ConversionMetadata": {
+            "DetectedType": "Pdf",
+            "SuggestedFileExtension": "pdf",
+            "OutputValidityCode": "ovIsProbablyValid",
+            "ElapsedMilliseconds": 781
+        },
+        "ParsingMetadata": {
+            "ElapsedMilliseconds": 499,
+            "TimedOut": false
+        }
+    }
+}

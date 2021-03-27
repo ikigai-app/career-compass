@@ -20,7 +20,7 @@ function buildMutation(schema) {
         args: {
           input: {
             userName: args.input.userName,
-            ContactInformation: args.input.ContactInformation,
+            SovrenResponse: args.input.SovrenResponse,
           },
         },
         context,

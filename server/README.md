@@ -36,7 +36,7 @@ Go to `src/dgraph` and run the following command to export the schema
 $ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
 ```
 
-Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
+For Apollo Server `http://localhost:4000/graphql`
 
 ##### Query
 
@@ -44,101 +44,44 @@ Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run q
 query {
   queryUser {
     userName
-    ContactInformation {
-      CandidateName {
-        FamilyName
-        GivenName
-      }
-      Telephones {
-        Raw
-        Normalized
-      }
-      EmailAddresses
-      WebAddresses {
-        Type
-      }
-    }
-  }
-}
-```
-
-##### Mutation
-
-```shell
-mutation($userName: String!, $ContactInformation: ContactInformationRef) {
-  addUser(
-    input: [{ userName: $userName, ContactInformation: $ContactInformation }]
-  ) {
-    user {
-      userName
-    }
-  }
-}
-
-
-#Under Query Variables GraphQL-Playground
-
-{
-  "userName": "Test1",
-  "ContactInformation": {
-    "CandidateName": {
-      "FormattedName": "Test",
-      "GivenName": "Test",
-      "FamilyName": "TEst"
-    },
-    "Telephones": [
-      {
-        "Raw": "456-78",
-        "Normalized": "45678",
-        "InternationalCountryCode": "1",
-        "AreaCityCode": "567",
-        "SubscriberNumber": "56789"
+    SovrenResponse {
+      Info {
+        ApiVersion
+        CustomerDetails {
+          AccountId
+          MaximumConcurrentRequests
         }
-    ],
-    "EmailAddresses": ["test@mail.com", "test2@mail.com"]
+      }
+    }
   }
-
 }
 ```
-
-For Apollo Server `http://localhost:4000/graphql`
-
-##### Query
-
-Same as Dgraph
 
 ##### Mutation
 
 ```shell
-mutation($userName: String!, $ContactInformation: ContactInformationInput) {
-  addUser(
-    input: { userName: $userName, ContactInformation: $ContactInformation }
-  ) {
+mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
+  addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
     userName
   }
 }
+
 #Under Query Variables GraphQL-Playground
 
 {
-  "userName": "Test1",
-  "ContactInformation": {
-    "CandidateName": {
-      "FormattedName": "Test",
-      "GivenName": "Test",
-      "FamilyName": "TEst"
-    },
-    "Telephones": [
-      {
-        "Raw": "456-78",
-        "Normalized": "45678",
-        "InternationalCountryCode": "1",
-        "AreaCityCode": "567",
-        "SubscriberNumber": "56789"
-        }
-    ],
-    "EmailAddresses": ["test@mail.com", "test2@mail.com"]
-  }
+  "userName": "test1",
+  "SovrenResponse": {
+    "Info": {
+      "Code": "Success",
+     "CustomerDetails": {
+      "AccountId": "1345",
+      "Name": "Test",
+      "MaximumConcurrentRequests": 10
 
+    }
+    }
+  }
+}
 }
 ```
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "../../components/Button";
-import { resume } from "../../JSON/resume";
 // import GraphqlTest from "../../components/GraphqlTest";
 // import Test from "../../components/Test";
 import { RootSafeAreaView } from "../../styles/RootView";
@@ -8,16 +7,13 @@ import { from, gql, useMutation } from "@apollo/client";
 import { ActivityIndicator, Text, View } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
-import contactJSON from "../../JSON/ContactInformation.json";
+import SampleJSON from "../../JSON/Sample.json";
+import SampleJSON2 from "../../JSON/Sample2.json";
+import validateJson from "../../utils/JSONValidator";
 
 const ADD_USER = gql`
-  mutation addUser(
-    $userName: String!
-    $ContactInformation: ContactInformationInput
-  ) {
-    addUser(
-      input: { userName: $userName, ContactInformation: $ContactInformation }
-    ) {
+  mutation addUser($userName: String!, $SovrenResponse: SovrenResponseInput) {
+    addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
       userName
     }
   }
@@ -65,12 +61,25 @@ export default function HomeScreen() {
 
   //to upload to db
   const uploadResumeData = async () => {
-    const ContactInformation = contactJSON;
+    // const SovrenResponse = SampleJSON;
+    const SovrenResponse = validateJson(JSON.stringify(SampleJSON2));
+    console.log("check", SovrenResponse.value);
+
+    // const SovrenResponse = {
+    //   Info: {
+    //     Code: "Success",
+    //     CustomerDetails: {
+    //       AccountId: "1345",
+    //       Name: "Test",
+    //       MaximumConcurrentRequests: 10,
+    //     },
+    //   },
+    // };
 
     await addUser({
       variables: {
-        userName: "Test3",
-        ContactInformation: ContactInformation,
+        userName: "TAc",
+        SovrenResponse: SovrenResponse.value,
       },
     });
 

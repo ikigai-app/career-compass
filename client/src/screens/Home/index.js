@@ -62,23 +62,12 @@ export default function HomeScreen() {
   //to upload to db
   const uploadResumeData = async () => {
     // const SovrenResponse = SampleJSON;
-    const SovrenResponse = validateJson(JSON.stringify(SampleJSON2));
-    console.log("check", SovrenResponse.value);
-
-    // const SovrenResponse = {
-    //   Info: {
-    //     Code: "Success",
-    //     CustomerDetails: {
-    //       AccountId: "1345",
-    //       Name: "Test",
-    //       MaximumConcurrentRequests: 10,
-    //     },
-    //   },
-    // };
+    const SovrenResponse = validateJson(JSON.stringify(SampleJSON));
+    console.log("check", SovrenResponse);
 
     await addUser({
       variables: {
-        userName: "TAc",
+        userName: "Test45",
         SovrenResponse: SovrenResponse.value,
       },
     });

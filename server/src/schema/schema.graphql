@@ -1,7 +1,7 @@
 type Query {
   queryUser(
-    # filter: UserFilter
-    # order: UserOrder
+    #  filter: UserFilter
+    #  order: UserOrder
     first: Int
     offset: Int
   ): [User]
@@ -12,13 +12,27 @@ type Mutation {
 }
 
 type User {
-  userName: String
+  userName: String!
   SovrenResponse: SovrenResponse
+  InvalidSovrenJSON: String
+}
+
+type TimedOutAtMilliseconds {
+  Value: Int
 }
 
 type ParsingMetadata {
   ElapsedMilliseconds: Int
   TimedOut: Boolean
+  TimedOutAtMilliseconds: TimedOutAtMilliseconds
+}
+
+type Conversions {
+  PDF: String
+  HTML: String
+  RTF: String
+  CandidateImage: String
+  CandidateImageExtension: String
 }
 
 type ConversionMetadata {
@@ -28,9 +42,23 @@ type ConversionMetadata {
   ElapsedMilliseconds: Int
 }
 
+type ReservedData {
+  OtherData: [String]
+  Urls: [String]
+  EmailAddresses: [String]
+  Names: [String]
+  Phones: [String]
+}
+
+type SectionIdentifiers {
+  SectionType: String
+  Id: String
+}
+
 type Findings {
   QualityCode: String
   Message: String
+  SectionIdentifiers: [SectionIdentifiers]
 }
 
 type ResumeQuality {
@@ -45,57 +73,16 @@ type FoundSections {
   HeaderTextFound: String
 }
 
-type LanguageCompetencies {
-  Language: String
-  LanguageCode: String
-  FoundInContext: String
-}
-
-type Associations {
-  Organization: String
-  Role: String
-}
-
-type LastUsed {
-  Value: String
-}
-
-type MonthsExperience {
-  Value: Int
-}
-
-type FoundIn {
-  SectionType: String
-  Id: String
-}
-
-type Skills {
-  Id: String
-  Name: String
-  ExistsInText: Boolean
-  LastUsed: LastUsed
-  MonthsExperience: MonthsExperience
-  FoundIn: [FoundIn]
-}
-
-type SubTaxonomies {
-  SubTaxonomyId: String
-  SubTaxonomyName: String
-  PercentOfOverall: Int
-  PercentOfParent: Int
-  Skills: [Skills]
-}
-
-type Taxonomies {
-  Id: String
-  Name: String
-  PercentOfOverall: Int
-  SubTaxonomies: [SubTaxonomies]
-}
-
-type SkillsData {
-  Root: String
-  Taxonomies: [Taxonomies]
+type ResumeMetadata {
+  PlainText: String
+  DocumentLanguage: String
+  DocumentCulture: String
+  ParserSettings: String
+  DocumentLastModified: String
+  SovrenSignature: [String]
+  ReservedData: ReservedData
+  ResumeQuality: [ResumeQuality]
+  FoundSections: [FoundSections]
 }
 
 type EndDate {
@@ -114,16 +101,182 @@ type StartDate {
   FoundDay: Boolean
 }
 
-type JobTitle {
-  Raw: String
-  Normalized: String
-  Probability: String
+type Trainings {
+  Text: String
+  Entity: String
+  EndDate: EndDate
+  StartDate: StartDate
+  Qualifications: [String]
+}
+
+type Training {
+  Text: String
+  Trainings: [Trainings]
+}
+
+type WebAddresses {
+  Address: String
+  Type: String
+}
+
+type GeoCoordinates {
+  Latitude: Int
+  Longitude: Int
+  Source: String
 }
 
 type Location {
   CountryCode: String
+  PostalCode: String
   Municipality: String
+  GeoCoordinates: GeoCoordinates
+  StreetAddressLines: [String]
   Regions: [String]
+}
+
+type ReferenceName {
+  FormattedName: String
+  Prefix: String
+  GivenName: String
+  Moniker: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
+}
+
+type References {
+  Title: String
+  Company: String
+  Type: String
+  WebAddresses: [WebAddresses]
+  EmailAddresses: [String]
+  Telephones: [Telephones]
+  Location: Location
+  ReferenceName: ReferenceName
+}
+
+type SecurityCredentials {
+  Name: String
+  FoundInContext: String
+}
+
+type Service {
+  Name: String
+  Branch: String
+  Rank: String
+}
+
+type MilitaryExperience {
+  Country: String
+  FoundInContext: WebAddresses
+  EndDate: EndDate
+  StartDate: StartDate
+  Service: Service
+}
+
+type LanguageCompetencies {
+  Language: String
+  LanguageCode: String
+  FoundInContext: String
+}
+
+type Associations {
+  Organization: String
+  Role: String
+  FoundInContext: String
+}
+
+type Licenses {
+  Name: String
+  MatchedFromList: Boolean
+}
+
+type Certifications {
+  Name: String
+  MatchedFromList: Boolean
+}
+
+type ChildrenLastUsed {
+  Value: String
+}
+
+type ChildrenMonthsExperience {
+  Value: Int
+}
+
+type LastUsed {
+  Value: String
+}
+
+type MonthsExperience {
+  Value: Int
+}
+
+type FoundIn {
+  SectionType: String
+  Id: String
+}
+
+type Variations {
+  Id: String
+  Name: String
+  ExistsInText: Boolean
+  FoundIn: FoundIn
+  LastUsed: LastUsed
+  MonthsExperience: MonthsExperience
+}
+
+type Skills {
+  Id: String
+  Name: String
+  ExistsInText: Boolean
+  ChildrenLastUsed: ChildrenLastUsed
+  ChildrenMonthsExperience: ChildrenMonthsExperience
+  LastUsed: LastUsed
+  MonthsExperience: MonthsExperience
+  Variations: [Variations]
+  FoundIn: FoundIn
+}
+
+type SubTaxonomies {
+  PercentOfOverall: Int
+  PercentOfParent: Int
+  SubTaxonomyId: String
+  SubTaxonomyName: String
+  Skills: [Skills]
+}
+
+type Taxonomies {
+  Id: String
+  Name: String
+  PercentOfOverall: Int
+  SubTaxonomies: [SubTaxonomies]
+}
+
+type SkillsData {
+  Root: String
+  Taxonomies: [Taxonomies]
+}
+
+type Bullets {
+  Type: String
+  Text: String
+}
+
+type NumberEmployeesSupervised {
+  Value: Int
+}
+
+type JobTitle {
+  Raw: String
+  Normalized: String
+  Probability: String
+  Variations: [String]
+}
+
+type OtherFoundName {
+  Raw: String
+  Normalized: String
 }
 
 type Name {
@@ -134,24 +287,8 @@ type Name {
 
 type Employer {
   Location: Location
+  OtherFoundName: OtherFoundName
   Name: Name
-}
-
-type Positions {
-  Id: String
-  IsSelfEmployed: Boolean
-  IsCurrent: Boolean
-  JobType: String
-  TaxonomyName: String
-  SubTaxonomyName: String
-  JobLevel: String
-  TaxonomyPercentage: Int
-  Description: String
-  EndDate: EndDate
-  StartDate: StartDate
-  JobTitle: JobTitle
-  RelatedToByCompanyName: [String]
-  Employer: Employer
 }
 
 type ExperienceSummary {
@@ -164,11 +301,16 @@ type ExperienceSummary {
   ManagementStory: String
   CurrentManagementLevel: String
   ManagementScore: Int
+  AttentionNeeded: String
 }
 
 type EmploymentHistory {
   Positions: [Positions]
   ExperienceSummary: ExperienceSummary
+}
+
+type Graduated {
+  Value: Boolean
 }
 
 type LastEducationDate {
@@ -177,6 +319,14 @@ type LastEducationDate {
   FoundYear: Boolean
   FoundMonth: Boolean
   FoundDay: Boolean
+}
+
+type Gpa {
+  Score: String
+  ScoringSystem: String
+  MaxScore: String
+  MinimumScore: String
+  NormalizedScore: Int
 }
 
 type Degree {
@@ -193,7 +343,10 @@ type EducationDetails {
   Id: String
   Text: String
   SchoolType: String
+  Graduated: Graduated
   LastEducationDate: LastEducationDate
+  GPA: Gpa
+  Minors: [String]
   Majors: [String]
   Degree: Degree
   Location: Location
@@ -210,39 +363,51 @@ type Education {
   HighestDegree: HighestDegree
 }
 
-type RedactedResumeData {
-  QualificationsSummary: String
-  ResumeMetadata: ResumeMetadata
-  Achievements: [String]
-  LanguageCompetencies: [LanguageCompetencies]
-  Associations: [Associations]
-  SkillsData: [SkillsData]
-  EmploymentHistory: EmploymentHistory
-  Education: Education
+type RequiredSalary {
+  Currency: String
+  Amount: Int
 }
 
-type ReservedData {
-  Urls: [String]
-  EmailAddresses: [String]
-  Names: [String]
-  Phones: [String]
+type NationalIdentities {
+  Number: String
+  Phrase: String
 }
 
-type ResumeMetadata {
-  PlainText: String
-  DocumentLanguage: String
-  DocumentCulture: String
-  ParserSettings: String
-  DocumentLastModified: String
-  SovrenSignature: [String]
-  ReservedData: ReservedData
-  ResumeQuality: [ResumeQuality]
-  FoundSections: [FoundSections]
+type DateOfBirth {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
 }
 
-type WebAddresses {
-  Address: String
-  Type: String
+type CurrentSalary {
+  Currency: String
+  Amount: Int
+}
+
+type PersonalAttributes {
+  Availability: String
+  Birthplace: String
+  CurrentLocation: String
+  DrivingLicense: String
+  FamilyComposition: String
+  FathersName: String
+  Gender: String
+  HukouCity: String
+  HukouArea: String
+  MaritalStatus: String
+  MothersMaidenName: String
+  MotherTongue: String
+  Nationality: String
+  PassportNumber: String
+  PreferredLocation: String
+  VisaStatus: String
+  WillingToRelocate: String
+  RequiredSalary: RequiredSalary
+  NationalIdentities: [NationalIdentities]
+  DateOfBirth: DateOfBirth
+  CurrentSalary: CurrentSalary
 }
 
 type Telephones {
@@ -255,27 +420,102 @@ type Telephones {
 
 type CandidateName {
   FormattedName: String
+  Prefix: String
   GivenName: String
+  Moniker: String
+  MiddleName: String
   FamilyName: String
+  Suffix: String
 }
 
 type ContactInformation {
   WebAddresses: [WebAddresses]
+  Location: Location
   EmailAddresses: [String]
   Telephones: [Telephones]
   CandidateName: CandidateName
 }
 
-type ResumeData {
-  QualificationsSummary: String
+type RedactedResumeData {
+  ProfessionalSummary: String
+  Objective: String
+  CoverLetter: String
+  Hobbies: String
+  Patents: String
+  Publications: String
+  SpeakingEngagements: String
+  UserDefinedTags: [String]
   ResumeMetadata: ResumeMetadata
+  Training: Training
   Achievements: [String]
+  References: [References]
+  SecurityCredentials: [SecurityCredentials]
+  MilitaryExperience: [MilitaryExperience]
   LanguageCompetencies: [LanguageCompetencies]
   Associations: [Associations]
+  Licenses: [Licenses]
+  Certifications: [Certifications]
   SkillsData: [SkillsData]
   EmploymentHistory: EmploymentHistory
   Education: Education
+  PersonalAttributes: PersonalAttributes
   ContactInformation: ContactInformation
+}
+
+type Positions {
+  Id: String
+  IsSelfEmployed: Boolean
+  IsCurrent: Boolean
+  JobType: String
+  TaxonomyName: String
+  SubTaxonomyName: String
+  JobLevel: String
+  TaxonomyPercentage: String
+  Description: String
+  Bullets: [Bullets]
+  NumberEmployeesSupervised: NumberEmployeesSupervised
+  EndDate: EndDate
+  StartDate: StartDate
+  JobTitle: JobTitle
+  RelatedToByCompanyName: [String]
+  RelatedToByDates: [String]
+  Employer: Employer
+}
+
+type ResumeData {
+  ProfessionalSummary: String
+  Objective: String
+  CoverLetter: String
+  Hobbies: String
+  Patents: String
+  Publications: String
+  SpeakingEngagements: String
+  UserDefinedTags: [String]
+  ResumeMetadata: ResumeMetadata
+  Training: Training
+  Achievements: [String]
+  References: [References]
+  SecurityCredentials: [SecurityCredentials]
+  MilitaryExperience: [MilitaryExperience]
+  LanguageCompetencies: [LanguageCompetencies]
+  Associations: [Associations]
+  Licenses: [Licenses]
+  Certifications: [Certifications]
+  SkillsData: [SkillsData]
+  EmploymentHistory: EmploymentHistory
+  Education: Education
+  PersonalAttributes: PersonalAttributes
+  ContactInformation: ContactInformation
+}
+
+type IndexingResponse {
+  Code: String
+  Message: String
+}
+
+type GeocodeResponse {
+  Code: String
+  Message: String
 }
 
 type ParsingResponse {
@@ -285,9 +525,12 @@ type ParsingResponse {
 
 type Value {
   ParsingMetadata: ParsingMetadata
+  Conversions: Conversions
   ConversionMetadata: ConversionMetadata
   RedactedResumeData: RedactedResumeData
   ResumeData: ResumeData
+  IndexingResponse: IndexingResponse
+  GeocodeResponse: GeocodeResponse
   ParsingResponse: ParsingResponse
 }
 
@@ -296,7 +539,7 @@ type CustomerDetails {
   Name: String
   IPAddress: String
   Region: String
-  CreditsRemaining: Float
+  CreditsRemaining: Int
   CreditsUsed: Int
   ExpirationDate: String
   MaximumConcurrentRequests: Int
@@ -320,6 +563,7 @@ type SovrenResponse {
 input AddUserInput {
   userName: String!
   SovrenResponse: SovrenResponseInput
+  InvalidSovrenJSON: String
 }
 
 input SovrenResponseInput {
@@ -342,7 +586,7 @@ input CustomerDetailsInput {
   Name: String
   IPAddress: String
   Region: String
-  CreditsRemaining: Float
+  CreditsRemaining: Int
   CreditsUsed: Int
   ExpirationDate: String
   MaximumConcurrentRequests: Int
@@ -350,9 +594,12 @@ input CustomerDetailsInput {
 
 input ValueInput {
   ParsingMetadata: ParsingMetadataInput
+  Conversions: ConversionsInput
   ConversionMetadata: ConversionMetadataInput
   RedactedResumeData: RedactedResumeDataInput
   ResumeData: ResumeDataInput
+  IndexingResponse: IndexingResponseInput
+  GeocodeResponse: GeocodeResponseInput
   ParsingResponse: ParsingResponseInput
 }
 
@@ -361,28 +608,83 @@ input ParsingResponseInput {
   Message: String
 }
 
+input GeocodeResponseInput {
+  Code: String
+  Message: String
+}
+
+input IndexingResponseInput {
+  Code: String
+  Message: String
+}
+
+input ParsingMetadataInput {
+  ElapsedMilliseconds: Int
+  TimedOut: Boolean
+  TimedOutAtMilliseconds: TimedOutAtMillisecondsInput
+}
+
+input TimedOutAtMillisecondsInput {
+  Value: Int
+}
+
+input ConversionsInput {
+  PDF: String
+  HTML: String
+  RTF: String
+  CandidateImage: String
+  CandidateImageExtension: String
+}
+
+input ConversionMetadataInput {
+  DetectedType: String
+  SuggestedFileExtension: String
+  OutputValidityCode: String
+  ElapsedMilliseconds: Int
+}
+
 input ResumeDataInput {
-  QualificationsSummary: String
+  ProfessionalSummary: String
+  Objective: String
+  CoverLetter: String
+  Hobbies: String
+  Patents: String
+  Publications: String
+  SpeakingEngagements: String
+  UserDefinedTags: [String]
   ResumeMetadata: ResumeMetadataInput
+  Training: TrainingInput
   Achievements: [String]
+  References: [ReferencesInput]
+  SecurityCredentials: [SecurityCredentialsInput]
+  MilitaryExperience: [MilitaryExperienceInput]
   LanguageCompetencies: [LanguageCompetenciesInput]
   Associations: [AssociationsInput]
+  Licenses: [LicensesInput]
+  Certifications: [CertificationsInput]
   SkillsData: [SkillsDataInput]
   EmploymentHistory: EmploymentHistoryInput
   Education: EducationInput
+  PersonalAttributes: PersonalAttributesInput
   ContactInformation: ContactInformationInput
 }
 
 input ContactInformationInput {
   WebAddresses: [WebAddressesInput]
+  Location: LocationInput
   EmailAddresses: [String]
   Telephones: [TelephonesInput]
   CandidateName: CandidateNameInput
 }
 
-input WebAddressesInput {
-  Address: String
-  Type: String
+input CandidateNameInput {
+  FormattedName: String
+  Prefix: String
+  GivenName: String
+  Moniker: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
 }
 
 input TelephonesInput {
@@ -393,83 +695,37 @@ input TelephonesInput {
   SubscriberNumber: String
 }
 
-input CandidateNameInput {
-  FormattedName: String
-  GivenName: String
-  FamilyName: String
-}
-
-input EducationInput {
-  EducationDetails: [EducationDetailsInput]
-  HighestDegree: HighestDegreeInput
-}
-
-input EducationDetailsInput {
-  Id: String
-  Text: String
-  SchoolType: String
-  LastEducationDate: LastEducationDateInput
-  Majors: [String]
-  Degree: DegreeInput
-  Location: LocationInput
-  SchoolName: SchoolNameInput
-}
-
-input LastEducationDateInput {
-  Date: String
-  IsCurrentDate: Boolean
-  FoundYear: Boolean
-  FoundMonth: Boolean
-  FoundDay: Boolean
-}
-
-input DegreeInput {
-  Type: String
-  Name: NameInput
-}
-
 input LocationInput {
   CountryCode: String
+  PostalCode: String
   Municipality: String
+  GeoCoordinates: GeoCoordinatesInput
+  StreetAddressLines: [String]
   Regions: [String]
 }
 
-input SchoolNameInput {
-  Raw: String
-  Normalized: String
+input GeoCoordinatesInput {
+  Latitude: Int
+  Longitude: Int
+  Source: String
 }
 
-input HighestDegreeInput {
+input WebAddressesInput {
+  Address: String
   Type: String
-  Name: NameInput
 }
 
-input NameInput {
-  Probability: String
-  Raw: String
-  Normalized: String
+input TrainingInput {
+  Text: String
+  Trainings: [TrainingsInput]
 }
 
-input EmploymentHistoryInput {
-  Positions: [PositionsInput]
-  ExperienceSummary: ExperienceSummaryInput
-}
-
-input PositionsInput {
-  Id: String
-  IsSelfEmployed: Boolean
-  IsCurrent: Boolean
-  JobType: String
-  TaxonomyName: String
-  SubTaxonomyName: String
-  JobLevel: String
-  TaxonomyPercentage: Int
-  Description: String
+input TrainingsInput {
+  Text: String
+  Entity: String
   EndDate: EndDateInput
   StartDate: StartDateInput
-  JobTitle: JobTitleInput
-  RelatedToByCompanyName: [String]
-  Employer: EmployerInput
+  Qualifications: [String]
 }
 
 input EndDateInput {
@@ -488,80 +744,132 @@ input StartDateInput {
   FoundDay: Boolean
 }
 
-input JobTitleInput {
-  Raw: String
-  Normalized: String
-  Probability: String
+input PersonalAttributesInput {
+  Availability: String
+  Birthplace: String
+  CurrentLocation: String
+  DrivingLicense: String
+  FamilyComposition: String
+  FathersName: String
+  Gender: String
+  HukouCity: String
+  HukouArea: String
+  MaritalStatus: String
+  MothersMaidenName: String
+  MotherTongue: String
+  Nationality: String
+  PassportNumber: String
+  PreferredLocation: String
+  VisaStatus: String
+  WillingToRelocate: String
+  RequiredSalary: RequiredSalaryInput
+  NationalIdentities: [NationalIdentitiesInput]
+  DateOfBirth: DateOfBirthInput
+  CurrentSalary: CurrentSalaryInput
 }
 
-input EmployerInput {
-  Location: LocationInput
+input RequiredSalaryInput {
+  Currency: String
+  Amount: Int
+}
+
+input NationalIdentitiesInput {
+  Number: String
+  Phrase: String
+}
+
+input DateOfBirthInput {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
+}
+
+input CurrentSalaryInput {
+  Currency: String
+  Amount: Int
+}
+
+input EducationInput {
+  EducationDetails: [EducationDetailsInput]
+  HighestDegree: HighestDegreeInput
+}
+
+input HighestDegreeInput {
+  Type: String
   Name: NameInput
 }
 
-input ExperienceSummaryInput {
-  Description: String
-  MonthsOfWorkExperience: Int
-  MonthsOfManagementExperience: Int
-  ExecutiveType: String
-  AverageMonthsPerEmployer: Int
-  FulltimeDirectHirePredictiveIndex: Int
-  ManagementStory: String
-  CurrentManagementLevel: String
-  ManagementScore: Int
+input NameInput {
+  Probability: String
+  Raw: String
+  Normalized: String
 }
 
-input SkillsDataInput {
-  Root: String
-  Taxonomies: [TaxonomiesInput]
-}
-
-input TaxonomiesInput {
+input EducationDetailsInput {
   Id: String
-  Name: String
-  PercentOfOverall: Int
-  SubTaxonomies: [SubTaxonomiesInput]
+  Text: String
+  SchoolType: String
+  Graduated: GraduatedInput
+  LastEducationDate: LastEducationDateInput
+  GPA: GpaInput
+  Minors: [String]
+  Majors: [String]
+  Degree: DegreeInput
+  Location: LocationInput
+  SchoolName: SchoolNameInput
 }
 
-input SubTaxonomiesInput {
-  SubTaxonomyId: String
-  SubTaxonomyName: String
-  PercentOfOverall: Int
-  PercentOfParent: Int
-  Skills: [SkillsInput]
+input GraduatedInput {
+  Value: Boolean
 }
 
-input SkillsInput {
-  Id: String
-  Name: String
-  ExistsInText: Boolean
-  LastUsed: LastUsedInput
-  MonthsExperience: MonthsExperienceInput
-  FoundIn: [FoundInInput]
+input LastEducationDateInput {
+  Date: String
+  IsCurrentDate: Boolean
+  FoundYear: Boolean
+  FoundMonth: Boolean
+  FoundDay: Boolean
 }
 
-input LastUsedInput {
-  Value: String
+input GpaInput {
+  Score: String
+  ScoringSystem: String
+  MaxScore: String
+  MinimumScore: String
+  NormalizedScore: Int
 }
 
-input MonthsExperienceInput {
-  Value: Int
+input DegreeInput {
+  Type: String
+  Name: NameInput
 }
 
-input FoundInInput {
-  SectionType: String
-  Id: String
+input SchoolNameInput {
+  Raw: String
+  Normalized: String
 }
 
-input AssociationsInput {
-  Organization: String
-  Role: String
+input ReferencesInput {
+  Title: String
+  Company: String
+  Type: String
+  WebAddresses: [WebAddressesInput]
+  EmailAddresses: [String]
+  Telephones: [TelephonesInput]
+  Location: LocationInput
+  ReferenceName: ReferenceNameInput
 }
 
-input LanguageCompetenciesInput {
-  Language: String
-  LanguageCode: String
-  FoundInContext: String
+input ReferenceNameInput {
+  FormattedName: String
+  Prefix: String
+  GivenName: String
+  Moniker: String
+  MiddleName: String
+  FamilyName: String
+  Suffix: String
 }
 
 input ResumeMetadataInput {
@@ -577,6 +885,7 @@ input ResumeMetadataInput {
 }
 
 input ReservedDataInput {
+  OtherData: [String]
   Urls: [String]
   EmailAddresses: [String]
   Names: [String]
@@ -591,6 +900,12 @@ input ResumeQualityInput {
 input FindingsInput {
   QualityCode: String
   Message: String
+  SectionIdentifiers: [SectionIdentifiersInput]
+}
+
+input SectionIdentifiersInput {
+  SectionType: String
+  Id: String
 }
 
 input FoundSectionsInput {
@@ -600,25 +915,196 @@ input FoundSectionsInput {
   HeaderTextFound: String
 }
 
-input ConversionMetadataInput {
-  DetectedType: String
-  SuggestedFileExtension: String
-  OutputValidityCode: String
-  ElapsedMilliseconds: Int
+input SecurityCredentialsInput {
+  Name: String
+  FoundInContext: String
 }
 
-input ParsingMetadataInput {
-  ElapsedMilliseconds: Int
-  TimedOut: Boolean
+input MilitaryExperienceInput {
+  Country: String
+  FoundInContext: WebAddressesInput
+  EndDate: EndDateInput
+  StartDate: StartDateInput
+  Service: ServiceInput
+}
+
+input ServiceInput {
+  Name: String
+  Branch: String
+  Rank: String
+}
+
+input LanguageCompetenciesInput {
+  Language: String
+  LanguageCode: String
+  FoundInContext: String
+}
+
+input AssociationsInput {
+  Organization: String
+  Role: String
+  FoundInContext: String
+}
+
+input LicensesInput {
+  Name: String
+  MatchedFromList: Boolean
+}
+
+input CertificationsInput {
+  Name: String
+  MatchedFromList: Boolean
+}
+
+input SkillsDataInput {
+  Root: String
+  Taxonomies: [TaxonomiesInput]
+}
+
+input TaxonomiesInput {
+  Id: String
+  Name: String
+  PercentOfOverall: Int
+  SubTaxonomies: [SubTaxonomiesInput]
+}
+
+input SubTaxonomiesInput {
+  PercentOfOverall: Int
+  PercentOfParent: Int
+  SubTaxonomyId: String
+  SubTaxonomyName: String
+  Skills: [SkillsInput]
+}
+
+input SkillsInput {
+  Id: String
+  Name: String
+  ExistsInText: Boolean
+  ChildrenLastUsed: ChildrenLastUsedInput
+  ChildrenMonthsExperience: ChildrenMonthsExperienceInput
+  LastUsed: LastUsedInput
+  MonthsExperience: MonthsExperienceInput
+  Variations: [VariationsInput]
+  FoundIn: FoundInInput
+}
+
+input ChildrenLastUsedInput {
+  Value: String
+}
+
+input ChildrenMonthsExperienceInput {
+  Value: Int
+}
+
+input LastUsedInput {
+  Value: String
+}
+
+input MonthsExperienceInput {
+  Value: Int
+}
+
+input FoundInInput {
+  SectionType: String
+  Id: String
+}
+
+input VariationsInput {
+  Id: String
+  Name: String
+  ExistsInText: Boolean
+  FoundIn: FoundInInput
+  LastUsed: LastUsedInput
+  MonthsExperience: MonthsExperienceInput
+}
+
+input EmploymentHistoryInput {
+  Positions: [PositionsInput]
+  ExperienceSummary: ExperienceSummaryInput
+}
+
+input ExperienceSummaryInput {
+  Description: String
+  MonthsOfWorkExperience: Int
+  MonthsOfManagementExperience: Int
+  ExecutiveType: String
+  AverageMonthsPerEmployer: Int
+  FulltimeDirectHirePredictiveIndex: Int
+  ManagementStory: String
+  CurrentManagementLevel: String
+  ManagementScore: Int
+  AttentionNeeded: String
+}
+
+input PositionsInput {
+  Id: String
+  IsSelfEmployed: Boolean
+  IsCurrent: Boolean
+  JobType: String
+  TaxonomyName: String
+  SubTaxonomyName: String
+  JobLevel: String
+  TaxonomyPercentage: String
+  Description: String
+  Bullets: [BulletsInput]
+  NumberEmployeesSupervised: NumberEmployeesSupervisedInput
+  EndDate: EndDateInput
+  StartDate: StartDateInput
+  JobTitle: JobTitleInput
+  RelatedToByCompanyName: [String]
+  RelatedToByDates: [String]
+  Employer: EmployerInput
+}
+
+input BulletsInput {
+  Type: String
+  Text: String
+}
+
+input NumberEmployeesSupervisedInput {
+  Value: Int
+}
+
+input JobTitleInput {
+  Raw: String
+  Normalized: String
+  Probability: String
+  Variations: [String]
+}
+
+input EmployerInput {
+  Location: LocationInput
+  OtherFoundName: OtherFoundNameInput
+  Name: NameInput
+}
+
+input OtherFoundNameInput {
+  Raw: String
+  Normalized: String
 }
 
 input RedactedResumeDataInput {
-  QualificationsSummary: String
+  ProfessionalSummary: String
+  Objective: String
+  CoverLetter: String
+  Hobbies: String
+  Patents: String
+  Publications: String
+  SpeakingEngagements: String
+  UserDefinedTags: [String]
   ResumeMetadata: ResumeMetadataInput
+  Training: TrainingInput
   Achievements: [String]
+  References: [ReferencesInput]
+  SecurityCredentials: [SecurityCredentialsInput]
+  MilitaryExperience: [MilitaryExperienceInput]
   LanguageCompetencies: [LanguageCompetenciesInput]
   Associations: [AssociationsInput]
+  Licenses: [LicensesInput]
+  Certifications: [CertificationsInput]
   SkillsData: [SkillsDataInput]
   EmploymentHistory: EmploymentHistoryInput
   Education: EducationInput
+  PersonalAttributes: PersonalAttributesInput
+  ContactInformation: ContactInformationInput
 }

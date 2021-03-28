@@ -1,3 +1,8 @@
+# use https://github.com/walmartlabs/json-to-simple-graphql-schema
+# to transform Sovren Response into a GraphQL schema
+
+# !imp: plz update schema.graphql whenever any changes done on this file
+
 type User {
   userName: String! @id
   SovrenResponse: SovrenResponse

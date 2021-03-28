@@ -9,6 +9,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 import SampleJSON from "../../JSON/Sample.json";
 import SampleJSON2 from "../../JSON/Sample2.json";
+import SampleJSON3 from "../../JSON/Sample3.json";
 import validateJson from "../../utils/JSONValidator";
 
 const ADD_USER = gql`
@@ -62,12 +63,12 @@ export default function HomeScreen() {
   //to upload to db
   const uploadResumeData = async () => {
     // const SovrenResponse = SampleJSON;
-    const SovrenResponse = validateJson(JSON.stringify(SampleJSON));
-    console.log("check", SovrenResponse);
+    const SovrenResponse = validateJson(JSON.stringify(SampleJSON2));
 
+    console.log("check", SovrenResponse.value);
     await addUser({
       variables: {
-        userName: "Test45",
+        userName: "t2xestt5",
         SovrenResponse: SovrenResponse.value,
       },
     });

@@ -462,7 +462,8 @@ type Positions {
   TaxonomyName: String
   SubTaxonomyName: String
   JobLevel: String
-  TaxonomyPercentage: String
+  # TaxonomyPercentage: String
+  TaxonomyPercentage: Int
   Description: String
   Bullets: [Bullets]
   NumberEmployeesSupervised: NumberEmployeesSupervised
@@ -498,6 +499,7 @@ type ResumeData {
   Education: Education
   PersonalAttributes: PersonalAttributes
   ContactInformation: ContactInformation
+  QualificationsSummary: String
 }
 
 type IndexingResponse {
@@ -531,7 +533,7 @@ type CustomerDetails {
   Name: String
   IPAddress: String
   Region: String
-  CreditsRemaining: Int
+  CreditsRemaining: Float
   CreditsUsed: Int
   ExpirationDate: String
   MaximumConcurrentRequests: Int

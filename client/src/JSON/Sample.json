@@ -11,12 +11,17 @@
       "Name": "Sovren Web Demo",
       "IPAddress": "52.31.11.178",
       "Region": "eu-west-1",
+      "CreditsRemaining": 199540768.22,
       "CreditsUsed": 459232,
       "ExpirationDate": "2027-03-10",
       "MaximumConcurrentRequests": 10
     }
   },
   "Value": {
+    "ParsingResponse": {
+      "Code": "Success",
+      "Message": "Successful transaction"
+    },
     "ResumeData": {
       "ContactInformation": {
         "CandidateName": {
@@ -105,7 +110,7 @@
               "Type": "bachelors"
             },
             "Majors": [
-              "Computer Science and Engineering"
+              "Computer Science and Engineeringn"
             ],
             "LastEducationDate": {
               "Date": "2014-06-01",
@@ -174,7 +179,8 @@
             "TaxonomyName": "Information Technology",
             "SubTaxonomyName": "Machine Learning",
             "JobLevel": "Experienced (non-manager)",
-            "TaxonomyPercentage": 100
+            "TaxonomyPercentage": 100,
+            "Description": "Deep Learning CS7643: Assisted Professor Zsolt Kira in conducting the course Deep Learning"
           },
           {
             "Id": "POS-2",
@@ -220,7 +226,6 @@
             "TaxonomyName": "Engineering",
             "SubTaxonomyName": "Robotics and Automation",
             "JobLevel": "Experienced (non-manager)",
-            "TaxonomyPercentage": 100,
             "Description": "Worked on Research project under Professor James Tsai Transportation Lab - Evaluation of Object detection of Tra c infrastructure using Registration and Fusion of 2D Camera and 3D LIDAR Point cloud Data."
           }
         ]

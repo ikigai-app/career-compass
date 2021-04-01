@@ -16,6 +16,7 @@ type TimedOutAtMilliseconds {
 type ParsingMetadata {
   ElapsedMilliseconds: Int
   TimedOut: Boolean
+  LicenseSerialNumber: String
   TimedOutAtMilliseconds: TimedOutAtMilliseconds
 }
 
@@ -213,7 +214,7 @@ type Variations {
   Id: String
   Name: String
   ExistsInText: Boolean
-  FoundIn: FoundIn
+  FoundIn: [FoundIn]
   LastUsed: LastUsed
   MonthsExperience: MonthsExperience
 }
@@ -227,7 +228,7 @@ type Skills {
   LastUsed: LastUsed
   MonthsExperience: MonthsExperience
   Variations: [Variations]
-  FoundIn: FoundIn
+  FoundIn: [FoundIn]
 }
 
 type SubTaxonomies {
@@ -432,6 +433,7 @@ type RedactedResumeData {
   ProfessionalSummary: String
   Objective: String
   CoverLetter: String
+  QualificationsSummary: String
   Hobbies: String
   Patents: String
   Publications: String
@@ -479,6 +481,7 @@ type ResumeData {
   ProfessionalSummary: String
   Objective: String
   CoverLetter: String
+  QualificationsSummary: String
   Hobbies: String
   Patents: String
   Publications: String
@@ -499,7 +502,6 @@ type ResumeData {
   Education: Education
   PersonalAttributes: PersonalAttributes
   ContactInformation: ContactInformation
-  QualificationsSummary: String
 }
 
 type IndexingResponse {
@@ -533,7 +535,7 @@ type CustomerDetails {
   Name: String
   IPAddress: String
   Region: String
-  CreditsRemaining: Float
+  CreditsRemaining: Int
   CreditsUsed: Int
   ExpirationDate: String
   MaximumConcurrentRequests: Int

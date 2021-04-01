@@ -64,15 +64,17 @@ export default function HomeScreen() {
     // const SovrenResponse = SampleJSON;
     const SovrenResponse = validateJson(JSON.stringify(SampleJSON3));
 
-    console.log("check", SovrenResponse.value);
+    let filteredResponse = SovrenResponse.value;
+
+    //deleting HTML sections
+    delete filteredResponse.Value.Conversions;
+
     await addUser({
       variables: {
-        userName: "test1",
-        SovrenResponse: SovrenResponse.value,
+        userName: "test2",
+        SovrenResponse: filteredResponse,
       },
     });
-
-    // console.log(resume.Value.ResumeData.ContactInformation.EmailAddresses[0]); //email
 
     setLoading(false);
   };

@@ -1,4 +1,5 @@
 type Query {
+  getUser(userName: String!): User
   queryUser(
     #  filter: UserFilter
     #  order: UserOrder

@@ -3,16 +3,16 @@ const { delegateToSchema } = require("apollo-server-express");
 
 function buildQuery(schema) {
   return {
-    // getUser: async (root, args, context, info) => {
-    //   return await delegateToSchema({
-    //     schema,
-    //     operation: "query",
-    //     fieldName: "getUser",
-    //     args,
-    //     context,
-    //     info,
-    //   });
-    // },
+    getUser: async (root, args, context, info) => {
+      return await delegateToSchema({
+        schema,
+        operation: "query",
+        fieldName: "getUser",
+        args,
+        context,
+        info,
+      });
+    },
     queryUser: async (root, args, context, info) => {
       return await delegateToSchema({
         schema,

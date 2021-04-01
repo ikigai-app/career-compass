@@ -98,3 +98,7 @@ GRAPHQL_ENDPOINT=" "
 ```
 
 Save it and follow client readme to run the app locally.
+
+## Transfrom JSON to SCHEMA
+
+https://transform.tools/json-to-graphql

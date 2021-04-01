@@ -8,7 +8,6 @@ import { ActivityIndicator, Text, View } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 import SampleJSON from "../../JSON/Sample.json";
-import SampleJSON2 from "../../JSON/Sample2.json";
 import SampleJSON3 from "../../JSON/Sample3.json";
 import validateJson from "../../utils/JSONValidator";
 
@@ -63,12 +62,12 @@ export default function HomeScreen() {
   //to upload to db
   const uploadResumeData = async () => {
     // const SovrenResponse = SampleJSON;
-    const SovrenResponse = validateJson(JSON.stringify(SampleJSON2));
+    const SovrenResponse = validateJson(JSON.stringify(SampleJSON3));
 
     console.log("check", SovrenResponse.value);
     await addUser({
       variables: {
-        userName: "t2xestt5",
+        userName: "test1",
         SovrenResponse: SovrenResponse.value,
       },
     });

@@ -23,6 +23,9 @@ Before running update .env in your root directive
 
 ```shell
 GRAPHQL_ENDPOINT = " "
+SOVREN_ENDPOINT = " "
+SOVREN_ACCOUNT_ID = " "
+SOVREN_SERVICE_KEY = " "
 ```
 
 run

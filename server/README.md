@@ -40,7 +40,8 @@ For Apollo Server `http://localhost:4000/graphql`
 
 ##### Query
 
-```
+```shell
+# to query all the users
 query {
   queryUser {
     userName
@@ -55,6 +56,23 @@ query {
     }
   }
 }
+
+
+
+# to query specific user
+query($userName: String!) {
+  getUser(userName: $userName) {
+    userName
+    # SovrenResponse
+  }
+}
+
+
+# Under Query Variables GraphQL-Playground
+{
+  "userName": "test1"
+}
+
 ```
 
 ##### Mutation
@@ -66,8 +84,7 @@ mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
   }
 }
 
-#Under Query Variables GraphQL-Playground
-
+# Under Query Variables GraphQL-Playground
 {
   "userName": "test1",
   "SovrenResponse": {
@@ -77,12 +94,11 @@ mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
       "AccountId": "1345",
       "Name": "Test",
       "MaximumConcurrentRequests": 10
-
     }
     }
   }
 }
-}
+
 ```
 
 ##### Before connecting to the client. Run

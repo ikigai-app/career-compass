@@ -50,8 +50,9 @@ export default function HomeScreen() {
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
 
+    console.log("upload data", data);
     // const res = await resumeParser(data);
-    // // console.log("Sovren res", res);
+    // console.log("Sovren res", res);
     // setLoading(true);
     // if (res) {
     //   uploadResumeData(res);
@@ -61,23 +62,25 @@ export default function HomeScreen() {
   //to upload to db
   const uploadResumeData = async (res) => {
     // const SovrenResponse = validateJson(JSON.stringify(SampleJSON3));
-    const SovrenResponse = validateJson(JSON.stringify(res));
 
-    let filteredResponse = SovrenResponse.value;
+    if (res.value) {
+      const SovrenResponse = validateJson(JSON.stringify(res));
 
-    //deleting HTML sections
-    delete filteredResponse.Value.Conversions;
+      let filteredResponse = SovrenResponse.value;
 
-    const userName =
-      filteredResponse.Value.ResumeData.ContactInformation.EmailAddresses[0];
+      //deleting HTML sections
+      delete filteredResponse.Value.Conversions;
 
-    await addUser({
-      variables: {
-        userName: "MKS",
-        SovrenResponse: filteredResponse,
-      },
-    });
+      const userName =
+        filteredResponse.Value.ResumeData.ContactInformation.EmailAddresses[0];
 
+      await addUser({
+        variables: {
+          userName: "MKS",
+          SovrenResponse: filteredResponse,
+        },
+      });
+    }
     setLoading(false);
   };
 

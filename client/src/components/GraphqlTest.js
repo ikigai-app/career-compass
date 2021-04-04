@@ -24,15 +24,11 @@ const UserCard = ({ data }) => (
 
 const GraphqlTest = () => {
   const { loading, error, data } = useQuery(FETCH_USER, {
-    variables: { userName: "test1" },
+    variables: { userName: "Test2" },
   });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
-
-  // {
-  //   console.log("data", data);
-  // }
 
   return (
     <Container>

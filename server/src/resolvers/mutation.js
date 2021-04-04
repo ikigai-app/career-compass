@@ -21,6 +21,7 @@ function buildMutation(schema) {
           input: {
             userName: args.input.userName,
             SovrenResponse: args.input.SovrenResponse,
+            InvalidSovrenJSON: args.input.InvalidSovrenJSON,
           },
         },
         context,

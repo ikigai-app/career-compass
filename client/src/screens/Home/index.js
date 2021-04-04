@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { ActivityIndicator, Text, View, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
-// import SampleJSON3 from "../../JSON/Sample3.json";
+import SampleJSON from "../../JSON/Sample.json";
 import validateJson from "../../utils/JSONValidator";
 import resumeParser from "../../utils/SovrenAPI";
 // import GraphqlTest from "../../components/GraphqlTest";
@@ -38,10 +38,7 @@ export default function HomeScreen() {
   const [addUser] = useMutation(ADD_USER);
 
   const uploadDocument = async () => {
-    let file = await DocumentPicker.getDocumentAsync({
-      // copyToCacheDirectory: false,
-      // type: "*/*",
-    });
+    let file = await DocumentPicker.getDocumentAsync({});
 
     const encodeFile = await encoder(file.uri);
 
@@ -53,35 +50,39 @@ export default function HomeScreen() {
     console.log("upload data", data);
 
     //sovren api
-    const res = await resumeParser(data);
-    console.log("Sovren res", res);
-    setLoading(true);
-    if (res) {
-      uploadResumeData(res);
-    }
+    // const res = await resumeParser(data);
+    // console.log("Sovren res", res);
+    // setLoading(true);
+    // if (res) {
+    //   uploadResumeData(res);
+    // }
   };
 
   //to upload to db
-  const uploadResumeData = async (res) => {
-    // const SovrenResponse = validateJson(JSON.stringify(SampleJSON3));
+  // const uploadResumeData = async (res) => {
+  const uploadResumeData = async () => {
+    const SovrenResponse = validateJson(JSON.stringify(SampleJSON));
 
-    if (res.value) {
-      const SovrenResponse = validateJson(JSON.stringify(res));
+    // const SovrenResponse = validateJson(JSON.stringify(res));
 
+    if (SovrenResponse.value) {
       let filteredResponse = SovrenResponse.value;
 
-      //deleting HTML sections
-      delete filteredResponse.Value.Conversions;
+      if (filteredResponse.Value) {
+        //deleting HTML sections
+        delete filteredResponse.Value.Conversions;
 
-      const userName =
-        filteredResponse.Value.ResumeData.ContactInformation.EmailAddresses[0];
+        const userName =
+          filteredResponse.Value.ResumeData.ContactInformation
+            .EmailAddresses[0];
 
-      await addUser({
-        variables: {
-          userName: "Test1",
-          SovrenResponse: filteredResponse,
-        },
-      });
+        await addUser({
+          variables: {
+            userName: "Test4",
+            SovrenResponse: filteredResponse,
+          },
+        });
+      }
     }
     setLoading(false);
   };
@@ -94,8 +95,7 @@ export default function HomeScreen() {
         </View>
       ) : (
         <>
-          <Button text="UPLOAD" onPress={() => uploadDocument()} />
-          {/* <GraphqlTest /> */}
+          <Button text="UPLOAD" onPress={() => uploadResumeData()} />
         </>
       )}
     </RootSafeAreaView>

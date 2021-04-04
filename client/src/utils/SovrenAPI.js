@@ -8,14 +8,13 @@ const resumeParser = async (data) => {
 
     const response = await fetch(END_POINT, {
       method: "POST",
-      crossDomain: true,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         "Sovren-AccountId": ACCOUNT_ID,
         "Sovren-ServiceKey": SERVICE_KEY,
       },
-      data: JSON.stringify(data),
+      body: JSON.stringify(data),
     });
     const res = await response.json();
     return res;

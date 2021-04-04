@@ -26,6 +26,7 @@ function buildMutation(schema) {
         },
         context,
         info,
+
         transforms: [wrap],
       });
       return result;

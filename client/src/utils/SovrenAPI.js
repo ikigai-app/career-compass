@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 
-const resumeParser = async (data) => {
+const resumeParser = async (payload) => {
   try {
     const END_POINT = Constants.manifest.extra.sovren_endPoint;
     const ACCOUNT_ID = Constants.manifest.extra.sovren_accountID;
@@ -14,7 +14,7 @@ const resumeParser = async (data) => {
         "Sovren-AccountId": ACCOUNT_ID,
         "Sovren-ServiceKey": SERVICE_KEY,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
     const res = await response.json();
     return res;

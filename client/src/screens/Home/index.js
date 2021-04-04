@@ -1,103 +1,11 @@
-import React, { useState } from "react";
-import Button from "../../components/Button";
+import React from "react";
 import { RootSafeAreaView } from "../../styles/RootView";
-import { gql, useMutation } from "@apollo/client";
-import { ActivityIndicator, Text, View, Platform } from "react-native";
-import * as DocumentPicker from "expo-document-picker";
-import { encodeB64 } from "../../utils/base64";
-import SampleJSON from "../../JSON/Sample.json";
-import validateJson from "../../utils/JSONValidator";
-import resumeParser from "../../utils/SovrenAPI";
-// import GraphqlTest from "../../components/GraphqlTest";
-import * as FileSystem from "expo-file-system";
-
-const ADD_USER = gql`
-  mutation addUser($userName: String!, $SovrenResponse: SovrenResponseInput) {
-    addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
-      userName
-    }
-  }
-`;
-
-const base64 = async (url) => {
-  return FileSystem.readAsStringAsync(url, {
-    encoding: FileSystem.EncodingType.Base64,
-  });
-};
-
-const encoder = async (file) => {
-  if (Platform.OS === "web") {
-    return encodeB64(file);
-  } else {
-    return await base64(file);
-  }
-};
+import UploadComponent from "../../components/Upload";
 
 export default function HomeScreen() {
-  const [loading, setLoading] = useState(false);
-  const [addUser] = useMutation(ADD_USER);
-
-  const uploadDocument = async () => {
-    let file = await DocumentPicker.getDocumentAsync({});
-
-    const encodeFile = await encoder(file.uri);
-
-    const data = {
-      DocumentAsBase64String: encodeFile,
-      DocumentLastModified: new Date().toISOString().substring(0, 10),
-    };
-
-    console.log("upload data", data);
-
-    //sovren api
-    // const res = await resumeParser(data);
-    // console.log("Sovren res", res);
-    // setLoading(true);
-    // if (res) {
-    //   uploadResumeData(res);
-    // }
-  };
-
-  //to upload to db
-  // const uploadResumeData = async (res) => {
-  const uploadResumeData = async () => {
-    const SovrenResponse = validateJson(JSON.stringify(SampleJSON));
-
-    // const SovrenResponse = validateJson(JSON.stringify(res));
-
-    if (SovrenResponse.value) {
-      let filteredResponse = SovrenResponse.value;
-
-      if (filteredResponse.Value) {
-        //deleting HTML sections
-        delete filteredResponse.Value.Conversions;
-
-        const userName =
-          filteredResponse.Value.ResumeData.ContactInformation
-            .EmailAddresses[0];
-
-        await addUser({
-          variables: {
-            userName: "Test4",
-            SovrenResponse: filteredResponse,
-          },
-        });
-      }
-    }
-    setLoading(false);
-  };
-
   return (
     <RootSafeAreaView>
-      {loading ? (
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <ActivityIndicator size="large" color="slategray" />
-        </View>
-      ) : (
-        <>
-          <Button text="UPLOAD" onPress={() => uploadResumeData()} />
-        </>
-      )}
+      <UploadComponent />
     </RootSafeAreaView>
   );
 }

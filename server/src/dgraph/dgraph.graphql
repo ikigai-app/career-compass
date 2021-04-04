@@ -1,6 +1,5 @@
-# https://transform.tools/json-to-graphql
-# https://github.com/walmartlabs/json-to-simple-graphql-schema
-# to transform Sovren Response into a GraphQL schema
+# Using transform tool to convert JSON into graphql https://transform.tools/json-to-graphql
+# alternative if transform not work https://github.com/walmartlabs/json-to-simple-graphql-schema . But, not accurate as transform tools.
 
 # !imp: plz update  server/src/schema/schema.graphql whenever any changes done on this file
 

@@ -8,6 +8,7 @@ const resumeParser = async (data) => {
 
     const response = await fetch(END_POINT, {
       method: "POST",
+      crossDomain: true,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

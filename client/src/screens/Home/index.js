@@ -1,17 +1,15 @@
-// import Constants from "expo-constants";
 import React, { useState } from "react";
 import Button from "../../components/Button";
 import { RootSafeAreaView } from "../../styles/RootView";
-import { from, gql, useMutation } from "@apollo/client";
-import { ActivityIndicator, Text, View } from "react-native";
+import { gql, useMutation } from "@apollo/client";
+import { ActivityIndicator, Text, View, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 // import SampleJSON3 from "../../JSON/Sample3.json";
 import validateJson from "../../utils/JSONValidator";
 import resumeParser from "../../utils/SovrenAPI";
-import GraphqlTest from "../../components/GraphqlTest";
-// import moment from "moment";
-// import * as FileSystem from "expo-file-system";
+// import GraphqlTest from "../../components/GraphqlTest";
+import * as FileSystem from "expo-file-system";
 
 const ADD_USER = gql`
   mutation addUser($userName: String!, $SovrenResponse: SovrenResponseInput) {
@@ -21,26 +19,43 @@ const ADD_USER = gql`
   }
 `;
 
+const base64 = async (url) => {
+  return FileSystem.readAsStringAsync(url, {
+    encoding: FileSystem.EncodingType.Base64,
+  });
+};
+
+const encoder = async (file) => {
+  if (Platform.OS === "web") {
+    return encodeB64(file);
+  } else {
+    return await base64(file);
+  }
+};
+
 export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
   const [addUser] = useMutation(ADD_USER);
 
   const uploadDocument = async () => {
-    let file = await DocumentPicker.getDocumentAsync({});
+    let file = await DocumentPicker.getDocumentAsync({
+      // copyToCacheDirectory: false,
+      // type: "*/*",
+    });
 
-    const encodeFile = encodeB64(file.uri);
+    const encodeFile = await encoder(file.uri);
+
     const data = {
       DocumentAsBase64String: encodeFile,
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
 
-    // console.log("Upload details", data);
-    const res = await resumeParser(data);
-    // console.log("Sovren res", res);
-    setLoading(true);
-    if (res) {
-      uploadResumeData(res);
-    }
+    // const res = await resumeParser(data);
+    // // console.log("Sovren res", res);
+    // setLoading(true);
+    // if (res) {
+    //   uploadResumeData(res);
+    // }
   };
 
   //to upload to db
@@ -58,7 +73,7 @@ export default function HomeScreen() {
 
     await addUser({
       variables: {
-        userName: userName,
+        userName: "MKS",
         SovrenResponse: filteredResponse,
       },
     });

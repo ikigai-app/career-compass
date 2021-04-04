@@ -51,12 +51,14 @@ export default function HomeScreen() {
     };
 
     console.log("upload data", data);
-    // const res = await resumeParser(data);
-    // console.log("Sovren res", res);
-    // setLoading(true);
-    // if (res) {
-    //   uploadResumeData(res);
-    // }
+
+    //sovren api
+    const res = await resumeParser(data);
+    console.log("Sovren res", res);
+    setLoading(true);
+    if (res) {
+      uploadResumeData(res);
+    }
   };
 
   //to upload to db
@@ -76,7 +78,7 @@ export default function HomeScreen() {
 
       await addUser({
         variables: {
-          userName: "MKS",
+          userName: "Test1",
           SovrenResponse: filteredResponse,
         },
       });

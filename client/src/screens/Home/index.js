@@ -1,3 +1,4 @@
+// import Constants from "expo-constants";
 import React, { useState } from "react";
 import Button from "../../components/Button";
 import { RootSafeAreaView } from "../../styles/RootView";
@@ -9,6 +10,8 @@ import { encodeB64 } from "../../utils/base64";
 import validateJson from "../../utils/JSONValidator";
 import resumeParser from "../../utils/SovrenAPI";
 import GraphqlTest from "../../components/GraphqlTest";
+// import moment from "moment";
+// import * as FileSystem from "expo-file-system";
 
 const ADD_USER = gql`
   mutation addUser($userName: String!, $SovrenResponse: SovrenResponseInput) {
@@ -24,12 +27,16 @@ export default function HomeScreen() {
 
   const uploadDocument = async () => {
     let file = await DocumentPicker.getDocumentAsync({});
+
     const encodeFile = encodeB64(file.uri);
     const data = {
       DocumentAsBase64String: encodeFile,
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
+
+    // console.log("Upload details", data);
     const res = await resumeParser(data);
+    // console.log("Sovren res", res);
     setLoading(true);
     if (res) {
       uploadResumeData(res);
@@ -67,13 +74,7 @@ export default function HomeScreen() {
         </View>
       ) : (
         <>
-          <Button
-            text="UPLOAD"
-            onPress={
-              () => uploadDocument()
-              // () => uploadResumeData() //for mock test
-            }
-          />
+          <Button text="UPLOAD" onPress={() => uploadDocument()} />
           {/* <GraphqlTest /> */}
         </>
       )}

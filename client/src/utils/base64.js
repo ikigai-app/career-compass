@@ -54,6 +54,7 @@
       t = Base64._utf8_decode(t);
       return t;
     },
+
     _utf8_encode: function (e) {
       e = e.replace(/rn/g, "n");
       var t = "";

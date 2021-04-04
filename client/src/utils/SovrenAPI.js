@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 
-export default resumeParser = async (data) => {
+const resumeParser = async (data) => {
   try {
     const END_POINT = Constants.manifest.extra.sovren_endPoint;
     const ACCOUNT_ID = Constants.manifest.extra.sovren_accountID;
@@ -22,3 +22,5 @@ export default resumeParser = async (data) => {
     console.error(error);
   }
 };
+
+export default resumeParser;

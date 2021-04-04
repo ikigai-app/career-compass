@@ -2,10 +2,10 @@ import React from "react";
 import { RootSafeAreaView } from "../../styles/RootView";
 import UploadComponent from "../../components/Upload";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <RootSafeAreaView>
-      <UploadComponent />
+      <UploadComponent navigation={navigation} />
     </RootSafeAreaView>
   );
 }

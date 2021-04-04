@@ -31,16 +31,17 @@ const encoder = async (file) => {
   }
 };
 
-export default function UploadComponent() {
+export default function UploadComponent({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [addUser] = useMutation(ADD_USER, {
     onCompleted({ addUser }) {
       if (addUser) {
-        console.log("Success.....", addUser);
+        // console.log("Success.....", addUser);
+        navigation.navigate("UserDetails", { userName: addUser.userName });
       }
     },
     onError({ addUser }) {
-      console.log("Error");
+      alert("Unable to Save the Records!");
     },
   });
 
@@ -56,7 +57,7 @@ export default function UploadComponent() {
 
     // console.log("upload data", payload);
 
-    // // sovren api
+    // sovren api
     const res = await resumeParser(payload);
     console.log("Sovren res", res);
     setLoading(true);
@@ -84,13 +85,13 @@ export default function UploadComponent() {
 
         await addUser({
           variables: {
-            userName: "Test3123",
+            userName: "Test1131",
             SovrenResponse: filteredResponse,
           },
         });
       }
     } else {
-      console.log("error msg");
+      alert("Unable to Save the Records!");
     }
 
     setLoading(false);
@@ -104,7 +105,7 @@ export default function UploadComponent() {
         </View>
       ) : (
         <>
-          <Button text="UPLOAD" onPress={() => uploadResumeData()} />
+          <Button text="UPLOAD" onPress={() => uploadDocument()} />
         </>
       )}
     </View>

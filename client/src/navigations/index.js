@@ -3,10 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/Home";
+import UserDetailsScreen from "../screens/UserDetails";
 
 const config = {
   screens: {
     Home: "home",
+    UserDetails: "userDetails",
   },
 };
 
@@ -23,6 +25,13 @@ const RootScreen = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="UserDetails"
+        component={UserDetailsScreen}
         options={{
           headerShown: false,
         }}

@@ -33,7 +33,16 @@ const encoder = async (file) => {
 
 export default function UploadComponent() {
   const [loading, setLoading] = useState(false);
-  const [addUser, { data }] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER, {
+    onCompleted({ addUser }) {
+      if (addUser) {
+        console.log("Success.....", addUser);
+      }
+    },
+    onError({ addUser }) {
+      console.log("Error");
+    },
+  });
 
   const uploadDocument = async () => {
     let file = await DocumentPicker.getDocumentAsync({});
@@ -45,9 +54,9 @@ export default function UploadComponent() {
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
 
-    console.log("upload data", payload);
+    // console.log("upload data", payload);
 
-    // sovren api
+    // // sovren api
     const res = await resumeParser(payload);
     console.log("Sovren res", res);
     setLoading(true);
@@ -59,9 +68,8 @@ export default function UploadComponent() {
   //to upload to db
   const uploadResumeData = async (res) => {
     //   const uploadResumeData = async () => {
-    // const SovrenResponse = validateJson(JSON.stringify(ResumeOne));
-
     const SovrenResponse = validateJson(JSON.stringify(res));
+    // const SovrenResponse = validateJson(JSON.stringify(ResumeOne));
 
     if (SovrenResponse.value) {
       let filteredResponse = SovrenResponse.value;
@@ -76,14 +84,13 @@ export default function UploadComponent() {
 
         await addUser({
           variables: {
-            userName: "Test6121",
+            userName: "Test3123",
             SovrenResponse: filteredResponse,
           },
         });
       }
     } else {
-      //
-      //   console.log("error msg");
+      console.log("error msg");
     }
 
     setLoading(false);

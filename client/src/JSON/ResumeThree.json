@@ -1,0 +1,88 @@
+{
+    "Info": {
+        "Code": "Success",
+        "Message": "Successful transaction",
+        "TransactionId": "5c2c5d0b-bee2-454d-8edf-b4fde9cc2171",
+        "EngineVersion": "9.6.1.0",
+        "ApiVersion": "10.0.0.0",
+        "TotalElapsedMilliseconds": 1328,
+        "CustomerDetails": {
+            "AccountId": "74282365",
+            "Name": "Career Compass",
+            "IPAddress": "122.168.172.34",
+            "Region": "us-east-1",
+            "CreditsRemaining": 9986,
+            "CreditsUsed": 12,
+            "ExpirationDate": "2027-04-04",
+            "MaximumConcurrentRequests": 1
+        }
+    },
+    "Value": {
+        "ParsingResponse": {
+            "Code": "Success",
+            "Message": "Successful transaction"
+        },
+        "ResumeData": {
+            "ContactInformation": {},
+            "EmploymentHistory": {
+                "ExperienceSummary": {
+                    "Description": "",
+                    "MonthsOfWorkExperience": 0,
+                    "MonthsOfManagementExperience": 0,
+                    "ExecutiveType": "NONE",
+                    "AverageMonthsPerEmployer": 0,
+                    "FulltimeDirectHirePredictiveIndex": 50,
+                    "ManagementStory": "",
+                    "CurrentManagementLevel": "",
+                    "ManagementScore": 0
+                }
+            },
+            "ResumeMetadata": {
+                "FoundSections": [],
+                "DocumentLanguage": "en",
+                "DocumentCulture": "en-US",
+                "ParserSettings": "Coverage.PersonalAttributes = True; Coverage.Training = True; Culture.CountryCodeForUnitedKingdomIsUK = True; Culture.DefaultCountryCode = US; Culture.Language = English; Culture.PreferEnglishVersionIfTwoLanguagesInDocument = False; Data.UserDefinedParsing = False; OutputFormat.AssumeCompanyNameFromPrecedingJob = False; OutputFormat.ContactMethod.PackStyle = Split; OutputFormat.DateOutputStyle = ExplicitlyKnownDateInfoOnly; OutputFormat.NestJobsBasedOnDateRanges = True; OutputFormat.NormalizeRegions = False; OutputFormat.SkillsStyle = Default; OutputFormat.StripParsedDataFromPositionHistoryDescription = True; OutputFormat.TelcomNumber.Style = Raw; OutputFormat.XmlFormat = HrXmlResume25",
+                "DocumentLastModified": "2021-04-04",
+                "SovrenSignature": [
+                    "FtH///////8="
+                ]
+            }
+        },
+        "RedactedResumeData": {
+            "ContactInformation": {},
+            "EmploymentHistory": {
+                "ExperienceSummary": {
+                    "Description": "",
+                    "MonthsOfWorkExperience": 0,
+                    "MonthsOfManagementExperience": 0,
+                    "ExecutiveType": "NONE",
+                    "AverageMonthsPerEmployer": 0,
+                    "FulltimeDirectHirePredictiveIndex": 50,
+                    "ManagementStory": "",
+                    "CurrentManagementLevel": "",
+                    "ManagementScore": 0
+                }
+            },
+            "ResumeMetadata": {
+                "FoundSections": [],
+                "DocumentLanguage": "en",
+                "DocumentCulture": "en-US",
+                "ParserSettings": "Coverage.PersonalAttributes = True; Coverage.Training = True; Culture.CountryCodeForUnitedKingdomIsUK = True; Culture.DefaultCountryCode = US; Culture.Language = English; Culture.PreferEnglishVersionIfTwoLanguagesInDocument = False; Data.UserDefinedParsing = False; OutputFormat.AssumeCompanyNameFromPrecedingJob = False; OutputFormat.ContactMethod.PackStyle = Split; OutputFormat.DateOutputStyle = ExplicitlyKnownDateInfoOnly; OutputFormat.NestJobsBasedOnDateRanges = True; OutputFormat.NormalizeRegions = False; OutputFormat.SkillsStyle = Default; OutputFormat.StripParsedDataFromPositionHistoryDescription = True; OutputFormat.TelcomNumber.Style = Raw; OutputFormat.XmlFormat = HrXmlResume25",
+                "DocumentLastModified": "2021-04-04",
+                "SovrenSignature": [
+                    "FtH///////8="
+                ]
+            }
+        },
+        "ConversionMetadata": {
+            "DetectedType": "Text",
+            "SuggestedFileExtension": "txt",
+            "OutputValidityCode": "ovAvgWordLengthGreaterThan20",
+            "ElapsedMilliseconds": 78
+        },
+        "ParsingMetadata": {
+            "ElapsedMilliseconds": 15,
+            "TimedOut": false
+        }
+    }
+}

@@ -4,7 +4,8 @@ import { View, Text, ActivityIndicator, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 import Button from "../Button/";
-import ResumeOne from "../../JSON/ResumeOne.json";
+// import ResumeOne from "../../JSON/ResumeOne.json";
+import ResumeFour from "../../JSON/ResumeFour.json";
 import validateJson from "../../utils/JSONValidator";
 import * as FileSystem from "expo-file-system";
 import resumeParser from "../../utils/SovrenAPI";
@@ -55,11 +56,12 @@ export default function UploadComponent({ navigation }) {
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
 
-    // console.log("upload data", payload);
+    console.log("upload data", payload);
 
-    // sovren api
+    // // sovren api
     const res = await resumeParser(payload);
     console.log("Sovren res", res);
+    console.log("Sovren res", JSON.stringify(res));
     setLoading(true);
     if (res) {
       uploadResumeData(res);
@@ -70,7 +72,7 @@ export default function UploadComponent({ navigation }) {
   const uploadResumeData = async (res) => {
     //   const uploadResumeData = async () => {
     const SovrenResponse = validateJson(JSON.stringify(res));
-    // const SovrenResponse = validateJson(JSON.stringify(ResumeOne));
+    // const SovrenResponse = validateJson(JSON.stringify(ResumeFour));
 
     if (SovrenResponse.value) {
       let filteredResponse = SovrenResponse.value;
@@ -79,13 +81,9 @@ export default function UploadComponent({ navigation }) {
         //deleting HTML sections
         delete filteredResponse.Value.Conversions;
 
-        const userName =
-          filteredResponse.Value.ResumeData.ContactInformation
-            .EmailAddresses[0];
-
         await addUser({
           variables: {
-            userName: "Test1131",
+            userName: "ResumeFive",
             SovrenResponse: filteredResponse,
           },
         });

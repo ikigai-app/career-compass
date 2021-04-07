@@ -910,3 +910,51 @@ type SovrenResponse
   Value: Value
   Info: Info
 }
+
+#
+# Occupation  Schema
+#
+type Occupation
+  @generate(
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
+    subscription: false
+  ) {
+  id: ID!
+  name: String
+  description: String
+  connectPeople: [ConnectPeople]
+  skillsRequired: [SkillsRequired]
+}
+
+type ConnectPeople
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  name: String
+  profilePic: String
+  socialMedia: [SocialMedia]
+}
+
+type SocialMedia
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  type: String
+  url: String
+  description: String
+}
+
+type SkillsRequired
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  skill: String
+  quantifier: Int
+}

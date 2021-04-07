@@ -1,0 +1,28 @@
+type Query {
+  queryOccupation(first: Int, offset: Int): [Occupation]
+}
+
+type Occupation {
+  id: ID!
+  name: String
+  description: String
+  connectPeople: [ConnectPeople]
+  skillsRequired: [SkillsRequired]
+}
+
+type ConnectPeople {
+  name: String
+  profilePic: String
+  socialMedia: [SocialMedia]
+}
+
+type SocialMedia {
+  type: String
+  url: String
+  description: String
+}
+
+type SkillsRequired {
+  skill: String
+  quantifier: Int
+}

@@ -1,5 +1,5 @@
 require("graphql-import-node/register");
-const typeDefs = require("./schema/schema.graphql");
+const typeDefs = require("./typeDefs.js");
 const { makeExecutableSchema } = require("apollo-server-express");
 const { buildResolvers } = require("./resolvers/index.js");
 

@@ -3,24 +3,44 @@
 
 # !imp: plz update  server/src/schema/schema.graphql whenever any changes done on this file
 
-type User {
+type User
+  @generate(
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
+    subscription: false
+  ) {
   userName: String! @id
   SovrenResponse: SovrenResponse
   InvalidSovrenJSON: String
 }
 
-type TimedOutAtMilliseconds {
+type TimedOutAtMilliseconds
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Int
 }
 
-type ParsingMetadata {
+type ParsingMetadata
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   ElapsedMilliseconds: Int
   TimedOut: Boolean
   LicenseSerialNumber: String
   TimedOutAtMilliseconds: TimedOutAtMilliseconds
 }
 
-type Conversions {
+type Conversions
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   PDF: String
   HTML: String
   RTF: String
@@ -28,14 +48,24 @@ type Conversions {
   CandidateImageExtension: String
 }
 
-type ConversionMetadata {
+type ConversionMetadata
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   DetectedType: String
   SuggestedFileExtension: String
   OutputValidityCode: String
   ElapsedMilliseconds: Int
 }
 
-type ReservedData {
+type ReservedData
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   OtherData: [String]
   Urls: [String]
   EmailAddresses: [String]
@@ -43,30 +73,55 @@ type ReservedData {
   Phones: [String]
 }
 
-type SectionIdentifiers {
+type SectionIdentifiers
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   SectionType: String
   Id: String
 }
 
-type Findings {
+type Findings
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   QualityCode: String
   Message: String
   SectionIdentifiers: [SectionIdentifiers]
 }
 
-type ResumeQuality {
+type ResumeQuality
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Level: String
   Findings: [Findings]
 }
 
-type FoundSections {
+type FoundSections
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   FirstLineNumber: Int
   LastLineNumber: Int
   SectionType: String
   HeaderTextFound: String
 }
 
-type ResumeMetadata {
+type ResumeMetadata
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   PlainText: String
   DocumentLanguage: String
   DocumentCulture: String
@@ -78,7 +133,12 @@ type ResumeMetadata {
   FoundSections: [FoundSections]
 }
 
-type EndDate {
+type EndDate
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Date: String
   IsCurrentDate: Boolean
   FoundYear: Boolean
@@ -86,7 +146,12 @@ type EndDate {
   FoundDay: Boolean
 }
 
-type StartDate {
+type StartDate
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Date: String
   IsCurrentDate: Boolean
   FoundYear: Boolean
@@ -94,7 +159,12 @@ type StartDate {
   FoundDay: Boolean
 }
 
-type Trainings {
+type Trainings
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Text: String
   Entity: String
   EndDate: EndDate
@@ -102,23 +172,43 @@ type Trainings {
   Qualifications: [String]
 }
 
-type Training {
+type Training
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Text: String
   Trainings: [Trainings]
 }
 
-type WebAddresses {
+type WebAddresses
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Address: String
   Type: String
 }
 
-type GeoCoordinates {
+type GeoCoordinates
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Latitude: Int
   Longitude: Int
   Source: String
 }
 
-type Location {
+type Location
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   CountryCode: String
   PostalCode: String
   Municipality: String
@@ -127,7 +217,12 @@ type Location {
   Regions: [String]
 }
 
-type ReferenceName {
+type ReferenceName
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   FormattedName: String
   Prefix: String
   GivenName: String
@@ -137,7 +232,12 @@ type ReferenceName {
   Suffix: String
 }
 
-type References {
+type References
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Title: String
   Company: String
   Type: String
@@ -148,18 +248,33 @@ type References {
   ReferenceName: ReferenceName
 }
 
-type SecurityCredentials {
+type SecurityCredentials
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Name: String
   FoundInContext: String
 }
 
-type Service {
+type Service
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Name: String
   Branch: String
   Rank: String
 }
 
-type MilitaryExperience {
+type MilitaryExperience
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Country: String
   FoundInContext: String
   EndDate: EndDate
@@ -167,50 +282,100 @@ type MilitaryExperience {
   Service: Service
 }
 
-type LanguageCompetencies {
+type LanguageCompetencies
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Language: String
   LanguageCode: String
   FoundInContext: String
 }
 
-type Associations {
+type Associations
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Organization: String
   Role: String
   FoundInContext: String
 }
 
-type Licenses {
+type Licenses
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Name: String
   MatchedFromList: Boolean
 }
 
-type Certifications {
+type Certifications
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Name: String
   MatchedFromList: Boolean
 }
 
-type ChildrenLastUsed {
+type ChildrenLastUsed
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: String
 }
 
-type ChildrenMonthsExperience {
+type ChildrenMonthsExperience
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Int
 }
 
-type LastUsed {
+type LastUsed
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: String
 }
 
-type MonthsExperience {
+type MonthsExperience
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Int
 }
 
-type FoundIn {
+type FoundIn
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   SectionType: String
   Id: String
 }
 
-type Variations {
+type Variations
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Id: String
   Name: String
   ExistsInText: Boolean
@@ -219,7 +384,12 @@ type Variations {
   MonthsExperience: MonthsExperience
 }
 
-type Skills {
+type Skills
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Id: String
   Name: String
   ExistsInText: Boolean
@@ -231,7 +401,12 @@ type Skills {
   FoundIn: [FoundIn]
 }
 
-type SubTaxonomies {
+type SubTaxonomies
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   PercentOfOverall: Int
   PercentOfParent: Int
   SubTaxonomyId: String
@@ -239,52 +414,97 @@ type SubTaxonomies {
   Skills: [Skills]
 }
 
-type Taxonomies {
+type Taxonomies
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Id: String
   Name: String
   PercentOfOverall: Int
   SubTaxonomies: [SubTaxonomies]
 }
 
-type SkillsData {
+type SkillsData
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Root: String
   Taxonomies: [Taxonomies]
 }
 
-type Bullets {
+type Bullets
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Type: String
   Text: String
 }
 
-type NumberEmployeesSupervised {
+type NumberEmployeesSupervised
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Int
 }
 
-type JobTitle {
+type JobTitle
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Raw: String
   Normalized: String
   Probability: String
   Variations: [String]
 }
 
-type OtherFoundName {
+type OtherFoundName
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Raw: String
   Normalized: String
 }
 
-type Name {
+type Name
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Probability: String
   Raw: String
   Normalized: String
 }
 
-type Employer {
+type Employer
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Location: Location
   OtherFoundName: OtherFoundName
   Name: Name
 }
 
-type ExperienceSummary {
+type ExperienceSummary
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Description: String
   MonthsOfWorkExperience: Int
   MonthsOfManagementExperience: Int
@@ -297,16 +517,31 @@ type ExperienceSummary {
   AttentionNeeded: String
 }
 
-type EmploymentHistory {
+type EmploymentHistory
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Positions: [Positions]
   ExperienceSummary: ExperienceSummary
 }
 
-type Graduated {
+type Graduated
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Boolean
 }
 
-type LastEducationDate {
+type LastEducationDate
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Date: String
   IsCurrentDate: Boolean
   FoundYear: Boolean
@@ -314,7 +549,12 @@ type LastEducationDate {
   FoundDay: Boolean
 }
 
-type Gpa {
+type Gpa
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Score: String
   ScoringSystem: String
   MaxScore: String
@@ -322,17 +562,32 @@ type Gpa {
   NormalizedScore: Int
 }
 
-type Degree {
+type Degree
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Type: String
   Name: Name
 }
 
-type SchoolName {
+type SchoolName
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Raw: String
   Normalized: String
 }
 
-type EducationDetails {
+type EducationDetails
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Id: String
   Text: String
   SchoolType: String
@@ -346,27 +601,52 @@ type EducationDetails {
   SchoolName: SchoolName
 }
 
-type HighestDegree {
+type HighestDegree
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Type: String
   Name: Name
 }
 
-type Education {
+type Education
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   EducationDetails: [EducationDetails]
   HighestDegree: HighestDegree
 }
 
-type RequiredSalary {
+type RequiredSalary
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Currency: String
   Amount: Int
 }
 
-type NationalIdentities {
+type NationalIdentities
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Number: String
   Phrase: String
 }
 
-type DateOfBirth {
+type DateOfBirth
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Date: String
   IsCurrentDate: Boolean
   FoundYear: Boolean
@@ -374,12 +654,22 @@ type DateOfBirth {
   FoundDay: Boolean
 }
 
-type CurrentSalary {
+type CurrentSalary
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Currency: String
   Amount: Int
 }
 
-type PersonalAttributes {
+type PersonalAttributes
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Availability: String
   Birthplace: String
   CurrentLocation: String
@@ -403,7 +693,12 @@ type PersonalAttributes {
   CurrentSalary: CurrentSalary
 }
 
-type Telephones {
+type Telephones
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Raw: String
   Normalized: String
   InternationalCountryCode: String
@@ -411,7 +706,12 @@ type Telephones {
   SubscriberNumber: String
 }
 
-type CandidateName {
+type CandidateName
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   FormattedName: String
   Prefix: String
   GivenName: String
@@ -421,7 +721,12 @@ type CandidateName {
   Suffix: String
 }
 
-type ContactInformation {
+type ContactInformation
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   WebAddresses: [WebAddresses]
   Location: Location
   EmailAddresses: [String]
@@ -429,7 +734,12 @@ type ContactInformation {
   CandidateName: CandidateName
 }
 
-type RedactedResumeData {
+type RedactedResumeData
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   ProfessionalSummary: String
   Objective: String
   CoverLetter: String
@@ -456,7 +766,12 @@ type RedactedResumeData {
   ContactInformation: ContactInformation
 }
 
-type Positions {
+type Positions
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Id: String
   IsSelfEmployed: Boolean
   IsCurrent: Boolean
@@ -477,7 +792,12 @@ type Positions {
   Employer: Employer
 }
 
-type ResumeData {
+type ResumeData
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   ProfessionalSummary: String
   Objective: String
   CoverLetter: String
@@ -504,22 +824,42 @@ type ResumeData {
   ContactInformation: ContactInformation
 }
 
-type IndexingResponse {
+type IndexingResponse
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Code: String
   Message: String
 }
 
-type GeocodeResponse {
+type GeocodeResponse
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Code: String
   Message: String
 }
 
-type ParsingResponse {
+type ParsingResponse
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Code: String
   Message: String
 }
 
-type Value {
+type Value
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   ParsingMetadata: ParsingMetadata
   Conversions: Conversions
   ConversionMetadata: ConversionMetadata
@@ -530,7 +870,12 @@ type Value {
   ParsingResponse: ParsingResponse
 }
 
-type CustomerDetails {
+type CustomerDetails
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   AccountId: String
   Name: String
   IPAddress: String
@@ -541,7 +886,12 @@ type CustomerDetails {
   MaximumConcurrentRequests: Int
 }
 
-type Info {
+type Info
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Code: String
   Message: String
   TransactionId: String
@@ -551,7 +901,12 @@ type Info {
   CustomerDetails: CustomerDetails
 }
 
-type SovrenResponse {
+type SovrenResponse
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
   Value: Value
   Info: Info
 }

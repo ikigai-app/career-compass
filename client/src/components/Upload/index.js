@@ -4,8 +4,8 @@ import { View, Text, ActivityIndicator, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
 import Button from "../Button/";
-// import ResumeOne from "../../JSON/ResumeOne.json";
-import ResumeFour from "../../JSON/ResumeFour.json";
+import ResumeOne from "../../JSON/ResumeOne.json";
+// import ResumeFour from "../../JSON/ResumeFour.json";
 import validateJson from "../../utils/JSONValidator";
 import * as FileSystem from "expo-file-system";
 import resumeParser from "../../utils/SovrenAPI";
@@ -37,7 +37,6 @@ export default function UploadComponent({ navigation }) {
   const [addUser] = useMutation(ADD_USER, {
     onCompleted({ addUser }) {
       if (addUser) {
-        // console.log("Success.....", addUser);
         navigation.navigate("UserDetails", { userName: addUser.userName });
       }
     },
@@ -46,6 +45,7 @@ export default function UploadComponent({ navigation }) {
     },
   });
 
+  //using pdf + sovren  api
   const uploadDocument = async () => {
     let file = await DocumentPicker.getDocumentAsync({});
 
@@ -56,12 +56,10 @@ export default function UploadComponent({ navigation }) {
       DocumentLastModified: new Date().toISOString().substring(0, 10),
     };
 
-    console.log("upload data", payload);
-
     // // sovren api
     const res = await resumeParser(payload);
-    console.log("Sovren res", res);
-    console.log("Sovren res", JSON.stringify(res));
+    // console.log("Sovren res", res);
+    // console.log("Sovren res", JSON.stringify(res));
     setLoading(true);
     if (res) {
       uploadResumeData(res);
@@ -70,9 +68,7 @@ export default function UploadComponent({ navigation }) {
 
   //to upload to db
   const uploadResumeData = async (res) => {
-    //   const uploadResumeData = async () => {
     const SovrenResponse = validateJson(JSON.stringify(res));
-    // const SovrenResponse = validateJson(JSON.stringify(ResumeFour));
 
     if (SovrenResponse.value) {
       let filteredResponse = SovrenResponse.value;
@@ -95,6 +91,32 @@ export default function UploadComponent({ navigation }) {
     setLoading(false);
   };
 
+  //JSON data to upload
+  const uploadResumeDataJSON = async () => {
+    setLoading(true);
+    const SovrenResponse = validateJson(JSON.stringify(ResumeOne));
+
+    if (SovrenResponse.value) {
+      let filteredResponse = SovrenResponse.value;
+
+      if (filteredResponse.Value) {
+        //deleting HTML sections
+        delete filteredResponse.Value.Conversions;
+
+        await addUser({
+          variables: {
+            userName: "ResumeOne",
+            SovrenResponse: filteredResponse,
+          },
+        });
+      }
+    } else {
+      alert("Unable to Save the Records!");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <View>
       {loading ? (
@@ -103,7 +125,13 @@ export default function UploadComponent({ navigation }) {
         </View>
       ) : (
         <>
-          <Button text="UPLOAD" onPress={() => uploadDocument()} />
+          <Button
+            text="UPLOAD"
+            onPress={() =>
+              //  uploadDocument()
+              uploadResumeDataJSON()
+            }
+          />
         </>
       )}
     </View>

@@ -911,12 +911,9 @@ type SovrenResponse
   Info: Info
 }
 
-#
-# Occupation  Schema
-#
 type Occupation
   @generate(
-    query: { get: true, query: true, aggregate: false }
+    query: { query: true, get: true, aggregate: false }
     mutation: { add: true, update: true, delete: true }
     subscription: false
   ) {

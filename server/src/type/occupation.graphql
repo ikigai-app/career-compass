@@ -1,5 +1,10 @@
 type Query {
+  getOccupation(id: ID!): Occupation
   queryOccupation(first: Int, offset: Int): [Occupation]
+}
+
+type Mutation {
+  addOccupation(input: AddOccupationInput!): Occupation
 }
 
 type Occupation {
@@ -23,6 +28,30 @@ type SocialMedia {
 }
 
 type SkillsRequired {
+  skill: String
+  quantifier: Int
+}
+
+input AddOccupationInput {
+  name: String!
+  description: String
+  connectPeople: [ConnectPeopleInput]
+  skillsRequired: [SkillsRequiredInput]
+}
+
+input ConnectPeopleInput {
+  name: String
+  profilePic: String
+  socialMedia: [SocialMediaInput]
+}
+
+input SocialMediaInput {
+  type: String
+  url: String
+  description: String
+}
+
+input SkillsRequiredInput {
   skill: String
   quantifier: Int
 }

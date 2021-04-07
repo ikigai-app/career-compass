@@ -1,11 +1,6 @@
 type Query {
   getUser(userName: String!): User
-  queryUser(
-    #  filter: UserFilter
-    #  order: UserOrder
-    first: Int
-    offset: Int
-  ): [User]
+  queryUser(first: Int, offset: Int): [User]
 }
 
 type Mutation {

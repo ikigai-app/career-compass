@@ -31,6 +31,36 @@ function buildMutation(schema) {
       });
       return result;
     },
+
+    addOccupation: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addOccupation"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "occupation" },
+          selectionSet: subtree,
+        }),
+        (result) => result.occupation[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addOccupation",
+        args: {
+          input: {
+            name: args.input.name,
+            description: args.input.description,
+            connectPeople: args.input.connectPeople,
+            skillsRequired: args.input.skillsRequired,
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
   };
 }
 

@@ -23,6 +23,26 @@ function buildQuery(schema) {
         info,
       });
     },
+    getOccupation: async (root, args, context, info) => {
+      return await delegateToSchema({
+        schema,
+        operation: "query",
+        fieldName: "getOccupation",
+        args,
+        context,
+        info,
+      });
+    },
+    queryOccupation: async (root, args, context, info) => {
+      return await delegateToSchema({
+        schema,
+        operation: "query",
+        fieldName: "queryOccupation",
+        args,
+        context,
+        info,
+      });
+    },
   };
 }
 

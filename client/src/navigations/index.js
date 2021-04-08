@@ -4,11 +4,13 @@ import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import UploadScreen from "../screens/Upload";
 import UserDetailsScreen from "../screens/UserDetails";
+import OccupationScreen from "../screens/Occupation";
 
 const config = {
   screens: {
     Upload: "upload",
     UserDetails: "userDetails",
+    OccupationScreen: "occupation",
   },
 };
 
@@ -21,7 +23,7 @@ const RootScreen = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator initialRouteName="Upload">
+    <Stack.Navigator initialRouteName="Occupation">
       <Stack.Screen
         name="Upload"
         component={UploadScreen}
@@ -32,6 +34,13 @@ const RootScreen = () => {
       <Stack.Screen
         name="UserDetails"
         component={UserDetailsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Occupation"
+        component={OccupationScreen}
         options={{
           headerShown: false,
         }}

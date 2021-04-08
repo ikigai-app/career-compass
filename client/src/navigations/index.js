@@ -2,12 +2,12 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { Text } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "../screens/Home";
+import UploadScreen from "../screens/Upload";
 import UserDetailsScreen from "../screens/UserDetails";
 
 const config = {
   screens: {
-    Home: "home",
+    Upload: "upload",
     UserDetails: "userDetails",
   },
 };
@@ -21,10 +21,10 @@ const RootScreen = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Upload">
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Upload"
+        component={UploadScreen}
         options={{
           headerShown: false,
         }}

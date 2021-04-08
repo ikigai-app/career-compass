@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import UploadScreen from "../screens/Upload";
 import UserDetailsScreen from "../screens/UserDetails";
 import OccupationScreen from "../screens/Occupation";
+import OccupationDetailsScreen from "../screens/Occupation/OccupationDetails";
 
 const config = {
   screens: {
@@ -19,33 +20,55 @@ const linking = {
   config,
 };
 
-const RootScreen = () => {
-  const Stack = createStackNavigator();
+const Root = createStackNavigator();
+const Occupation = createStackNavigator();
 
+const OccupationScreenRoot = () => {
   return (
-    <Stack.Navigator initialRouteName="Occupation">
-      <Stack.Screen
-        name="Upload"
-        component={UploadScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="UserDetails"
-        component={UserDetailsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
+    <Occupation.Navigator initialRouteName="Occupation">
+      <Occupation.Screen
         name="Occupation"
         component={OccupationScreen}
         options={{
           headerShown: false,
         }}
       />
-    </Stack.Navigator>
+      <Occupation.Screen
+        name="OccupationDetails"
+        component={OccupationDetailsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Occupation.Navigator>
+  );
+};
+
+const RootScreen = () => {
+  return (
+    <Root.Navigator initialRouteName="Occupation">
+      <Root.Screen
+        name="Upload"
+        component={UploadScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Root.Screen
+        name="UserDetails"
+        component={UserDetailsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Root.Screen
+        name="Occupation"
+        component={OccupationScreenRoot}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Root.Navigator>
   );
 };
 

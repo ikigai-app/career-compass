@@ -11,7 +11,7 @@ export default function UserDetailsScreen({ route, navigation }) {
     <RootSafeAreaView>
       <UserDetails userName={userName} />
       <View style={{ margin: 10 }} />
-      <Button text="BACK" onPress={() => navigation.navigate("Home")} />
+      <Button text="BACK" onPress={() => navigation.navigate("Upload")} />
     </RootSafeAreaView>
   );
 }

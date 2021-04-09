@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Text, FlatList, Platform } from "react-native";
 import Card from "../../components/Occupation/Card";
+import SearchBar from "../../components/SearchBar";
 import {
   RootView,
   FlatListContainer,
+  SearchBarContainer,
 } from "../../styles/Occupation/RootScreen";
 
 const DATA = [
@@ -38,6 +40,9 @@ export default function OccupationScreen({ route, navigation }) {
 
   return (
     <RootView>
+      <SearchBarContainer>
+        <SearchBar />
+      </SearchBarContainer>
       <FlatListContainer>
         <FlatList
           data={DATA}

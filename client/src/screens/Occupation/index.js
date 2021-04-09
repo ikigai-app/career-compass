@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, FlatList, Platform } from "react-native";
 import Button from "../../components/Button";
 import CircularButton from "../../components/Button/CircularButton";
-import Card from "../../components/Occupation/Card";
+import Card from "../../components/Occupation/Card/RootCard";
 import SearchBar from "../../components/SearchBar";
 import {
   RootView,

@@ -18,5 +18,10 @@ export const FlatListContainer = styled.View`
 export const SearchBarContainer = styled.View`
   display: flex;
   width: 100%;
-  margin-left: 20px;
+  margin: 0px 20px;
+  flex-direction: row;
+`;
+
+export const SearchButtonContainer = styled.View`
+  margin-left: ${Platform.OS === "web" ? `50px` : `0px`};
 `;

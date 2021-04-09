@@ -1,11 +1,13 @@
 import React from "react";
 import { View, Text, FlatList, Platform } from "react-native";
+import Button from "../../components/Button";
 import Card from "../../components/Occupation/Card";
 import SearchBar from "../../components/SearchBar";
 import {
   RootView,
   FlatListContainer,
   SearchBarContainer,
+  SearchButtonContainer,
 } from "../../styles/Occupation/RootScreen";
 
 const DATA = [
@@ -42,6 +44,13 @@ export default function OccupationScreen({ route, navigation }) {
     <RootView>
       <SearchBarContainer>
         <SearchBar />
+        {Platform.OS == "web" ? (
+          <SearchButtonContainer>
+            <Button text="CREATE" />
+          </SearchButtonContainer>
+        ) : (
+          <View />
+        )}
       </SearchBarContainer>
       <FlatListContainer>
         <FlatList

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, FlatList, Platform } from "react-native";
 import Button from "../../components/Button";
+import CircularButton from "../../components/Button/CircularButton";
 import Card from "../../components/Occupation/Card";
 import SearchBar from "../../components/SearchBar";
 import {
@@ -8,6 +9,7 @@ import {
   FlatListContainer,
   SearchBarContainer,
   SearchButtonContainer,
+  CircularButtonContainer,
 } from "../../styles/Occupation/RootScreen";
 
 const DATA = [
@@ -46,7 +48,7 @@ export default function OccupationScreen({ route, navigation }) {
         <SearchBar />
         {Platform.OS == "web" ? (
           <SearchButtonContainer>
-            <Button text="CREATE" />
+            <Button text="CREATE" onPress={() => console.log("test")} />
           </SearchButtonContainer>
         ) : (
           <View />
@@ -64,6 +66,13 @@ export default function OccupationScreen({ route, navigation }) {
           )}
         />
       </FlatListContainer>
+      {Platform.OS == "web" ? (
+        <View />
+      ) : (
+        <CircularButtonContainer>
+          <CircularButton />
+        </CircularButtonContainer>
+      )}
     </RootView>
   );
 }

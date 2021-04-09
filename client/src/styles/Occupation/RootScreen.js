@@ -4,8 +4,11 @@ import { BACKGROUND_COLOR } from "../colors";
 
 export const RootView = styled.View`
   flex: 1;
+  position: relative;
+
   margin: ${Platform.OS === "web" ? `80px` : "50px"}
-    ${Platform.OS === "web" ? `80px` : `2px`};
+    ${Platform.OS === "web" ? `80px` : `2px`}
+    ${Platform.OS === "web" ? `80px` : `15px`};
 `;
 
 export const FlatListContainer = styled.View`
@@ -13,6 +16,7 @@ export const FlatListContainer = styled.View`
   justify-content: center;
   align-content: center;
   margin-top: ${Platform.OS === "web" ? `35px` : `10px`};
+  flex: 1;
 `;
 
 export const SearchBarContainer = styled.View`
@@ -24,4 +28,10 @@ export const SearchBarContainer = styled.View`
 
 export const SearchButtonContainer = styled.View`
   margin-left: ${Platform.OS === "web" ? `50px` : `0px`};
+`;
+
+export const CircularButtonContainer = styled.View`
+  position: absolute;
+  bottom: 0;
+  right: 20px;
 `;

@@ -12,6 +12,7 @@ const config = {
     Upload: "upload",
     UserDetails: "userDetails",
     OccupationScreen: "occupation",
+    OccupationDetailsScreen: "OccupationDetails/:id",
   },
 };
 

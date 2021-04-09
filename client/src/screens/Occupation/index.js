@@ -40,8 +40,16 @@ const DATA = [
 ];
 
 export default function OccupationScreen({ route, navigation }) {
-  const renderCard = ({ item }) => <Card title={item.title} />;
-
+  const renderCard = ({ item }) => (
+    <Card
+      title={item.title}
+      onPress={() => {
+        navigation.navigate("OccupationDetails", {
+          id: item.title,
+        });
+      }}
+    />
+  );
   return (
     <RootView>
       <SearchBarContainer>

@@ -6,7 +6,7 @@ const Card = (props) => {
   return (
     <RootContainer
       onPress={() => {
-        // props.onPress();
+        props.onPress();
       }}
     >
       <Title>{props.title}</Title>

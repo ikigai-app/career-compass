@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 import UserDetails from "../../components/UserDetails/UserDetails";
 import { RootSafeAreaView } from "../../styles/RootView";
 

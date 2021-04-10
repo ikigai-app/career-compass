@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { View, Text, ActivityIndicator, Platform } from "react-native";
+import { View, ActivityIndicator, Platform } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { encodeB64 } from "../../utils/base64";
-import Button from "../Button/";
+import Button from "../common/Button";
 import ResumeOne from "../../JSON/ResumeOne.json";
-// import ResumeFour from "../../JSON/ResumeFour.json";
 import validateJson from "../../utils/JSONValidator";
 import * as FileSystem from "expo-file-system";
 import resumeParser from "../../utils/SovrenAPI";

@@ -5,7 +5,7 @@ import { BACKGROUND_COLOR } from "../colors";
 export const RootView = styled.View`
   flex: 1;
 
-  margin: ${Platform.OS === "web" ? `80px` : "50px"}
-    ${Platform.OS === "web" ? `80px` : `2px`}
-    ${Platform.OS === "web" ? `80px` : `15px`};
+  margin: ${Platform.OS === "web" ? `30px` : "50px"}
+    ${Platform.OS === "web" ? `30px` : `2px`}
+    ${Platform.OS === "web" ? `30px` : `15px`};
 `;

@@ -16,3 +16,29 @@ export const RootView = styled.View`
   padding: ${Platform.OS === "web" ? `25px` : `20px`};
   height: ${Platform.OS === "web" ? windowHeight - 60 : `auto`};
 `;
+
+export const PersonCardContainer = styled.View`
+  margin: 10px 0;
+  border-color: black;
+  padding: 10px 5px;
+  flex-direction: row;
+`;
+
+export const RightSection = styled.View`
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 5px;
+  flex: 1;
+`;
+
+export const NameContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const DescriptionContainer = styled.View`
+  width: ${Platform.OS === "web" ? `100%` : `100%`};
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 5px;
+`;

@@ -60,6 +60,7 @@ const TopCard = () => {
             borderWidth: editTitleIcon ? 1 : 0,
             color: "black",
             fontWeight: "bold",
+            padding: 4,
           }}
           onChangeText={onChangeTitle}
           editable={editTitleIcon}
@@ -85,6 +86,7 @@ const TopCard = () => {
             color: "black",
             fontWeight: "600",
             textAlign: "left",
+            padding: 4,
           }}
           onChangeText={onChangeDescription}
           editable={editDescriptionIcon}

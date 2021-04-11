@@ -18,10 +18,11 @@ export const RootView = styled.View`
 `;
 
 export const PersonCardContainer = styled.View`
-  margin: 10px 0;
+  margin: 20px 0;
   border-color: black;
   padding: 10px 5px;
   flex-direction: row;
+  position: relative;
 `;
 
 export const RightSection = styled.View`

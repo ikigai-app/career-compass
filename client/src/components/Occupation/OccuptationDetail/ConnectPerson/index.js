@@ -29,6 +29,18 @@ const CheckIcon = (props) => (
   />
 );
 
+const CloseIcon = (props) => (
+  <IconButton
+    iconType={"Ionicons"}
+    icon="close"
+    width={25}
+    height={25}
+    size={25}
+    color={"dimgrey"}
+    onPress={props.onPress}
+  />
+);
+
 const EditIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
@@ -108,6 +120,9 @@ const PersonCard = () => {
 
   return (
     <PersonCardContainer>
+      <View style={{ position: "absolute", right: 0, top: -20 }}>
+        <CloseIcon />
+      </View>
       <View>
         <Image
           style={{

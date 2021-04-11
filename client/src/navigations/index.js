@@ -47,7 +47,7 @@ const OccupationScreenRoot = () => {
 
 const RootScreen = () => {
   return (
-    <Root.Navigator initialRouteName="Occupation">
+    <Root.Navigator initialRouteName="Upload">
       <Root.Screen
         name="Upload"
         component={UploadScreen}

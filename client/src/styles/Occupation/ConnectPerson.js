@@ -14,5 +14,5 @@ export const RootView = styled.View`
     ${Platform.OS === "web" ? `auto` : `auto`};
   margin-left: ${Platform.OS === "web" ? `20px` : `auto`};
   padding: ${Platform.OS === "web" ? `25px` : `20px`};
-  height: ${windowHeight - 50};
+  height: ${Platform.OS === "web" ? windowHeight - 60 : `auto`};
 `;

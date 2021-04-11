@@ -33,14 +33,21 @@ const EditIcon = (props) => (
 );
 
 const TopCard = () => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("Data scientist");
   const [editTitleIcon, setEditTitleIcon] = useState(false);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(
+    "Data scientists turn raw data into meaningful information that organisations can use to improve their businesses."
+  );
   const [editDescriptionIcon, setEditDescriptionIcon] = useState(false);
 
   const onChangeTitle = (text) => {
     setTitle(text);
   };
+
+  const onChangeDescription = (text) => {
+    setDescription(text);
+  };
+
   return (
     <RootView>
       <TitleContainer>
@@ -56,6 +63,7 @@ const TopCard = () => {
           }}
           onChangeText={onChangeTitle}
           editable={editTitleIcon}
+          value={title}
         />
         {editTitleIcon ? (
           <CheckIcon onPress={() => setEditTitleIcon(false)} />
@@ -78,10 +86,11 @@ const TopCard = () => {
             fontWeight: "600",
             textAlign: "left",
           }}
-          onChangeText={onChangeTitle}
+          onChangeText={onChangeDescription}
           editable={editDescriptionIcon}
           multiline={true}
-          numberOfLines={5}
+          numberOfLines={4}
+          value={description}
         />
         {editDescriptionIcon ? (
           <CheckIcon onPress={() => setEditDescriptionIcon(false)} />

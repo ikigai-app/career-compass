@@ -10,3 +10,7 @@ export const RootView = styled.View`
     ${Platform.OS === "web" ? `30px` : `2px`}
     ${Platform.OS === "web" ? `30px` : `15px`};
 `;
+
+export const LeftSectionWeb = styled.View`
+  width: ${Platform.OS === "web" ? `70%` : "95"};
+`;

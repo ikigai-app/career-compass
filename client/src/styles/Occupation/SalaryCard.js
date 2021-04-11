@@ -8,17 +8,8 @@ export const RootView = styled.View`
   margin: 0 ${Platform.OS === "web" ? 0 : `10px`};
   padding: 30px 20px;
   flex-direction: column;
-  max-height: ${Platform.OS === "web" ? `250px` : `auto`};
-`;
 
-export const TitleContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
+  height: ${Platform.OS === "web" ? `500px` : `auto`};
 
-export const DescriptionContainer = styled.View`
-  width: ${Platform.OS === "web" ? `100%` : `100%`};
-  flex-direction: row;
-  align-items: flex-start;
-  margin-top: 5px;
+  margin-top: ${Platform.OS === "web" ? `10px` : `auto`};
 `;

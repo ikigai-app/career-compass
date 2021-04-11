@@ -13,7 +13,6 @@ function buildMutation(schema) {
         }),
         (result) => result.user[0]
       );
-
       const result = await delegateToSchema({
         schema,
         operation: "mutation",
@@ -21,12 +20,43 @@ function buildMutation(schema) {
         args: {
           input: {
             userName: args.input.userName,
-            firstName: args.input.firstName,
-            lastName: args.input.lastName,
+            SovrenResponse: args.input.SovrenResponse,
+            InvalidSovrenJSON: args.input.InvalidSovrenJSON,
           },
         },
         context,
         info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
+    addOccupation: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addOccupation"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "occupation" },
+          selectionSet: subtree,
+        }),
+        (result) => result.occupation[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addOccupation",
+        args: {
+          input: {
+            name: args.input.name,
+            description: args.input.description,
+            connectPeople: args.input.connectPeople,
+            skillsRequired: args.input.skillsRequired,
+          },
+        },
+        context,
+        info,
+
         transforms: [wrap],
       });
       return result;

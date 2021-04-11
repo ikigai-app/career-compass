@@ -4,6 +4,8 @@ import { BACKGROUND_COLOR } from "./colors";
 export const RootSafeAreaView = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.background || BACKGROUND_COLOR};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const RootScrollView = styled.ScrollView`

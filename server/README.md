@@ -28,87 +28,76 @@ $ docker network inspect <NETWORK_ID or NAME/>
 # take dgraph alpha server IP and pass it to .env DGRAPH_HOST
 ```
 
-##### Send the schema to Dgraph
+#### Dgraph Schema
+
+Go to `src/dgraph` and run the following command to export the schema
 
 ```shell
-
-curl -X POST localhost:8080/admin/schema --data-binary '
-type User {
-  userName: String! @id
-  firstName: String!
-  lastName: String!
-}
-'
+$ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
 ```
 
-Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
-
-##### Add some data:
-
-```shell
-mutation {
-  addUser(
-    input: [
-      { userName: "mks", firstName: "MKS", lastName: "mks" }
-      { userName: "dev", firstName: "Dev", lastName: "test" }
-    ]
-  ) {
-    user {
-      userName
-    }
-  }
-}
-```
+For Apollo Server `http://localhost:4000/graphql`
 
 ##### Query
 
 ```shell
-{
+# to query all the users
+query {
   queryUser {
     userName
-    firstName
-    lastName
+    SovrenResponse {
+      Info {
+        ApiVersion
+        CustomerDetails {
+          AccountId
+          MaximumConcurrentRequests
+        }
+      }
+    }
   }
+}
+
+
+
+# to query specific user
+query($userName: String!) {
+  getUser(userName: $userName) {
+    userName
+    # SovrenResponse
+  }
+}
+
+
+# Under Query Variables GraphQL-Playground
+{
+  "userName": "test1"
 }
 
 ```
 
-Use GraphQL Playground to run following queries and mutations at http://localhost:4000/graphql
+##### Mutation
 
 ```shell
-
-#getUser
-query($userName: String!) {
-  getUser(userName: $userName) {
+mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
+  addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
     userName
-    firstName
-    lastName
   }
 }
 
-#set variable
+# Under Query Variables GraphQL-Playground
 {
-  "userName":"dev"
-}
-
-#fetch all users
-{
-  queryUser {
-    userName
-    firstName
-    lastName
+  "userName": "test1",
+  "SovrenResponse": {
+    "Info": {
+      "Code": "Success",
+     "CustomerDetails": {
+      "AccountId": "1345",
+      "Name": "Test",
+      "MaximumConcurrentRequests": 10
+    }
+    }
   }
 }
-
-#add user
-mutation {
-  addUser(input: { userName: "test", firstName: "dev", lastName: "test" }) {
-    userName
-    # firstName
-    # lastNa
-  }
-}
-
 
 ```
 
@@ -125,3 +114,7 @@ GRAPHQL_ENDPOINT=" "
 ```
 
 Save it and follow client readme to run the app locally.
+
+## Transfrom JSON to SCHEMA
+
+https://transform.tools/json-to-graphql

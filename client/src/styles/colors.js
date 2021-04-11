@@ -12,3 +12,5 @@ export const GRAY_MEDIUM = "#cacaca";
 export const GRAY_DARK = "#8a8a8a";
 
 export const BACKGROUND_COLOR = "#fcfdff";
+
+export const BORDER_COLOR = "#8a8a8a";

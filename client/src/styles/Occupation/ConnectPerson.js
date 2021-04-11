@@ -42,3 +42,25 @@ export const DescriptionContainer = styled.View`
   align-items: flex-start;
   margin-top: 5px;
 `;
+
+export const IconContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+export const IconContainerChild = styled.View`
+  width: 90%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: flex-start;
+`;
+
+export const LinkBtnContainer = styled.TouchableOpacity`
+  margin: 5px;
+`;
+
+export const LinkUrlText = styled.Text`
+  color: midnightblue;
+  font-size: 14px;
+`;

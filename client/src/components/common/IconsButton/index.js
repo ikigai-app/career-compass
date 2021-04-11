@@ -20,7 +20,6 @@ const IconButton = (props) => {
       onPress={props.onPress}
     >
       {IconType()}
-      {/* <Ionicons name={icon} size={size} color={color} /> */}
     </TouchableOpacity>
   );
 };

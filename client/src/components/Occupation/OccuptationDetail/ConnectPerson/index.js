@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as Linking from "expo-linking";
 import { Text, View, Image, Platform } from "react-native";
 import {
   RootView,
@@ -6,6 +7,10 @@ import {
   RightSection,
   NameContainer,
   DescriptionContainer,
+  IconContainer,
+  LinkBtnContainer,
+  LinkUrlText,
+  IconContainerChild,
 } from "../../../../styles/Occupation/ConnectPerson";
 import Header from "../../../common/Header";
 import IconButton from "../../../common/IconsButton";
@@ -34,6 +39,30 @@ const EditIcon = (props) => (
     onPress={props.onPress}
   />
 );
+
+const PlusCircleIcon = (props) => (
+  <IconButton
+    iconType={"FontAwesome5"}
+    icon="plus-circle"
+    width={22}
+    height={22}
+    size={22}
+    color={"gray"}
+    onPress={props.onPress}
+  />
+);
+
+const LinkUrl = (props) => {
+  return (
+    <LinkBtnContainer
+      onPress={() => {
+        Linking.openURL("https://expo.io");
+      }}
+    >
+      <LinkUrlText>{props.name}</LinkUrlText>
+    </LinkBtnContainer>
+  );
+};
 
 const PersonCard = () => {
   const [name, setName] = useState("Person One");
@@ -115,6 +144,15 @@ const PersonCard = () => {
             <EditIcon onPress={() => setEditDescription(true)} />
           )}
         </DescriptionContainer>
+        <IconContainer>
+          <IconContainerChild>
+            <LinkUrl name={"Linkedin"} />
+            <LinkUrl name={"Medium"} />
+            <LinkUrl name={"GitHub"} />
+            <LinkUrl name={"Twitter"} />
+          </IconContainerChild>
+          <PlusCircleIcon onPress={() => {}} />
+        </IconContainer>
       </RightSection>
     </PersonCardContainer>
   );

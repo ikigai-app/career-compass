@@ -11,6 +11,7 @@ import {
   LinkBtnContainer,
   LinkUrlText,
   IconContainerChild,
+  SocialMediaContainer,
 } from "../../../../styles/Occupation/ConnectPerson";
 import Header from "../../../common/Header";
 import IconButton from "../../../common/IconsButton";
@@ -52,6 +53,18 @@ const PlusCircleIcon = (props) => (
   />
 );
 
+const PlusSquareIcon = (props) => (
+  <IconButton
+    iconType={"FontAwesome5"}
+    icon="plus-square"
+    width={30}
+    height={30}
+    size={30}
+    color={"gray"}
+    onPress={props.onPress}
+  />
+);
+
 const LinkUrl = (props) => {
   return (
     <LinkBtnContainer
@@ -73,12 +86,24 @@ const PersonCard = () => {
   );
   const [editDescription, setEditDescription] = useState(false);
 
+  const [socialInputVisible, setSocialInputVisible] = useState(false);
+
+  const [socialName, setSocialName] = useState("");
+  const [socialUrl, setSocialUrl] = useState("");
+
   const onChangeName = (text) => {
     setName(text);
   };
 
   const onChangeDescription = (text) => {
     setDescription(text);
+  };
+
+  const onChangeSocialName = (text) => {
+    setSocialName(text);
+  };
+  const onChangeSocialUrl = (text) => {
+    setSocialUrl(text);
   };
 
   return (
@@ -151,8 +176,56 @@ const PersonCard = () => {
             <LinkUrl name={"GitHub"} />
             <LinkUrl name={"Twitter"} />
           </IconContainerChild>
-          <PlusCircleIcon onPress={() => {}} />
+          {socialInputVisible ? (
+            <View />
+          ) : (
+            <PlusCircleIcon onPress={() => setSocialInputVisible(true)} />
+          )}
         </IconContainer>
+        {socialInputVisible ? (
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            <SocialMediaContainer>
+              <Input
+                placeholder={"Social Media Name"}
+                style={{
+                  fontSize: 14,
+                  borderWidth: 1,
+                  color: "dimgray",
+                  fontWeight: "500",
+                  padding: 2,
+                  paddingLeft: 10,
+                }}
+                onChangeText={onChangeSocialName}
+                value={socialName}
+              />
+              <Input
+                placeholder={"Social Media URL"}
+                style={{
+                  marginTop: 5,
+                  fontSize: 14,
+                  borderWidth: 1,
+                  color: "dimgray",
+                  fontWeight: "500",
+                  padding: 2,
+                  paddingLeft: 10,
+                }}
+                onChangeText={onChangeSocialUrl}
+                value={socialUrl}
+              />
+            </SocialMediaContainer>
+            <View>
+              <CheckIcon onPress={() => setSocialInputVisible(false)} />
+            </View>
+          </View>
+        ) : (
+          <View />
+        )}
       </RightSection>
     </PersonCardContainer>
   );
@@ -165,6 +238,8 @@ const ConnectPersonCard = () => {
       <View style={{ marginTop: 20 }} />
       <PersonCard />
       <PersonCard />
+
+      <PlusSquareIcon />
     </RootView>
   );
 };

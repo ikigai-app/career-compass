@@ -64,3 +64,8 @@ export const LinkUrlText = styled.Text`
   color: midnightblue;
   font-size: 14px;
 `;
+
+export const SocialMediaContainer = styled.View`
+  flex-direction: column;
+  width: 90%;
+`;

@@ -11,8 +11,8 @@ export const RootView = styled.View`
   flex-direction: column;
   /* height: ${Platform.OS === "web" ? `500px` : `auto`}; */
   margin-top: ${Platform.OS === "web" ? `10px` : `auto`};
-  height: auto;
-  flex: 1;
+  /* height: auto; */
+  /* flex: 1; */
 `;
 
 export const RootFlatListContainer = styled.View`

@@ -921,7 +921,7 @@ type Occupation
   name: String
   description: String
   connectPeople: [ConnectPeople]
-  skillsRequired: [SkillsRequired]
+  jobDescription: [JobDescription]
 }
 
 type ConnectPeople
@@ -931,6 +931,7 @@ type ConnectPeople
     subscription: false
   ) {
   name: String
+  description: String
   profilePic: String
   socialMedia: [SocialMedia]
 }
@@ -943,15 +944,15 @@ type SocialMedia
   ) {
   type: String
   url: String
-  description: String
 }
 
-type SkillsRequired
+type JobDescription
   @generate(
     query: { get: false, query: false, aggregate: false }
     mutation: { add: false, update: false, delete: false }
     subscription: false
   ) {
-  skill: String
-  quantifier: Int
+  roles: [String]
+  skills: [String]
+  requirements: [String]
 }

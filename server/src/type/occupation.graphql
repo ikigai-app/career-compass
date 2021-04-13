@@ -12,11 +12,12 @@ type Occupation {
   name: String
   description: String
   connectPeople: [ConnectPeople]
-  skillsRequired: [SkillsRequired]
+  jobDescription: [JobDescription]
 }
 
 type ConnectPeople {
   name: String
+  description: String
   profilePic: String
   socialMedia: [SocialMedia]
 }
@@ -24,23 +25,24 @@ type ConnectPeople {
 type SocialMedia {
   type: String
   url: String
-  description: String
 }
 
-type SkillsRequired {
-  skill: String
-  quantifier: Int
+type JobDescription {
+  roles: [String]
+  skills: [String]
+  requirements: [String]
 }
 
 input AddOccupationInput {
   name: String!
   description: String
   connectPeople: [ConnectPeopleInput]
-  skillsRequired: [SkillsRequiredInput]
+  # skillsRequired: [SkillsRequiredInput]
 }
 
 input ConnectPeopleInput {
   name: String
+  description: String
   profilePic: String
   socialMedia: [SocialMediaInput]
 }
@@ -48,10 +50,10 @@ input ConnectPeopleInput {
 input SocialMediaInput {
   type: String
   url: String
-  description: String
 }
 
-input SkillsRequiredInput {
-  skill: String
-  quantifier: Int
+input JobDescriptionInput {
+  roles: [String]
+  skills: [String]
+  requirements: [String]
 }

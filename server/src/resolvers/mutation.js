@@ -51,7 +51,7 @@ function buildMutation(schema) {
             name: args.input.name,
             description: args.input.description,
             connectPeople: args.input.connectPeople,
-            skillsRequired: args.input.skillsRequired,
+            jobDescription: args.input.jobDescription,
           },
         },
         context,

@@ -25,7 +25,7 @@ const SalaryCard = () => {
     <RootView>
       <Header text={"SALARY"} />
       <View>
-        <Text>Bezier Line Chart</Text>
+        {/* <Text>Bezier Line Chart</Text> */}
         {/* <BarChart
           style={graphStyle}
           data={data}

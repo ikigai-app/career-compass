@@ -5,6 +5,8 @@ type Query {
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
+
+  updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
 }
 
 type Occupation {
@@ -21,12 +23,14 @@ type ConnectPeople {
   description: String
   profilePic: String
   socialMedia: [SocialMedia]
+  occupationType: Occupation!
 }
 
 type SocialMedia {
   id: ID!
   type: String
   url: String
+  accountHolder: ConnectPeople!
 }
 
 type JobDescription {
@@ -34,32 +38,40 @@ type JobDescription {
   roles: [String]
   skills: [String]
   requirements: [String]
+  occupationType: Occupation!
 }
 
 input AddOccupationInput {
-  id: ID!
-  name: String!
+  # id: ID!
+  name: String
   description: String
   connectPeople: [ConnectPeopleInput]
 }
 
 input ConnectPeopleInput {
-  id: ID!
+  # id: ID!
   name: String
   description: String
   profilePic: String
   socialMedia: [SocialMediaInput]
+  # occupationType: ParentID!
 }
 
 input SocialMediaInput {
-  id: ID!
+  # id: ID!
   type: String
   url: String
+  # accountHolder: ParentID!
 }
 
 input JobDescriptionInput {
-  id: ID!
+  # id: ID!
   roles: [String]
   skills: [String]
   requirements: [String]
+  # occupationType: ParentID!
 }
+
+# input ParentID {
+# id: ID!
+# }

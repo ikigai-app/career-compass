@@ -16,6 +16,7 @@ type Occupation {
 }
 
 type ConnectPeople {
+  id: ID!
   name: String
   description: String
   profilePic: String
@@ -23,24 +24,27 @@ type ConnectPeople {
 }
 
 type SocialMedia {
+  id: ID!
   type: String
   url: String
 }
 
 type JobDescription {
+  id: ID!
   roles: [String]
   skills: [String]
   requirements: [String]
 }
 
 input AddOccupationInput {
+  id: ID!
   name: String!
   description: String
   connectPeople: [ConnectPeopleInput]
-  # skillsRequired: [SkillsRequiredInput]
 }
 
 input ConnectPeopleInput {
+  id: ID!
   name: String
   description: String
   profilePic: String
@@ -48,11 +52,13 @@ input ConnectPeopleInput {
 }
 
 input SocialMediaInput {
+  id: ID!
   type: String
   url: String
 }
 
 input JobDescriptionInput {
+  id: ID!
   roles: [String]
   skills: [String]
   requirements: [String]

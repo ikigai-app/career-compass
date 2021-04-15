@@ -926,33 +926,39 @@ type Occupation
 
 type ConnectPeople
   @generate(
-    query: { get: false, query: false, aggregate: false }
-    mutation: { add: false, update: false, delete: false }
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
     subscription: false
   ) {
+  id: ID!
   name: String
   description: String
   profilePic: String
   socialMedia: [SocialMedia]
+  occupationType: Occupation! @hasInverse(field: connectPeople)
 }
 
 type SocialMedia
   @generate(
-    query: { get: false, query: false, aggregate: false }
-    mutation: { add: false, update: false, delete: false }
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
     subscription: false
   ) {
+  id: ID!
   type: String
   url: String
+  accountHolder: ConnectPeople! @hasInverse(field: socialMedia)
 }
 
 type JobDescription
   @generate(
-    query: { get: false, query: false, aggregate: false }
-    mutation: { add: false, update: false, delete: false }
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
     subscription: false
   ) {
+  id: ID!
   roles: [String]
   skills: [String]
   requirements: [String]
+  occupationType: Occupation! @hasInverse(field: jobDescription)
 }

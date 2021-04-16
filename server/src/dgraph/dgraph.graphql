@@ -922,6 +922,7 @@ type Occupation
   description: String
   connectPeople: [ConnectPeople]
   jobDescription: [JobDescription]
+  experience: [Experience]
 }
 
 type ConnectPeople
@@ -957,8 +958,50 @@ type JobDescription
     subscription: false
   ) {
   id: ID!
-  roles: [String]
-  skills: [String]
-  requirements: [String]
+  roles: [Roles]
+  skills1: [Skills1]
+  requirements: [Requirements]
   occupationType: Occupation! @hasInverse(field: jobDescription)
+}
+
+type Roles
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  id: ID!
+  role: String
+}
+
+type Skills1
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  id: ID!
+  skill1: String
+}
+
+type Requirements
+  @generate(
+    query: { get: false, query: false, aggregate: false }
+    mutation: { add: false, update: false, delete: false }
+    subscription: false
+  ) {
+  id: ID!
+  requirement: String
+}
+
+type Experience
+  @generate(
+    query: { get: true, query: true, aggregate: false }
+    mutation: { add: true, update: true, delete: true }
+    subscription: false
+  ) {
+  id: ID!
+  url: String
+  description: String
+  occupationType: Occupation! @hasInverse(field: experience)
 }

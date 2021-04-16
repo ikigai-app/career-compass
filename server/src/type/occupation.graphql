@@ -15,6 +15,7 @@ type Occupation {
   description: String
   connectPeople: [ConnectPeople]
   jobDescription: [JobDescription]
+  experience: [Experience]
 }
 
 type ConnectPeople {
@@ -35,9 +36,31 @@ type SocialMedia {
 
 type JobDescription {
   id: ID!
-  roles: [String]
-  skills: [String]
-  requirements: [String]
+  roles: [Roles]
+  skills1: [Skills1]
+  requirements: [Requirements]
+  occupationType: Occupation!
+}
+
+type Roles {
+  id: ID!
+  role: String
+}
+
+type Skills1 {
+  id: ID!
+  skill1: String
+}
+
+type Requirements {
+  id: ID!
+  requirement: String
+}
+
+type Experience {
+  id: ID!
+  url: String
+  description: String
   occupationType: Occupation!
 }
 
@@ -66,12 +89,21 @@ input SocialMediaInput {
 
 input JobDescriptionInput {
   # id: ID!
-  roles: [String]
-  skills: [String]
-  requirements: [String]
+  roles: [JobDesType]
+  skills: [JobDesType]
+  requirements: [JobDesType]
   # occupationType: ParentID!
+}
+
+input JobDesType {
+  description: String
 }
 
 # input ParentID {
 # id: ID!
 # }
+
+input ExperienceInput {
+  url: String
+  description: String
+}

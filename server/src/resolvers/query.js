@@ -23,6 +23,7 @@ function buildQuery(schema) {
         info,
       });
     },
+
     getOccupation: async (root, args, context, info) => {
       return await delegateToSchema({
         schema,

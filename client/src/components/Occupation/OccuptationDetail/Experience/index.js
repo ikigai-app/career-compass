@@ -17,7 +17,12 @@ const DATA = [
     type: "blog",
   },
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba3",
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2",
+    text: "Test Item",
+    type: "blog",
+  },
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
     text: "Test Item",
     type: "video",
   },
@@ -52,8 +57,6 @@ const Experience = () => {
           />
         )}
       </View>
-
-      {/* <BlogComponent /> */}
     </RootView>
   );
 };

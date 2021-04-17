@@ -15,9 +15,14 @@ const BlogVideoComponent = ({ data }) => {
       <BlogContainer>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL(
-              "https://towardsdatascience.com/data-science-learning-roadmap-for-2021-84f2ba09a44f"
-            );
+            Platform.OS === "web"
+              ? window.open(
+                  "https://towardsdatascience.com/data-science-learning-roadmap-for-2021-84f2ba09a44f",
+                  "_blank"
+                )
+              : Linking.openURL(
+                  "https://towardsdatascience.com/data-science-learning-roadmap-for-2021-84f2ba09a44f"
+                );
           }}
         >
           <BlogText>Data Science Learning Roadmap for 2021</BlogText>

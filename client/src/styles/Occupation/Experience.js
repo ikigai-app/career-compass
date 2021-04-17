@@ -28,6 +28,7 @@ export const BlogContainer = styled.View`
   background-color: ${WHITE};
   height: ${Platform.OS === "web" ? `auto` : `200px`};
   justify-content: center;
+  position: relative;
 `;
 
 export const BlogText = styled.Text`
@@ -37,4 +38,29 @@ export const BlogText = styled.Text`
   text-align: center;
   text-transform: uppercase;
   font-weight: 700;
+`;
+
+export const InputRootContainer = styled.View`
+  margin-left: ${Platform.OS === "web" ? `50px` : `0`};
+  margin-top: 40px;
+  flex-direction: ${Platform.OS === "web" ? `row` : `column`};
+  justify-content: flex-start;
+  width: ${Platform.OS === "web" ? `90%` : `auto`};
+`;
+
+export const AddButton = styled.TouchableOpacity`
+  margin-left: ${Platform.OS === "web" ? `10px` : `0`};
+  /* background-color: red; */
+  height: 40px;
+  width: 80px;
+  background-color: #808080;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AddText = styled.Text`
+  font-size: 14px;
+  font-weight: 700;
+  color: ${WHITE};
 `;

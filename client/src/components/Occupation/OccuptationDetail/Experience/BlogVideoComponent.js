@@ -8,7 +8,19 @@ import {
   VideoDescription,
   BlogText,
 } from "../../../../styles/Occupation/Experience";
+import IconButton from "../../../common/IconsButton";
 
+const DeleteIcon = (props) => (
+  <IconButton
+    iconType={"FontAwesome5"}
+    icon="trash"
+    width={22}
+    height={22}
+    size={22}
+    color={"gray"}
+    onPress={props.onPress}
+  />
+);
 const BlogVideoComponent = ({ data }) => {
   if (data.type === "blog") {
     return (
@@ -27,6 +39,9 @@ const BlogVideoComponent = ({ data }) => {
         >
           <BlogText>Data Science Learning Roadmap for 2021</BlogText>
         </TouchableOpacity>
+        <View style={{ position: "absolute", right: 10, bottom: 10 }}>
+          <DeleteIcon />
+        </View>
       </BlogContainer>
     );
   }
@@ -37,7 +52,10 @@ const BlogVideoComponent = ({ data }) => {
         height={Platform.OS === "web" ? 200 : 200}
         videoId={"a2rcgzludDU"}
       />
-      <VideoDescription>Video Description</VideoDescription>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <VideoDescription>Video Description</VideoDescription>
+        <DeleteIcon />
+      </View>
     </VideoContainer>
   );
 };

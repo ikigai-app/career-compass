@@ -70,6 +70,8 @@ input AddOccupationInput {
   name: String
   description: String
   connectPeople: [ConnectPeopleInput]
+  jobDescription: [JobDescriptionInput]
+  experience: [ExperienceInput]
 }
 
 input ConnectPeopleInput {

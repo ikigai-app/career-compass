@@ -61,6 +61,7 @@ type Experience {
   id: ID!
   url: String
   description: String
+  type: String
   occupationType: Occupation!
 }
 
@@ -106,4 +107,5 @@ input JobDesType {
 input ExperienceInput {
   url: String
   description: String
+  type: String
 }

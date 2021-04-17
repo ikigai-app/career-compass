@@ -1003,5 +1003,6 @@ type Experience
   id: ID!
   url: String
   description: String
+  type: String
   occupationType: Occupation! @hasInverse(field: experience)
 }

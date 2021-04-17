@@ -33,6 +33,7 @@ function buildMutation(schema) {
       return result;
     },
 
+    //occupation-module
     addOccupation: async (root, args, context, info) => {
       const wrap = new WrapQuery(
         ["addOccupation"],
@@ -54,6 +55,37 @@ function buildMutation(schema) {
             connectPeople: args.input.connectPeople,
             jobDescription: args.input.jobDescription,
             experience: args.input.experience,
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
+    addConnectPeople: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addConnectPeople"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "connectPeople" },
+          selectionSet: subtree,
+        }),
+        (result) => result.connectPeople[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addConnectPeople",
+        args: {
+          input: {
+            name: args.input.name,
+            description: args.input.description,
+            profilePic: args.input.profilePic,
+            socialMedia: args.input.socialMedia,
+            occupationType: args.input.occupationType,
           },
         },
         context,

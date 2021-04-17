@@ -1,11 +1,14 @@
 type Query {
   getOccupation(id: ID!): Occupation
   queryOccupation(first: Int, offset: Int): [Occupation]
+  queryConnectPeople(first: Int, offset: Int): [ConnectPeople]
+  queryJobDescription(first: Int, offset: Int): [JobDescription]
+  queryExperience(first: Int, offset: Int): [Experience]
+  querySocialMedia(first: Int, offset: Int): [SocialMedia]
 }
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
-
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
 }
 

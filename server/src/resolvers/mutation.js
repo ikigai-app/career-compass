@@ -130,6 +130,39 @@ function buildMutation(schema) {
       });
       return result;
     },
+
+    updateConnectPeople: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["updateConnectPeople"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "connectPeople" },
+          selectionSet: subtree,
+        }),
+        (result) => result.connectPeople[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "updateConnectPeople",
+        args: {
+          input: {
+            filter: { id: args.id },
+            set: {
+              name: args.input.name,
+              description: args.input.description,
+              profilePic: args.input.profilePic,
+              socialMedia: args.input.socialMedia,
+            },
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
   };
 }
 

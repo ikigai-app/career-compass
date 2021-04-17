@@ -12,6 +12,7 @@ type Mutation {
   addConnectPeople(input: ConnectPeopleInput!): ConnectPeople
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
+  updateConnectPeople(id: ID!, input: UpdateConnectPeople!): ConnectPeople
 }
 
 type Occupation {
@@ -80,7 +81,6 @@ input AddOccupationInput {
 }
 
 input ConnectPeopleInput {
-  # id: ID!
   name: String
   description: String
   profilePic: String
@@ -88,19 +88,24 @@ input ConnectPeopleInput {
   occupationType: ParentID!
 }
 
+input UpdateConnectPeople {
+  name: String
+  description: String
+  profilePic: String
+  socialMedia: [SocialMediaInput]
+}
+
 input SocialMediaInput {
-  # id: ID!
   type: String
   url: String
-  # accountHolder: ParentID!
+  accountHolder: ParentID!
 }
 
 input JobDescriptionInput {
-  # id: ID!
   roles: [JobDesType]
   skills: [JobDesType]
   requirements: [JobDesType]
-  # occupationType: ParentID!
+  occupationType: ParentID!
 }
 
 input JobDesType {
@@ -115,4 +120,5 @@ input ExperienceInput {
   url: String
   description: String
   type: String
+  occupationType: ParentID!
 }

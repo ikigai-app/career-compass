@@ -125,6 +125,66 @@ function buildMutation(schema) {
       return result;
     },
 
+    addExperience: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addExperience"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "experience" },
+          selectionSet: subtree,
+        }),
+        (result) => result.experience[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addExperience",
+        args: {
+          input: {
+            type: args.input.type,
+            url: args.input.url,
+            description: args.input.description,
+            occupationType: args.input.occupationType,
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
+    // addJobDescription: async (root, args, context, info) => {
+    //   const wrap = new WrapQuery(
+    //     ["addJobDescription"],
+    //     (subtree) => ({
+    //       kind: Kind.FIELD,
+    //       name: { kind: Kind.NAME, value: "jobDescription" },
+    //       selectionSet: subtree,
+    //     }),
+    //     (result) => result.jobDescription[0]
+    //   );
+    //   const result = await delegateToSchema({
+    //     schema,
+    //     operation: "mutation",
+    //     fieldName: "addJobDescription",
+    //     args: {
+    //       input: {
+    //         roles: args.input.roles,
+    //         skills1: args.input.skills1,
+    //         requirements: args.input.requirements,
+    //         occupationType: args.input.occupationType,
+    //       },
+    //     },
+    //     context,
+    //     info,
+
+    //     transforms: [wrap],
+    //   });
+    //   return result;
+    // },
+
     // update sections........
     updateOccupation: async (root, args, context, info) => {
       const wrap = new WrapQuery(
@@ -213,6 +273,38 @@ function buildMutation(schema) {
             set: {
               type: args.input.type,
               url: args.input.url,
+            },
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
+    updateExperience: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["updateExperience"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "experience" },
+          selectionSet: subtree,
+        }),
+        (result) => result.experience[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "updateExperience",
+        args: {
+          input: {
+            filter: { id: args.id },
+            set: {
+              type: args.input.type,
+              url: args.input.url,
+              description: args.input.description,
             },
           },
         },

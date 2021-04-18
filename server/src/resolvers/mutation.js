@@ -155,35 +155,35 @@ function buildMutation(schema) {
       return result;
     },
 
-    // addJobDescription: async (root, args, context, info) => {
-    //   const wrap = new WrapQuery(
-    //     ["addJobDescription"],
-    //     (subtree) => ({
-    //       kind: Kind.FIELD,
-    //       name: { kind: Kind.NAME, value: "jobDescription" },
-    //       selectionSet: subtree,
-    //     }),
-    //     (result) => result.jobDescription[0]
-    //   );
-    //   const result = await delegateToSchema({
-    //     schema,
-    //     operation: "mutation",
-    //     fieldName: "addJobDescription",
-    //     args: {
-    //       input: {
-    //         roles: args.input.roles,
-    //         skills1: args.input.skills1,
-    //         requirements: args.input.requirements,
-    //         occupationType: args.input.occupationType,
-    //       },
-    //     },
-    //     context,
-    //     info,
+    addJobDescription: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addJobDescription"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "jobDescription" },
+          selectionSet: subtree,
+        }),
+        (result) => result.jobDescription[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addJobDescription",
+        args: {
+          input: {
+            roles: args.input.roles,
+            skills1: args.input.skills1,
+            requirements: args.input.requirements,
+            occupationType: args.input.occupationType,
+          },
+        },
+        context,
+        info,
 
-    //     transforms: [wrap],
-    //   });
-    //   return result;
-    // },
+        transforms: [wrap],
+      });
+      return result;
+    },
 
     // update sections........
     updateOccupation: async (root, args, context, info) => {

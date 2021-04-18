@@ -28,88 +28,61 @@ $ docker network inspect <NETWORK_ID or NAME/>
 # take dgraph alpha server IP and pass it to .env DGRAPH_HOST
 ```
 
-##### Send the schema to Dgraph
+#### Dgraph Schema
+
+Go to `src/dgraph` and run the following command to export the schema
 
 ```shell
-
-curl -X POST localhost:8080/admin/schema --data-binary '
-type User {
-  userName: String! @id
-  firstName: String!
-  lastName: String!
-}
-'
+$ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
 ```
 
-Use [GraphQL Playground](https://github.com/graphql/graphql-playground) to run queries and mutations at http://localhost:8080/graphql Dgraph level
+For Apollo Server `http://localhost:4000/graphql`
 
-##### Add some data:
+##### Query
 
-```shell
-mutation {
-  addUser(
-    input: [
-      { userName: "mks", firstName: "MKS", lastName: "mks" }
-      { userName: "dev", firstName: "Dev", lastName: "test" }
-    ]
-  ) {
-    user {
-      userName
+```
+query {
+  queryUser {
+    userName
+    SovrenResponse {
+      Info {
+        ApiVersion
+        CustomerDetails {
+          AccountId
+          MaximumConcurrentRequests
+        }
+      }
     }
   }
 }
 ```
 
-##### Query
+##### Mutation
 
 ```shell
+mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
+  addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
+    userName
+  }
+}
+
+#Under Query Variables GraphQL-Playground
+
 {
-  queryUser {
-    userName
-    firstName
-    lastName
+  "userName": "test1",
+  "SovrenResponse": {
+    "Info": {
+      "Code": "Success",
+     "CustomerDetails": {
+      "AccountId": "1345",
+      "Name": "Test",
+      "MaximumConcurrentRequests": 10
+
+    }
+    }
   }
 }
-
-```
-
-Use GraphQL Playground to run following queries and mutations at http://localhost:4000/graphql
-
-```shell
-
-#getUser
-query($userName: String!) {
-  getUser(userName: $userName) {
-    userName
-    firstName
-    lastName
-  }
 }
-
-#set variable
-{
-  "userName":"dev"
-}
-
-#fetch all users
-{
-  queryUser {
-    userName
-    firstName
-    lastName
-  }
-}
-
-#add user
-mutation {
-  addUser(input: { userName: "test", firstName: "dev", lastName: "test" }) {
-    userName
-    # firstName
-    # lastNa
-  }
-}
-
-
 ```
 
 ##### Before connecting to the client. Run

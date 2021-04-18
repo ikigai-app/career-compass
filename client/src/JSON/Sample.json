@@ -1,0 +1,231 @@
+{
+  "Info": {
+    "Code": "Success",
+    "Message": "Successful transaction",
+    "TransactionId": "edfb65fe-1bb3-4a91-9bee-49c61aa5f26a",
+    "EngineVersion": "9.5.2.0",
+    "ApiVersion": "10.0.0.0",
+    "TotalElapsedMilliseconds": 1312,
+    "CustomerDetails": {
+      "AccountId": "13430659",
+      "Name": "Sovren Web Demo",
+      "IPAddress": "52.31.11.178",
+      "Region": "eu-west-1",
+      "CreditsRemaining": 199540768.22,
+      "CreditsUsed": 459232,
+      "ExpirationDate": "2027-03-10",
+      "MaximumConcurrentRequests": 10
+    }
+  },
+  "Value": {
+    "ResumeData": {
+      "ContactInformation": {
+        "CandidateName": {
+          "FormattedName": "Sreenivasan AC",
+          "GivenName": "Sreenivasan",
+          "FamilyName": "AC"
+        },
+        "Telephones": [
+          {
+            "Raw": "404-663-9270",
+            "Normalized": "+1 404-663-9270",
+            "InternationalCountryCode": "1",
+            "AreaCityCode": "404",
+            "SubscriberNumber": "663-9270"
+          }
+        ],
+        "EmailAddresses": [
+          "sreenivasan.nitt@gmail.com"
+        ],
+        "WebAddresses": [
+          {
+            "Address": "https://www.linkedin.com/in/sreenivasan-ac",
+            "Type": "LinkedIn"
+          }
+        ]
+      },
+      "Education": {
+        "HighestDegree": {
+          "Name": {
+            "Raw": "Masters of Science in Computer Science",
+            "Normalized": "masters"
+          },
+          "Type": "masters"
+        },
+        "EducationDetails": [
+          {
+            "Id": "DEG-1",
+            "Text": "Georgia Institute of Technology\tAtlanta, Georgia, USA\n• Masters of Science in Computer Science;\tAug. 2017 - May. 2019\nSpecialization in Machine Learning",
+            "SchoolName": {
+              "Raw": "Georgia Institute of Technology",
+              "Normalized": "Georgia Institute of Technology"
+            },
+            "SchoolType": "university",
+            "Location": {
+              "CountryCode": "US",
+              "Regions": [
+                "Georgia"
+              ],
+              "Municipality": "Atlanta"
+            },
+            "Degree": {
+              "Name": {
+                "Raw": "Masters of Science in Computer Science",
+                "Normalized": "masters"
+              },
+              "Type": "masters"
+            },
+            "Majors": [
+              "Machine Learning"
+            ],
+            "LastEducationDate": {
+              "Date": "2019-05-01",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            }
+          },
+          {
+            "Id": "DEG-2",
+            "Text": "National Institute of Technology\tTiruchirapalli, India\n• Bachelors of Technology in Computer Science and Engineering\tAug. 2010 - June. 2014",
+            "SchoolName": {
+              "Raw": "National Institute of Technology",
+              "Normalized": "National Institute of Technology"
+            },
+            "SchoolType": "university",
+            "Location": {
+              "CountryCode": "IN",
+              "Municipality": "Tiruchirapalli"
+            },
+            "Degree": {
+              "Name": {
+                "Raw": "Bachelors of Technology in Computer Science and Engineering",
+                "Normalized": "bachelors"
+              },
+              "Type": "bachelors"
+            },
+            "Majors": [
+              "Computer Science and Engineering"
+            ],
+            "LastEducationDate": {
+              "Date": "2014-06-01",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            }
+          }
+        ]
+      },
+      "EmploymentHistory": {
+        "ExperienceSummary": {
+          "Description": "Sreenivasan AC's experience appears to be mostly concentrated in Information Technology (mostly Programming) and slightly concentrated in Sales (mostly General). Sreenivasan AC's experience appears to be lower-to-mid level, with about 4 years of experience.",
+          "MonthsOfWorkExperience": 49,
+          "MonthsOfManagementExperience": 0,
+          "ExecutiveType": "NONE",
+          "AverageMonthsPerEmployer": 12,
+          "FulltimeDirectHirePredictiveIndex": 40,
+          "ManagementStory": "",
+          "CurrentManagementLevel": "",
+          "ManagementScore": 0
+        },
+        "Positions": [
+          {
+            "Id": "POS-1",
+            "Employer": {
+              "Name": {
+                "Probability": "Confident",
+                "Raw": "Georgia Institute of Technology",
+                "Normalized": "Georgia Institute of Technology"
+              },
+              "Location": {
+                "CountryCode": "US",
+                "Regions": [
+                  "Georgia"
+                ],
+                "Municipality": "Atlanta"
+              }
+            },
+            "RelatedToByCompanyName": [
+              "POS-2"
+            ],
+            "IsSelfEmployed": false,
+            "IsCurrent": false,
+            "JobTitle": {
+              "Raw": "Graduate Teaching Assistant",
+              "Normalized": "Graduate Teaching Assistant",
+              "Probability": "Confident"
+            },
+            "StartDate": {
+              "Date": "2019-01-01",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            },
+            "EndDate": {
+              "Date": "2019-04-01",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            },
+            "JobType": "directHire",
+            "TaxonomyName": "Information Technology",
+            "SubTaxonomyName": "Machine Learning",
+            "JobLevel": "Experienced (non-manager)",
+            "TaxonomyPercentage": 100
+          },
+          {
+            "Id": "POS-2",
+            "Employer": {
+              "Name": {
+                "Probability": "Confident",
+                "Raw": "Georgia Institute of Technology",
+                "Normalized": "Georgia Institute of Technology"
+              },
+              "Location": {
+                "CountryCode": "US",
+                "Regions": [
+                  "Georgia"
+                ],
+                "Municipality": "Atlanta"
+              }
+            },
+            "RelatedToByCompanyName": [
+              "POS-1"
+            ],
+            "IsSelfEmployed": false,
+            "IsCurrent": false,
+            "JobTitle": {
+              "Raw": "Graduate Research Assistant",
+              "Normalized": "Graduate Research Assistant",
+              "Probability": "Confident"
+            },
+            "StartDate": {
+              "Date": "2018-08-01",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            },
+            "EndDate": {
+              "Date": "2018-12-31",
+              "IsCurrentDate": false,
+              "FoundYear": true,
+              "FoundMonth": true,
+              "FoundDay": false
+            },
+            "JobType": "directHire",
+            "TaxonomyName": "Engineering",
+            "SubTaxonomyName": "Robotics and Automation",
+            "JobLevel": "Experienced (non-manager)",
+            "TaxonomyPercentage": 100,
+            "Description": "Worked on Research project under Professor James Tsai Transportation Lab - Evaluation of Object detection of Tra c infrastructure using Registration and Fusion of 2D Camera and 3D LIDAR Point cloud Data."
+          }
+        ]
+      }
+    }
+  }
+}

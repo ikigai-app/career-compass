@@ -7,20 +7,14 @@ const FETCH_USERS = gql`
   {
     queryUser {
       userName
-      firstName
-      lastName
+      resumeData
     }
   }
 `;
 
 const UserCard = ({ userDetails }) => (
   <Card>
-    {console.log("user", userDetails)}
     <Title>{userDetails.userName}</Title>
-    <SubTitle>
-      {userDetails.firstName}
-      {userDetails.lastName}
-    </SubTitle>
   </Card>
 );
 

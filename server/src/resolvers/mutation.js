@@ -13,7 +13,6 @@ function buildMutation(schema) {
         }),
         (result) => result.user[0]
       );
-
       const result = await delegateToSchema({
         schema,
         operation: "mutation",
@@ -21,8 +20,7 @@ function buildMutation(schema) {
         args: {
           input: {
             userName: args.input.userName,
-            firstName: args.input.firstName,
-            lastName: args.input.lastName,
+            SovrenResponse: args.input.SovrenResponse,
           },
         },
         context,

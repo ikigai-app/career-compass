@@ -10,9 +10,11 @@ type Query {
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
   addConnectPeople(input: ConnectPeopleInput!): ConnectPeople
+  addSocialMedia(input: SocialMediaInput!): SocialMedia
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
   updateConnectPeople(id: ID!, input: UpdateConnectPeople!): ConnectPeople
+  updateSocialMedia(id: ID!, input: UpdateSocialMedia!): SocialMedia
 }
 
 type Occupation {
@@ -99,6 +101,11 @@ input SocialMediaInput {
   type: String
   url: String
   accountHolder: ParentID!
+}
+
+input UpdateSocialMedia {
+  type: String
+  url: String
 }
 
 input JobDescriptionInput {

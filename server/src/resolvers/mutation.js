@@ -96,6 +96,35 @@ function buildMutation(schema) {
       return result;
     },
 
+    addSocialMedia: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["addSocialMedia"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "socialMedia" },
+          selectionSet: subtree,
+        }),
+        (result) => result.socialMedia[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "addSocialMedia",
+        args: {
+          input: {
+            type: args.input.type,
+            url: args.input.url,
+            accountHolder: args.input.accountHolder,
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
     // update sections........
     updateOccupation: async (root, args, context, info) => {
       const wrap = new WrapQuery(
@@ -153,6 +182,37 @@ function buildMutation(schema) {
               description: args.input.description,
               profilePic: args.input.profilePic,
               socialMedia: args.input.socialMedia,
+            },
+          },
+        },
+        context,
+        info,
+
+        transforms: [wrap],
+      });
+      return result;
+    },
+
+    updateSocialMedia: async (root, args, context, info) => {
+      const wrap = new WrapQuery(
+        ["updateSocialMedia"],
+        (subtree) => ({
+          kind: Kind.FIELD,
+          name: { kind: Kind.NAME, value: "socialMedia" },
+          selectionSet: subtree,
+        }),
+        (result) => result.socialMedia[0]
+      );
+      const result = await delegateToSchema({
+        schema,
+        operation: "mutation",
+        fieldName: "updateSocialMedia",
+        args: {
+          input: {
+            filter: { id: args.id },
+            set: {
+              type: args.input.type,
+              url: args.input.url,
             },
           },
         },

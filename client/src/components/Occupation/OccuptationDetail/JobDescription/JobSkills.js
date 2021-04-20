@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Platform } from "react-native";
 import {
   RootFlatListContainer,
   FlatListHeader,
@@ -31,10 +31,10 @@ const CheckIcon = (props) => (
 const EditIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
-    icon="pen"
-    width={15}
-    height={15}
-    size={15}
+    icon="edit"
+    width={22}
+    height={22}
+    size={18}
     color={"gray"}
     onPress={props.onPress}
   />
@@ -64,8 +64,21 @@ const Bullet = () => (
   />
 );
 
-const JobSkills = () => {
-  const [text, setText] = useState("Sample .......");
+const DeleteIcon = (props) => (
+  <IconButton
+    iconType={"FontAwesome5"}
+    icon="trash"
+    width={22}
+    height={22}
+    size={18}
+    color={"gray"}
+    onPress={props.onPress}
+  />
+);
+
+const JobSkill = () => {
+  const [visibleInput, setVisibleInput] = useState(true);
+  const [text, setText] = useState("Sample Role One");
   const [editText, setEditText] = useState(false);
   const [selectedID, setSelectedID] = useState("");
 
@@ -92,7 +105,7 @@ const JobSkills = () => {
           editable={editText}
           value={text}
         />
-        <PlusCircleIcon />
+        <CheckIcon onPress={() => setVisibleInput(true)} />
       </InputContainer>
     );
   };
@@ -107,30 +120,29 @@ const JobSkills = () => {
           placeholder={"Name"}
           style={{
             flex: 1,
-            //   textAlignVertical: "top",
             fontSize: 15,
             borderWidth: editText && selectedID === data.id ? 1 : 0,
             color: "dimgray",
-            fontWeight: "600",
             padding: 10,
-            marginTop: 2,
-            //   maxHeight: 65,
-            marginRight: 10,
+            maxHeight: 65,
+            marginRight: 5,
           }}
-          // multiline={true}
-          // numberOfLines={2}
           onChangeText={onChangeText}
           editable={editText}
           value={data.text}
         />
-
         {editText && selectedID === data.id ? (
-          <CheckIcon
-            onPress={() => {
-              setEditText(false);
-              setSelectedID("");
-            }}
-          />
+          <View style={{ flexDirection: "row" }}>
+            <CheckIcon
+              onPress={() => {
+                setEditText(false);
+                setSelectedID("");
+              }}
+            />
+            <View style={{ marginLeft: 10 }}>
+              <DeleteIcon />
+            </View>
+          </View>
         ) : (
           <EditIcon
             onPress={() => {
@@ -156,9 +168,17 @@ const JobSkills = () => {
         keyExtractor={(item) => item.id}
         extraData={editText}
       />
-      <NewInputComponent />
+      {visibleInput ? (
+        <View
+          style={{ marginLeft: Platform.OS === "web" ? 0 : 1, marginTop: 7 }}
+        >
+          <PlusCircleIcon onPress={() => setVisibleInput(false)} />
+        </View>
+      ) : (
+        <NewInputComponent />
+      )}
     </RootFlatListContainer>
   );
 };
 
-export default JobSkills;
+export default JobSkill;

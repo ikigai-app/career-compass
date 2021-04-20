@@ -5,18 +5,15 @@ import { GRAY_LIGHT } from "../colors";
 export const RootView = styled.View`
   background-color: ${GRAY_LIGHT};
   border-radius: 2px;
-
   margin: 0 ${Platform.OS === "web" ? 0 : `10px`};
-  padding: 30px 20px;
+  padding: 50px 20px;
   flex-direction: column;
-  /* height: ${Platform.OS === "web" ? `500px` : `auto`}; */
   margin-top: ${Platform.OS === "web" ? `10px` : `auto`};
-  /* height: auto; */
-  /* flex: 1; */
 `;
 
 export const RootFlatListContainer = styled.View`
   margin-top: 30px;
+  padding-left: ${Platform.OS == "web" ? `20px` : 0};
 `;
 
 export const FlatListHeader = styled.View`
@@ -31,9 +28,7 @@ export const FlatListHeaderText = styled.Text`
 export const InputContainer = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
-
   align-items: center;
   width: ${Platform.OS === "web" ? `60%` : `100%`};
-  /* background-color: red; */
   padding: 5px 5px;
 `;

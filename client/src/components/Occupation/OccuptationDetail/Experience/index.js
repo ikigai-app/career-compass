@@ -49,7 +49,7 @@ const PlusCircleIcon = (props) => (
 );
 
 const Experience = () => {
-  const [type, setType] = useState("");
+  const [type, setType] = useState("Select Type");
   const [visibleInput, setVisibleInput] = useState(true);
 
   const InputContainer = () => (
@@ -90,6 +90,7 @@ const Experience = () => {
         }}
       >
         <RNPickerSelect
+          useNativeAndroidPickerStyle={true}
           style={{
             inputWeb: {
               backgroundColor: "white",
@@ -97,17 +98,16 @@ const Experience = () => {
               fontSize: 14,
             },
             inputAndroid: {
+              // width: 200,
+              borderRadius: 8,
               height: 45,
               fontSize: 14,
-              backgroundColor: "#cacaca",
+
               marginBottom: 10,
-              borderWidth: 1,
-              borderColor: "black",
-              borderRadius: 4,
               color: "#8a8a8a",
             },
           }}
-          placeholder={{ label: "Select Type", value: null }}
+          placeholder={{ label: "Select Type", value: "Select Type" }}
           value={type}
           onValueChange={(type) => setType(type)}
           items={[

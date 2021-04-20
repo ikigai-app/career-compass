@@ -1,12 +1,12 @@
 import styled from "styled-components/native";
 import { Platform, Dimensions } from "react-native";
-import { BACKGROUND_COLOR, GRAY_LIGHT } from "../colors";
+import { BACKGROUND_COLOR, CARD_COLOR, GRAY_LIGHT } from "../colors";
 const windowHeight = Dimensions.get("window").height;
 
 export const RootView = styled.View`
   flex-direction: column;
   justify-content: flex-start;
-  background-color: ${GRAY_LIGHT};
+  background-color: ${CARD_COLOR};
   border-radius: 2px;
   height: ${Platform.OS === "web" ? `100%` : `auto`};
   flex: ${Platform.OS === "web" ? `1` : `none`};

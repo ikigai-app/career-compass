@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
 import { Platform } from "react-native";
-import { GRAY_LIGHT } from "../colors";
+import { CARD_COLOR, GRAY_LIGHT } from "../colors";
 
 export const RootView = styled.View`
-  background-color: ${GRAY_LIGHT};
+  background-color: ${CARD_COLOR};
   border-radius: 2px;
   margin: 0 ${Platform.OS === "web" ? 0 : `10px`};
   padding: ${Platform.OS === "web" ? `50px` : `40px`} 20px;

@@ -191,7 +191,7 @@ const PersonCard = () => {
               fontSize: 15,
               borderWidth: editDescription ? 1 : 0,
               color: "dimgray",
-              fontWeight: "600",
+
               padding: 4,
               marginTop: 2,
               maxHeight: 65,
@@ -319,7 +319,13 @@ const InputComponent = (props) => {
           props.setVisibleInput(false);
         }}
       >
-        <Text style={{ fontSize: 14, color: "white", fontWeight: 600 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            color: "white",
+            // fontWeight: 600
+          }}
+        >
           ADD
         </Text>
       </TouchableOpacity>

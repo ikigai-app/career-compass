@@ -17,7 +17,7 @@ const OccupationDetailsScreen = () => {
         <RootView>
           <TopCard />
           <ConnectPersonCard />
-          {/* <SalaryCard /> */}
+          <SalaryCard />
 
           <JobDescription />
           <Experience />
@@ -29,7 +29,7 @@ const OccupationDetailsScreen = () => {
     <RootView>
       <LeftSectionWeb>
         <TopCard />
-        {/* <SalaryCard /> */}
+        <SalaryCard />
         <JobDescription />
         <Experience />
       </LeftSectionWeb>

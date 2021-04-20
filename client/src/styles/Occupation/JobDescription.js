@@ -6,7 +6,7 @@ export const RootView = styled.View`
   background-color: ${GRAY_LIGHT};
   border-radius: 2px;
   margin: 0 ${Platform.OS === "web" ? 0 : `10px`};
-  padding: 50px 20px;
+  padding: ${Platform.OS === "web" ? `50px` : `40px`} 20px;
   flex-direction: column;
   margin-top: ${Platform.OS === "web" ? `10px` : `auto`};
 `;

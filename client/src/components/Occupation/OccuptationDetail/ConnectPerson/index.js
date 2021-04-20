@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import * as Linking from "expo-linking";
-import { Text, View, Image, Platform } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Platform,
+  FlatList,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import {
   RootView,
   PersonCardContainer,
@@ -12,10 +20,26 @@ import {
   LinkUrlText,
   IconContainerChild,
   SocialMediaContainer,
+  InputContainer,
 } from "../../../../styles/Occupation/ConnectPerson";
 import Header from "../../../common/Header";
 import IconButton from "../../../common/IconsButton";
 import Input from "../../../common/TextInput";
+
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d724",
+    title: "Third Item",
+  },
+];
 
 const CheckIcon = (props) => (
   <IconButton
@@ -29,14 +53,14 @@ const CheckIcon = (props) => (
   />
 );
 
-const CloseIcon = (props) => (
+const DeleteIcon = (props) => (
   <IconButton
-    iconType={"Ionicons"}
-    icon="close"
-    width={25}
-    height={25}
-    size={25}
-    color={"dimgrey"}
+    iconType={"FontAwesome5"}
+    icon="trash"
+    width={18}
+    height={18}
+    size={18}
+    color={"grey"}
     onPress={props.onPress}
   />
 );
@@ -44,9 +68,9 @@ const CloseIcon = (props) => (
 const EditIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
-    icon="pen"
-    width={15}
-    height={15}
+    icon="edit"
+    width={18}
+    height={18}
     size={15}
     color={"gray"}
     onPress={props.onPress}
@@ -65,10 +89,10 @@ const PlusCircleIcon = (props) => (
   />
 );
 
-const PlusSquareIcon = (props) => (
+const PlusCircleAddIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
-    icon="plus-square"
+    icon="plus-circle"
     width={30}
     height={30}
     size={30}
@@ -93,9 +117,7 @@ const PersonCard = () => {
   const [name, setName] = useState("Person One");
   const [editName, setEditName] = useState(false);
 
-  const [description, setDescription] = useState(
-    "Sample Description ........."
-  );
+  const [description, setDescription] = useState("Sample Description ");
   const [editDescription, setEditDescription] = useState(false);
 
   const [socialInputVisible, setSocialInputVisible] = useState(false);
@@ -120,8 +142,8 @@ const PersonCard = () => {
 
   return (
     <PersonCardContainer>
-      <View style={{ position: "absolute", right: 0, top: -20 }}>
-        <CloseIcon />
+      <View style={{ position: "absolute", right: 5, bottom: 10 }}>
+        <DeleteIcon />
       </View>
       <View>
         <Image
@@ -147,6 +169,7 @@ const PersonCard = () => {
               fontWeight: "bold",
               textTransform: "uppercase",
               padding: 4,
+              marginRight: 5,
             }}
             onChangeText={onChangeName}
             editable={editName}
@@ -163,6 +186,7 @@ const PersonCard = () => {
             placeholder={"Name"}
             style={{
               flex: 1,
+              marginRight: 5,
               textAlignVertical: "top",
               fontSize: 15,
               borderWidth: editDescription ? 1 : 0,
@@ -246,15 +270,90 @@ const PersonCard = () => {
   );
 };
 
+const ConnectInput = (props) => (
+  <Input
+    placeholder={props.placeholder}
+    style={{
+      fontSize: 14,
+      borderWidth: 1,
+      color: "dimgray",
+      fontWeight: "500",
+      padding: 5,
+      paddingLeft: 10,
+      marginBottom: 10,
+    }}
+    onChangeText={props.onChangeText}
+    value={props.value}
+  />
+);
+
+const InputComponent = (props) => {
+  return (
+    <InputContainer>
+      <ConnectInput
+        placeholder={"Name"}
+        //  onChangeText={} value={}
+      />
+      <ConnectInput
+        placeholder={"Description"}
+        //  onChangeText={} value={}
+      />
+      <ConnectInput
+        placeholder={"Social Media Name"}
+        //  onChangeText={} value={}
+      />
+      <ConnectInput
+        placeholder={"Social Media Url"}
+        //  onChangeText={} value={}
+      />
+      <TouchableOpacity
+        style={{
+          backgroundColor: "grey",
+          width: 80,
+          height: 40,
+          borderRadius: 4,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        onPress={() => {
+          props.setVisibleInput(false);
+        }}
+      >
+        <Text style={{ fontSize: 14, color: "white", fontWeight: 600 }}>
+          ADD
+        </Text>
+      </TouchableOpacity>
+    </InputContainer>
+  );
+};
+
 const ConnectPersonCard = () => {
+  const [visibleInput, setVisibleInput] = useState(false);
+  const renderItem = ({ item }) => <PersonCard />;
+
   return (
     <RootView>
       <Header text={"CONNECT WITH PEOPLE"} />
-      <View style={{ marginTop: 20 }} />
-      <PersonCard />
-      <PersonCard />
+      <View
+        style={{
+          marginTop: 20,
+          // maxHeight: 500,
+        }}
+      />
 
-      <PlusSquareIcon />
+      <FlatList
+        style={{ marginBottom: 20 }}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+      />
+
+      {visibleInput ? (
+        <InputComponent setVisibleInput={setVisibleInput} />
+      ) : (
+        <PlusCircleAddIcon onPress={() => setVisibleInput(true)} />
+      )}
     </RootView>
   );
 };

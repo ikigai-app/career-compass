@@ -134,9 +134,13 @@ const Experience = () => {
         )}
       </View>
       {visibleInput ? (
-        <InputRootContainer>
+        <View
+          style={{
+            marginTop: 30,
+          }}
+        >
           <PlusCircleIcon onPress={() => setVisibleInput(false)} />
-        </InputRootContainer>
+        </View>
       ) : (
         <InputContainer />
       )}

@@ -5,16 +5,17 @@ const windowHeight = Dimensions.get("window").height;
 
 export const RootView = styled.View`
   flex-direction: column;
+  justify-content: flex-start;
   background-color: ${GRAY_LIGHT};
   border-radius: 2px;
-
+  height: ${Platform.OS === "web" ? `100%` : `auto`};
   flex: ${Platform.OS === "web" ? `1` : `none`};
   width: ${Platform.OS === "web" ? `auto` : `95%`};
   margin: ${Platform.OS === "web" ? `0` : `10px`}
     ${Platform.OS === "web" ? `auto` : `auto`};
   margin-left: ${Platform.OS === "web" ? `20px` : `auto`};
-  padding: ${Platform.OS === "web" ? `25px` : `20px`};
-  height: ${Platform.OS === "web" ? windowHeight - 60 : `auto`};
+  padding: ${Platform.OS === "web" ? `50px` : `40px`}
+    ${Platform.OS === "web" ? `25px` : `20px`};
 `;
 
 export const PersonCardContainer = styled.View`
@@ -23,6 +24,9 @@ export const PersonCardContainer = styled.View`
   padding: 10px 5px;
   flex-direction: row;
   position: relative;
+  border-color: dimgray;
+  padding-bottom: 30px;
+  border-bottom-width: 0.5px;
 `;
 
 export const RightSection = styled.View`
@@ -30,6 +34,7 @@ export const RightSection = styled.View`
   flex-wrap: wrap;
   margin-left: 5px;
   flex: 1;
+  margin-bottom: 15px;
 `;
 
 export const NameContainer = styled.View`
@@ -69,4 +74,10 @@ export const LinkUrlText = styled.Text`
 export const SocialMediaContainer = styled.View`
   flex-direction: column;
   width: 90%;
+  margin-bottom: 20px;
+`;
+
+export const InputContainer = styled.View`
+  flex-direction: column;
+  /* justify-content: space-around; */
 `;

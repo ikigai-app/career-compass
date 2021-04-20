@@ -23,9 +23,9 @@ const CheckIcon = (props) => (
 const EditIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
-    icon="pen"
-    width={18}
-    height={18}
+    icon="edit"
+    width={22}
+    height={22}
     size={18}
     color={"gray"}
     onPress={props.onPress}

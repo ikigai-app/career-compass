@@ -90,6 +90,23 @@ const Experience = () => {
         }}
       >
         <RNPickerSelect
+          style={{
+            inputWeb: {
+              backgroundColor: "white",
+              height: 50,
+              fontSize: 14,
+            },
+            inputAndroid: {
+              height: 45,
+              fontSize: 14,
+              backgroundColor: "#cacaca",
+              marginBottom: 10,
+              borderWidth: 1,
+              borderColor: "black",
+              borderRadius: 4,
+              color: "#8a8a8a",
+            },
+          }}
           placeholder={{ label: "Select Type", value: null }}
           value={type}
           onValueChange={(type) => setType(type)}

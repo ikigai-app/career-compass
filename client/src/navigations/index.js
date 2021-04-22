@@ -26,7 +26,7 @@ const Occupation = createStackNavigator();
 
 const OccupationScreenRoot = () => {
   return (
-    <Occupation.Navigator initialRouteName="OccupationDetails">
+    <Occupation.Navigator initialRouteName="Occupation">
       <Occupation.Screen
         name="Occupation"
         component={OccupationScreen}

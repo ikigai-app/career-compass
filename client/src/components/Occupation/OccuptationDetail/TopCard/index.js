@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Platform } from "react-native";
 import {
   RootView,
@@ -7,6 +7,17 @@ import {
 } from "../../../../styles/Occupation/TopCard";
 import IconButton from "../../../common/IconsButton";
 import Input from "../../../common/TextInput";
+import { gql, useMutation } from "@apollo/client";
+
+const UPDATE_INFORMATION = gql`
+  mutation updateOccupation($id: ID!, $input: AddOccupationInput!) {
+    updateOccupation(id: $id, input: $input) {
+      id
+      name
+      description
+    }
+  }
+`;
 
 const CheckIcon = (props) => (
   <IconButton
@@ -32,13 +43,13 @@ const EditIcon = (props) => (
   />
 );
 
-const TopCard = () => {
-  const [title, setTitle] = useState("Data scientist");
+const TopCard = ({ data }) => {
+  const [title, setTitle] = useState(data.name);
   const [editTitleIcon, setEditTitleIcon] = useState(false);
-  const [description, setDescription] = useState(
-    "Data scientists turn raw data into meaningful information that organisations can use to improve their businesses."
-  );
+  const [descriptionText, setDescription] = useState(data.description);
   const [editDescriptionIcon, setEditDescriptionIcon] = useState(false);
+
+  const [updateOccupation] = useMutation(UPDATE_INFORMATION);
 
   const onChangeTitle = (text) => {
     setTitle(text);
@@ -46,6 +57,30 @@ const TopCard = () => {
 
   const onChangeDescription = (text) => {
     setDescription(text);
+  };
+
+  const updateTitle = async (type) => {
+    await updateOccupation({
+      variables: {
+        id: data.id.toString(),
+        input: {
+          name: title,
+        },
+      },
+    });
+    setEditTitleIcon(false);
+  };
+
+  const updateDescription = async (type) => {
+    await updateOccupation({
+      variables: {
+        id: data.id.toString(),
+        input: {
+          description: descriptionText,
+        },
+      },
+    });
+    setEditDescriptionIcon(false);
   };
 
   return (
@@ -67,7 +102,7 @@ const TopCard = () => {
           value={title}
         />
         {editTitleIcon ? (
-          <CheckIcon onPress={() => setEditTitleIcon(false)} />
+          <CheckIcon onPress={() => updateTitle()} />
         ) : (
           <EditIcon onPress={() => setEditTitleIcon(true)} />
         )}
@@ -92,10 +127,10 @@ const TopCard = () => {
           editable={editDescriptionIcon}
           multiline={true}
           numberOfLines={4}
-          value={description}
+          value={descriptionText}
         />
         {editDescriptionIcon ? (
-          <CheckIcon onPress={() => setEditDescriptionIcon(false)} />
+          <CheckIcon onPress={() => updateDescription()} />
         ) : (
           <EditIcon onPress={() => setEditDescriptionIcon(true)} />
         )}

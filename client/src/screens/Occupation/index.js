@@ -12,40 +12,57 @@ import {
   CircularButtonContainer,
 } from "../../styles/Occupation/RootScreen";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "Data Scientist",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Machine learning",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Test",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28b1",
-    title: "Data Scientist",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f62",
-    title: "Machine learning",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Test",
-  },
-];
+import { useQuery, gql } from "@apollo/client";
+
+const GET_OCCUPATION = gql`
+  query queryOccupation {
+    queryOccupation {
+      id
+      name
+      description
+    }
+  }
+`;
+
+// const DATA = [
+//   {
+//     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+//     title: "Data Scientist",
+//   },
+//   {
+//     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+//     title: "Machine learning",
+//   },
+//   {
+//     id: "58694a0f-3da1-471f-bd96-145571e29d72",
+//     title: "Test",
+//   },
+//   {
+//     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28b1",
+//     title: "Data Scientist",
+//   },
+//   {
+//     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f62",
+//     title: "Machine learning",
+//   },
+//   {
+//     id: "58694a0f-3da1-471f-bd96-145571e29d73",
+//     title: "Test",
+//   },
+// ];
 
 export default function OccupationScreen({ route, navigation }) {
+  const { loading, error, data } = useQuery(GET_OCCUPATION, {});
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error :(</Text>;
+
   const renderCard = ({ item }) => (
     <Card
-      title={item.title}
+      title={item.name}
       onPress={() => {
         navigation.navigate("OccupationDetails", {
-          id: item.title,
+          id: item.id,
         });
       }}
     />
@@ -64,7 +81,7 @@ export default function OccupationScreen({ route, navigation }) {
       </SearchBarContainer>
       <FlatListContainer>
         <FlatList
-          data={DATA}
+          data={data.queryOccupation}
           renderItem={renderCard}
           numColumns={Platform.OS === "web" ? 3 : 0}
           //   horizontal={Platform.OS === "web" ? false : false}

@@ -9,6 +9,7 @@ import {
   Touchable,
   TouchableOpacity,
 } from "react-native";
+import { gql, useMutation } from "@apollo/client";
 import {
   RootView,
   PersonCardContainer,
@@ -23,89 +24,40 @@ import {
   InputContainer,
 } from "../../../../styles/Occupation/ConnectPerson";
 import Header from "../../../common/Header";
-import IconButton from "../../../common/IconsButton";
 import Input from "../../../common/TextInput";
+import {
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  PlusCircleIcon,
+  PlusCircleAddIcon,
+} from "./IconButton";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d724",
-    title: "Third Item",
-  },
-];
+const UPDATE_CONNECT_PEOPLE = gql`
+  mutation updateConnectPeople($id: ID!, $input: UpdateConnectPeople!) {
+    updateConnectPeople(id: $id, input: $input) {
+      name
+    }
+  }
+`;
 
-const CheckIcon = (props) => (
-  <IconButton
-    iconType={"Ionicons"}
-    icon="checkmark-circle"
-    width={22}
-    height={22}
-    size={22}
-    color={"green"}
-    onPress={props.onPress}
-  />
-);
-
-const DeleteIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="trash"
-    width={18}
-    height={18}
-    size={18}
-    color={"grey"}
-    onPress={props.onPress}
-  />
-);
-
-const EditIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="edit"
-    width={18}
-    height={18}
-    size={15}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
-
-const PlusCircleIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="plus-circle"
-    width={22}
-    height={22}
-    size={22}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
-
-const PlusCircleAddIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="plus-circle"
-    width={30}
-    height={30}
-    size={30}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
+const ADD_SOCIAL_MEDIA = gql`
+  mutation addSocialMedia($input: SocialMediaInput!) {
+    addSocialMedia(input: $input) {
+      id
+      type
+      url
+    }
+  }
+`;
 
 const LinkUrl = (props) => {
   return (
     <LinkBtnContainer
       onPress={() => {
-        Linking.openURL("https://expo.io");
+        Platform.OS === "web"
+          ? window.open(props.url, "_blank")
+          : Linking.openURL(props.url);
       }}
     >
       <LinkUrlText>{props.name}</LinkUrlText>
@@ -113,17 +65,20 @@ const LinkUrl = (props) => {
   );
 };
 
-const PersonCard = () => {
-  const [name, setName] = useState("Person One");
+const PersonCard = ({ item }) => {
+  const [name, setName] = useState(item.name);
   const [editName, setEditName] = useState(false);
 
-  const [description, setDescription] = useState("Sample Description ");
+  const [description, setDescription] = useState(item.description);
   const [editDescription, setEditDescription] = useState(false);
+  const [socialMedia, setSocialMedia] = useState(item.socialMedia);
 
   const [socialInputVisible, setSocialInputVisible] = useState(false);
 
   const [socialName, setSocialName] = useState("");
   const [socialUrl, setSocialUrl] = useState("");
+  const [updateConnectPeople] = useMutation(UPDATE_CONNECT_PEOPLE);
+  const [addSocialMedia] = useMutation(ADD_SOCIAL_MEDIA);
 
   const onChangeName = (text) => {
     setName(text);
@@ -138,6 +93,45 @@ const PersonCard = () => {
   };
   const onChangeSocialUrl = (text) => {
     setSocialUrl(text);
+  };
+
+  const updateName = async () => {
+    await updateConnectPeople({
+      variables: {
+        id: item.id.toString(),
+        input: {
+          name: name,
+        },
+      },
+    });
+    setEditName(false);
+  };
+
+  const updateDescription = async () => {
+    await updateConnectPeople({
+      variables: {
+        id: item.id.toString(),
+        input: {
+          description: description,
+        },
+      },
+    });
+    setEditDescription(false);
+  };
+
+  const addSocialAccounts = async () => {
+    await addSocialMedia({
+      variables: {
+        input: {
+          url: socialUrl,
+          type: socialName,
+          accountHolder: {
+            id: item.id.toString(),
+          },
+        },
+      },
+    });
+    setSocialInputVisible(false);
   };
 
   return (
@@ -176,7 +170,7 @@ const PersonCard = () => {
             value={name}
           />
           {editName ? (
-            <CheckIcon onPress={() => setEditName(false)} />
+            <CheckIcon onPress={() => updateName()} />
           ) : (
             <EditIcon onPress={() => setEditName(true)} />
           )}
@@ -203,17 +197,20 @@ const PersonCard = () => {
             value={description}
           />
           {editDescription ? (
-            <CheckIcon onPress={() => setEditDescription(false)} />
+            <CheckIcon onPress={() => updateDescription()} />
           ) : (
             <EditIcon onPress={() => setEditDescription(true)} />
           )}
         </DescriptionContainer>
         <IconContainer>
           <IconContainerChild>
-            <LinkUrl name={"Linkedin"} />
-            <LinkUrl name={"Medium"} />
-            <LinkUrl name={"GitHub"} />
-            <LinkUrl name={"Twitter"} />
+            {socialMedia.map((social) => (
+              <LinkUrl
+                name={social.type}
+                url={social.url}
+                key={social.id.toString()}
+              />
+            ))}
           </IconContainerChild>
           {socialInputVisible ? (
             <View />
@@ -259,7 +256,7 @@ const PersonCard = () => {
               />
             </SocialMediaContainer>
             <View>
-              <CheckIcon onPress={() => setSocialInputVisible(false)} />
+              <CheckIcon onPress={() => addSocialAccounts()} />
             </View>
           </View>
         ) : (
@@ -287,7 +284,8 @@ const ConnectInput = (props) => (
   />
 );
 
-const InputComponent = (props) => {
+const InputComponent = ({ id }) => {
+  // console.log("id", id);
   return (
     <InputContainer>
       <ConnectInput
@@ -333,9 +331,10 @@ const InputComponent = (props) => {
   );
 };
 
-const ConnectPersonCard = () => {
+const ConnectPersonCard = ({ data }) => {
   const [visibleInput, setVisibleInput] = useState(false);
-  const renderItem = ({ item }) => <PersonCard />;
+  const renderItem = ({ item }) => <PersonCard item={item} />;
+  const { connectPeople } = data;
 
   return (
     <RootView>
@@ -349,14 +348,14 @@ const ConnectPersonCard = () => {
 
       <FlatList
         style={{ marginBottom: 20 }}
-        data={DATA}
+        data={connectPeople}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
       />
 
       {visibleInput ? (
-        <InputComponent setVisibleInput={setVisibleInput} />
+        <InputComponent setVisibleInput={setVisibleInput} parentId={data.id} />
       ) : (
         <PlusCircleAddIcon onPress={() => setVisibleInput(true)} />
       )}

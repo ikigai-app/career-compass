@@ -17,6 +17,16 @@ const GET_OCCUPATION = gql`
       id
       name
       description
+      connectPeople {
+        id
+        name
+        description
+        socialMedia {
+          id
+          url
+          type
+        }
+      }
     }
   }
 `;
@@ -38,7 +48,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
           <TopCard data={getOccupation} />
-          <ConnectPersonCard />
+          <ConnectPersonCard data={getOccupation} />
           <SalaryCard />
 
           <JobDescription />
@@ -55,7 +65,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
         <JobDescription />
         <Experience />
       </LeftSectionWeb>
-      <ConnectPersonCard />
+      <ConnectPersonCard data={getOccupation} />
     </RootView>
   );
 };

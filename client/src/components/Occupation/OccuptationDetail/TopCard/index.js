@@ -59,7 +59,7 @@ const TopCard = ({ data }) => {
     setDescription(text);
   };
 
-  const updateTitle = async (type) => {
+  const updateTitle = async () => {
     await updateOccupation({
       variables: {
         id: data.id.toString(),
@@ -71,7 +71,7 @@ const TopCard = ({ data }) => {
     setEditTitleIcon(false);
   };
 
-  const updateDescription = async (type) => {
+  const updateDescription = async () => {
     await updateOccupation({
       variables: {
         id: data.id.toString(),

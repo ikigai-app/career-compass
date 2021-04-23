@@ -27,6 +27,21 @@ const GET_OCCUPATION = gql`
           type
         }
       }
+      jobDescription {
+        id
+        roles {
+          id
+          role
+        }
+        requirements {
+          id
+          requirement
+        }
+        skills1 {
+          id
+          skill1
+        }
+      }
     }
   }
 `;
@@ -52,7 +67,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
           <ConnectPersonCard data={data} refetch={() => refetch()} />
           <SalaryCard />
 
-          <JobDescription />
+          <JobDescription data={data} refetch={() => refetch()} />
           <Experience />
         </RootView>
       </ScrollView>
@@ -63,7 +78,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
       <LeftSectionWeb>
         <TopCard data={data} />
         <SalaryCard />
-        <JobDescription />
+        <JobDescription data={data} refetch={() => refetch()} />
         <Experience />
       </LeftSectionWeb>
       <ConnectPersonCard data={data} refetch={() => refetch()} />

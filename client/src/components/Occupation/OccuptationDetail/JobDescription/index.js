@@ -6,13 +6,13 @@ import JobRequirements from "./JobRequirements";
 import JobRole from "./JobRole";
 import JobSkills from "./JobSkills";
 
-const JobDescription = () => {
+const JobDescription = ({ data, refetch }) => {
   return (
     <RootView>
       <Header text={"JOB DESCRIPTION"} />
-      <JobRole />
-      <JobSkills />
-      <JobRequirements />
+      <JobRole data={data} refetch={refetch} />
+      <JobSkills data={data} refetch={refetch} />
+      <JobRequirements data={data} refetch={refetch} />
     </RootView>
   );
 };

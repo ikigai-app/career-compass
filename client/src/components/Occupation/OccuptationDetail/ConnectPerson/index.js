@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Linking from "expo-linking";
 import {
   Text,
@@ -78,7 +78,21 @@ const PersonCard = ({ item, refetch }) => {
   const [socialName, setSocialName] = useState("");
   const [socialUrl, setSocialUrl] = useState("");
   const [updateConnectPeople] = useMutation(UPDATE_CONNECT_PEOPLE);
-  const [addSocialMedia] = useMutation(ADD_SOCIAL_MEDIA);
+
+  useEffect(() => {
+    if (item) {
+      const { socialMedia } = item;
+      setSocialMedia(socialMedia);
+    }
+  }, [item]);
+
+  const [addSocialMedia] = useMutation(ADD_SOCIAL_MEDIA, {
+    onCompleted({ addSocialMedia }) {
+      if (addSocialMedia) {
+        refetch();
+      }
+    },
+  });
 
   const onChangeName = (text) => {
     setName(text);
@@ -120,19 +134,17 @@ const PersonCard = ({ item, refetch }) => {
   };
 
   const addSocialAccounts = async () => {
-    console.log("text", refetch());
-
-    // await addSocialMedia({
-    //   variables: {
-    //     input: {
-    //       url: socialUrl,
-    //       type: socialName,
-    //       accountHolder: {
-    //         id: item.id.toString(),
-    //       },
-    //     },
-    //   },
-    // });
+    await addSocialMedia({
+      variables: {
+        input: {
+          url: socialUrl,
+          type: socialName,
+          accountHolder: {
+            id: item.id.toString(),
+          },
+        },
+      },
+    });
     setSocialInputVisible(false);
   };
 
@@ -334,9 +346,20 @@ const InputComponent = ({ id }) => {
 };
 
 const ConnectPersonCard = ({ data, refetch }) => {
+  const { getOccupation } = data;
   const [visibleInput, setVisibleInput] = useState(false);
+  // const [socialLength, setSocialLength] = useState();
+  const [peopleData, setPeopleData] = useState(
+    data.getOccupation.connectPeople
+  );
   const renderItem = ({ item }) => <PersonCard item={item} refetch={refetch} />;
-  const { connectPeople } = data;
+
+  useEffect(() => {
+    if (data) {
+      const { connectPeople } = data.getOccupation;
+      setPeopleData(connectPeople);
+    }
+  }, [data]);
 
   return (
     <RootView>
@@ -350,14 +373,18 @@ const ConnectPersonCard = ({ data, refetch }) => {
 
       <FlatList
         style={{ marginBottom: 20 }}
-        data={connectPeople}
+        data={peopleData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
+        extraData={peopleData}
       />
 
       {visibleInput ? (
-        <InputComponent setVisibleInput={setVisibleInput} parentId={data.id} />
+        <InputComponent
+          setVisibleInput={setVisibleInput}
+          parentId={getOccupation.id}
+        />
       ) : (
         <PlusCircleAddIcon onPress={() => setVisibleInput(true)} />
       )}

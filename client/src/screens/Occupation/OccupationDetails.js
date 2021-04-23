@@ -42,15 +42,14 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
 
+  // console.log("refetch.....", data);
+
   if (Platform.OS === "android" || Platform.OS === "ios") {
     return (
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
           <TopCard data={data} />
-          <ConnectPersonCard
-            data={data.getOccupation}
-            refetch={() => refetch()}
-          />
+          <ConnectPersonCard data={data} refetch={() => refetch()} />
           <SalaryCard />
 
           <JobDescription />
@@ -67,7 +66,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
         <JobDescription />
         <Experience />
       </LeftSectionWeb>
-      <ConnectPersonCard data={data.getOccupation} refetch={() => refetch()} />
+      <ConnectPersonCard data={data} refetch={() => refetch()} />
     </RootView>
   );
 };

@@ -65,7 +65,7 @@ const LinkUrl = (props) => {
   );
 };
 
-const PersonCard = ({ item }) => {
+const PersonCard = ({ item, refetch }) => {
   const [name, setName] = useState(item.name);
   const [editName, setEditName] = useState(false);
 
@@ -120,17 +120,19 @@ const PersonCard = ({ item }) => {
   };
 
   const addSocialAccounts = async () => {
-    await addSocialMedia({
-      variables: {
-        input: {
-          url: socialUrl,
-          type: socialName,
-          accountHolder: {
-            id: item.id.toString(),
-          },
-        },
-      },
-    });
+    console.log("text", refetch());
+
+    // await addSocialMedia({
+    //   variables: {
+    //     input: {
+    //       url: socialUrl,
+    //       type: socialName,
+    //       accountHolder: {
+    //         id: item.id.toString(),
+    //       },
+    //     },
+    //   },
+    // });
     setSocialInputVisible(false);
   };
 
@@ -331,9 +333,9 @@ const InputComponent = ({ id }) => {
   );
 };
 
-const ConnectPersonCard = ({ data }) => {
+const ConnectPersonCard = ({ data, refetch }) => {
   const [visibleInput, setVisibleInput] = useState(false);
-  const renderItem = ({ item }) => <PersonCard item={item} />;
+  const renderItem = ({ item }) => <PersonCard item={item} refetch={refetch} />;
   const { connectPeople } = data;
 
   return (

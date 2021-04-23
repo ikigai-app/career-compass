@@ -34,21 +34,23 @@ const GET_OCCUPATION = gql`
 const OccupationDetailsScreen = ({ route, navigation }) => {
   const { id } = route.params;
 
-  const { loading, error, data } = useQuery(GET_OCCUPATION, {
+  const { loading, error, data, refetch } = useQuery(GET_OCCUPATION, {
     variables: { id: id.toString() },
+    fetchPolicy: "no-cache",
   });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
 
-  const { getOccupation } = data;
-
   if (Platform.OS === "android" || Platform.OS === "ios") {
     return (
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
-          <TopCard data={getOccupation} />
-          <ConnectPersonCard data={getOccupation} />
+          <TopCard data={data} />
+          <ConnectPersonCard
+            data={data.getOccupation}
+            refetch={() => refetch()}
+          />
           <SalaryCard />
 
           <JobDescription />
@@ -60,12 +62,12 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
   return (
     <RootView>
       <LeftSectionWeb>
-        <TopCard data={getOccupation} />
+        <TopCard data={data} />
         <SalaryCard />
         <JobDescription />
         <Experience />
       </LeftSectionWeb>
-      <ConnectPersonCard data={getOccupation} />
+      <ConnectPersonCard data={data.getOccupation} refetch={() => refetch()} />
     </RootView>
   );
 };

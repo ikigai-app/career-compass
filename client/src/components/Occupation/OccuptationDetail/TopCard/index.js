@@ -44,12 +44,22 @@ const EditIcon = (props) => (
 );
 
 const TopCard = ({ data }) => {
-  const [title, setTitle] = useState(data.name);
+  const [title, setTitle] = useState(data.getOccupation.name);
   const [editTitleIcon, setEditTitleIcon] = useState(false);
-  const [descriptionText, setDescription] = useState(data.description);
+  const [descriptionText, setDescription] = useState(
+    data.getOccupation.description
+  );
   const [editDescriptionIcon, setEditDescriptionIcon] = useState(false);
 
   const [updateOccupation] = useMutation(UPDATE_INFORMATION);
+
+  useEffect(() => {
+    if (data) {
+      const { name, description } = data.getOccupation;
+      setTitle(name);
+      setDescription(description);
+    }
+  }, [data]);
 
   const onChangeTitle = (text) => {
     setTitle(text);

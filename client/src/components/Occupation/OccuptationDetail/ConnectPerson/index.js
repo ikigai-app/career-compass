@@ -51,6 +51,16 @@ const ADD_SOCIAL_MEDIA = gql`
   }
 `;
 
+const ADD_CONNECT_PEOPLE = gql`
+  mutation addConnectPeople($input: ConnectPeopleInput!) {
+    addConnectPeople(input: $input) {
+      id
+      name
+      description
+    }
+  }
+`;
+
 const LinkUrl = (props) => {
   return (
     <LinkBtnContainer
@@ -298,25 +308,61 @@ const ConnectInput = (props) => (
   />
 );
 
-const InputComponent = ({ id }) => {
-  // console.log("id", id);
+const InputComponent = ({ setVisibleInput, parentId, refetch }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [socialName, setSocialName] = useState("");
+  const [socialUrl, setSocialUrl] = useState("");
+
+  const [addConnectPeople] = useMutation(ADD_CONNECT_PEOPLE, {
+    onCompleted({ addConnectPeople }) {
+      if (addConnectPeople) {
+        refetch();
+      }
+    },
+  });
+
+  const addNewPerson = async () => {
+    await addConnectPeople({
+      variables: {
+        input: {
+          name: name,
+          description: description,
+          socialMedia: {
+            url: socialUrl,
+            type: socialName,
+          },
+          occupationType: {
+            id: parentId.toString(),
+          },
+        },
+      },
+    });
+
+    setVisibleInput(false);
+  };
+
   return (
     <InputContainer>
       <ConnectInput
         placeholder={"Name"}
-        //  onChangeText={} value={}
+        onChangeText={(txt) => setName(txt)}
+        value={name}
       />
       <ConnectInput
         placeholder={"Description"}
-        //  onChangeText={} value={}
+        value={description}
+        onChangeText={(txt) => setDescription(txt)}
       />
       <ConnectInput
         placeholder={"Social Media Name"}
-        //  onChangeText={} value={}
+        value={socialName}
+        onChangeText={(txt) => setSocialName(txt)}
       />
       <ConnectInput
         placeholder={"Social Media Url"}
-        //  onChangeText={} value={}
+        value={socialUrl}
+        onChangeText={(txt) => setSocialUrl(txt)}
       />
       <TouchableOpacity
         style={{
@@ -328,7 +374,7 @@ const InputComponent = ({ id }) => {
           alignItems: "center",
         }}
         onPress={() => {
-          props.setVisibleInput(false);
+          addNewPerson();
         }}
       >
         <Text
@@ -348,7 +394,6 @@ const InputComponent = ({ id }) => {
 const ConnectPersonCard = ({ data, refetch }) => {
   const { getOccupation } = data;
   const [visibleInput, setVisibleInput] = useState(false);
-  // const [socialLength, setSocialLength] = useState();
   const [peopleData, setPeopleData] = useState(
     data.getOccupation.connectPeople
   );
@@ -384,6 +429,7 @@ const ConnectPersonCard = ({ data, refetch }) => {
         <InputComponent
           setVisibleInput={setVisibleInput}
           parentId={getOccupation.id}
+          refetch={refetch}
         />
       ) : (
         <PlusCircleAddIcon onPress={() => setVisibleInput(true)} />

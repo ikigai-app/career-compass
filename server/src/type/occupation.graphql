@@ -35,14 +35,14 @@ type ConnectPeople {
   description: String
   profilePic: String
   socialMedia: [SocialMedia]
-  occupationType: Occupation!
+  occupationType: Occupation
 }
 
 type SocialMedia {
   id: ID!
   type: String
   url: String
-  accountHolder: ConnectPeople!
+  accountHolder: ConnectPeople
 }
 
 type JobDescription {
@@ -50,7 +50,7 @@ type JobDescription {
   roles: [Roles]
   skills1: [Skills1]
   requirements: [Requirements]
-  occupationType: Occupation!
+  occupationType: Occupation
 }
 
 type Roles {
@@ -73,7 +73,7 @@ type Experience {
   url: String
   description: String
   type: String
-  occupationType: Occupation!
+  occupationType: Occupation
 }
 
 input AddOccupationInput {
@@ -89,7 +89,7 @@ input ConnectPeopleInput {
   description: String
   profilePic: String
   socialMedia: [SocialMediaInput]
-  occupationType: ParentID!
+  occupationType: ParentID
 }
 
 input UpdateConnectPeople {
@@ -102,7 +102,7 @@ input UpdateConnectPeople {
 input SocialMediaInput {
   type: String
   url: String
-  accountHolder: ParentID!
+  accountHolder: ParentID
 }
 
 input UpdateSocialMedia {
@@ -114,7 +114,7 @@ input JobDescriptionInput {
   roles: [RoleInput]
   skills1: [Skills1Input]
   requirements: [RequirementInput]
-  occupationType: ParentID!
+  occupationType: ParentID
 }
 
 input UpdateJobDescriptionInput {
@@ -139,7 +139,7 @@ input ExperienceInput {
   url: String
   description: String
   type: String
-  occupationType: ParentID!
+  occupationType: ParentID
 }
 
 input UpdateExperienceInput {

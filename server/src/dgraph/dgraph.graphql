@@ -936,7 +936,7 @@ type ConnectPeople
   description: String
   profilePic: String
   socialMedia: [SocialMedia]
-  occupationType: Occupation! @hasInverse(field: connectPeople)
+  occupationType: Occupation @hasInverse(field: connectPeople)
 }
 
 type SocialMedia
@@ -948,7 +948,7 @@ type SocialMedia
   id: ID!
   type: String
   url: String
-  accountHolder: ConnectPeople! @hasInverse(field: socialMedia)
+  accountHolder: ConnectPeople @hasInverse(field: socialMedia)
 }
 
 type JobDescription
@@ -961,7 +961,7 @@ type JobDescription
   roles: [Roles]
   skills1: [Skills1]
   requirements: [Requirements]
-  occupationType: Occupation! @hasInverse(field: jobDescription)
+  occupationType: Occupation @hasInverse(field: jobDescription)
 }
 
 type Roles
@@ -1004,5 +1004,5 @@ type Experience
   url: String
   description: String
   type: String
-  occupationType: Occupation! @hasInverse(field: experience)
+  occupationType: Occupation @hasInverse(field: experience)
 }

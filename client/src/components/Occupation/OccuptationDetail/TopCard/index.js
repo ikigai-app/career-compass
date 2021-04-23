@@ -72,7 +72,7 @@ const TopCard = ({ data }) => {
   const updateTitle = async () => {
     await updateOccupation({
       variables: {
-        id: data.id.toString(),
+        id: data.getOccupation.id.toString(),
         input: {
           name: title,
         },
@@ -84,7 +84,7 @@ const TopCard = ({ data }) => {
   const updateDescription = async () => {
     await updateOccupation({
       variables: {
-        id: data.id.toString(),
+        id: data.getOccupation.id.toString(),
         input: {
           description: descriptionText,
         },

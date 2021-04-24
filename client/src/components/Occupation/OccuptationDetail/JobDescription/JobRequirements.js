@@ -6,8 +6,15 @@ import {
   FlatListHeaderText,
   InputContainer,
 } from "../../../../styles/Occupation/JobDescription";
-import IconButton from "../../../common/IconsButton";
+
 import Input from "../../../common/TextInput";
+import {
+  CheckIcon,
+  EditIcon,
+  PlusCircleIcon,
+  DeleteIcon,
+} from "./common/IconButton";
+import { Bullet } from "./common/Bullet";
 
 const DATA = [
   {
@@ -19,66 +26,6 @@ const DATA = [
     text: "Second Item",
   },
 ];
-
-const CheckIcon = (props) => (
-  <IconButton
-    iconType={"Ionicons"}
-    icon="checkmark-circle"
-    width={22}
-    height={22}
-    size={22}
-    color={"green"}
-    onPress={props.onPress}
-  />
-);
-
-const EditIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="edit"
-    width={22}
-    height={22}
-    size={18}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
-
-const PlusCircleIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="plus-circle"
-    width={20}
-    height={20}
-    size={20}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
-
-const Bullet = () => (
-  <View
-    style={{
-      width: 10,
-      height: 10,
-      borderRadius: 10 / 2,
-      backgroundColor: "darkslateblue",
-      marginRight: 10,
-    }}
-  />
-);
-
-const DeleteIcon = (props) => (
-  <IconButton
-    iconType={"FontAwesome5"}
-    icon="trash"
-    width={22}
-    height={22}
-    size={18}
-    color={"gray"}
-    onPress={props.onPress}
-  />
-);
 
 const JobRequirement = () => {
   const [visibleInput, setVisibleInput] = useState(true);

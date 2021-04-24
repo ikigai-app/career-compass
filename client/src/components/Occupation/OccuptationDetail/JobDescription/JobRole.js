@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Platform } from "react-native";
+import { View, Text, TextInput, FlatList, Platform } from "react-native";
 import {
   RootFlatListContainer,
   FlatListHeader,
@@ -26,84 +26,83 @@ const DATA = [
   },
 ];
 
-const JobRole = () => {
-  const [visibleInput, setVisibleInput] = useState(true);
-  const [text, setText] = useState("Sample Role One");
-  const [editText, setEditText] = useState(false);
+const InputComponent = (props) => {
+  const { data } = props;
   const [selectedID, setSelectedID] = useState("");
+  const [editText, setEditText] = useState(false);
+  const [text, setText] = useState("Sample Role One");
 
-  const onChangeText = (text) => {
-    setText(text);
-  };
-
-  const NewInputComponent = () => {
-    return (
-      <InputContainer>
-        <Input
-          placeholder={"Name"}
-          style={{
-            flex: 1,
-            fontSize: 15,
-            borderWidth: 1,
-            color: "dimgray",
-            fontWeight: "600",
-            padding: 10,
-            marginTop: 2,
-            marginRight: 10,
-          }}
-          onChangeText={onChangeText}
-          editable={editText}
-          value={text}
-        />
-        <CheckIcon onPress={() => setVisibleInput(true)} />
-      </InputContainer>
-    );
-  };
-
-  const InputComponent = (props) => {
-    const { data } = props;
-
-    return (
-      <InputContainer>
-        <Bullet />
-        <Input
-          placeholder={"Name"}
-          style={{
-            flex: 1,
-            fontSize: 15,
-            borderWidth: editText && selectedID === data.id ? 1 : 0,
-            color: "dimgray",
-            padding: 10,
-            maxHeight: 65,
-            marginRight: 5,
-          }}
-          onChangeText={onChangeText}
-          editable={editText}
-          value={data.text}
-        />
-        {editText && selectedID === data.id ? (
-          <View style={{ flexDirection: "row" }}>
-            <CheckIcon
-              onPress={() => {
-                setEditText(false);
-                setSelectedID("");
-              }}
-            />
-            <View style={{ marginLeft: 10 }}>
-              <DeleteIcon />
-            </View>
-          </View>
-        ) : (
-          <EditIcon
+  return (
+    <InputContainer>
+      <Bullet />
+      <Input
+        placeholder={"Name"}
+        style={{
+          flex: 1,
+          fontSize: 15,
+          borderWidth: editText && selectedID === data.id ? 1 : 0,
+          color: "dimgray",
+          padding: 10,
+          maxHeight: 65,
+          marginRight: 5,
+        }}
+        onChangeText={(text) => {
+          setText(text);
+        }}
+        editable={editText}
+        value={text}
+      />
+      {editText && selectedID === data.id ? (
+        <View style={{ flexDirection: "row" }}>
+          <CheckIcon
             onPress={() => {
-              setEditText(true);
-              setSelectedID(props.data.id);
+              setEditText(false);
+              setSelectedID("");
             }}
           />
-        )}
-      </InputContainer>
-    );
-  };
+          <View style={{ marginLeft: 10 }}>
+            <DeleteIcon />
+          </View>
+        </View>
+      ) : (
+        <EditIcon
+          onPress={() => {
+            setEditText(true);
+            setSelectedID(props.data.id);
+          }}
+        />
+      )}
+    </InputContainer>
+  );
+};
+
+const NewInputComponent = (props) => {
+  const [role, setRole] = useState("");
+
+  return (
+    <InputContainer>
+      <TextInput
+        placeholder={"Role"}
+        style={{
+          flex: 1,
+          fontSize: 15,
+          borderWidth: 1,
+          color: "dimgray",
+          fontWeight: "600",
+          padding: 10,
+          marginTop: 2,
+          marginRight: 10,
+        }}
+        onChangeText={(text) => setRole(text)}
+        value={role}
+      />
+      <CheckIcon onPress={props.onPress} />
+    </InputContainer>
+  );
+};
+
+const JobRole = () => {
+  const [visibleInput, setVisibleInput] = useState(true);
 
   const renderItem = ({ item }) => <InputComponent data={item} />;
 
@@ -116,7 +115,7 @@ const JobRole = () => {
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        extraData={editText}
+        // extraData={editText}
       />
       {visibleInput ? (
         <View
@@ -125,7 +124,7 @@ const JobRole = () => {
           <PlusCircleIcon onPress={() => setVisibleInput(false)} />
         </View>
       ) : (
-        <NewInputComponent />
+        <NewInputComponent onPress={() => setVisibleInput(true)} />
       )}
     </RootFlatListContainer>
   );

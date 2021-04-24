@@ -406,6 +406,10 @@ const ConnectPersonCard = ({ data, refetch }) => {
     }
   }, [data]);
 
+  if (!peopleData) {
+    return <View />;
+  }
+
   return (
     <RootView>
       <Header text={"CONNECT WITH PEOPLE"} />

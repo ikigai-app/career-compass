@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, Text } from "react-native";
 import ConnectPersonCard from "../../components/Occupation/OccuptationDetail/ConnectPerson";
 import Experience from "../../components/Occupation/OccuptationDetail/Experience";

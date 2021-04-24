@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, Platform } from "react-native";
 import {
   RootFlatListContainer,
@@ -30,7 +30,7 @@ const InputComponent = (props) => {
   const { data } = props;
   const [selectedID, setSelectedID] = useState("");
   const [editText, setEditText] = useState(false);
-  const [text, setText] = useState("Sample Role One");
+  const [text, setText] = useState(data.role);
 
   return (
     <InputContainer>
@@ -68,7 +68,7 @@ const InputComponent = (props) => {
         <EditIcon
           onPress={() => {
             setEditText(true);
-            setSelectedID(props.data.id);
+            setSelectedID(data.id);
           }}
         />
       )}
@@ -101,10 +101,14 @@ const NewInputComponent = (props) => {
   );
 };
 
-const JobRole = () => {
+const JobRole = ({ data, refetch }) => {
+  const { jobDescription } = data.getOccupation;
   const [visibleInput, setVisibleInput] = useState(true);
+  const [rolesData, setRolesData] = useState(jobDescription[0].roles);
 
   const renderItem = ({ item }) => <InputComponent data={item} />;
+
+  console.log("cchck", rolesData);
 
   return (
     <RootFlatListContainer>
@@ -112,7 +116,7 @@ const JobRole = () => {
         <FlatListHeaderText>ROLES</FlatListHeaderText>
       </FlatListHeader>
       <FlatList
-        data={DATA}
+        data={rolesData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         // extraData={editText}

@@ -8,8 +8,6 @@
 
 - [graphql-tools](https://www.graphql-tools.com/docs/introduction) : Stitch multiple GraphQL Schemas
 
-- [Dgraph](https://github.com/dgraph-io/dgraph) : Native GraphQL Database With A Graph Backend.
-
 ### RUN
 
 Download the docker if not installed from following [link](https://www.docker.com/products/docker-desktop)
@@ -26,79 +24,6 @@ $ docker network ls
 
 $ docker network inspect <NETWORK_ID or NAME/>
 # take dgraph alpha server IP and pass it to .env DGRAPH_HOST
-```
-
-#### Dgraph Schema
-
-Go to `src/dgraph` and run the following command to export the schema
-
-```shell
-$ curl -X POST localhost:8080/admin/schema --data-binary '@dgraph.graphql'
-```
-
-For Apollo Server `http://localhost:4000/graphql`
-
-##### Query
-
-```shell
-# to query all the users
-query {
-  queryUser {
-    userName
-    SovrenResponse {
-      Info {
-        ApiVersion
-        CustomerDetails {
-          AccountId
-          MaximumConcurrentRequests
-        }
-      }
-    }
-  }
-}
-
-
-
-# to query specific user
-query($userName: String!) {
-  getUser(userName: $userName) {
-    userName
-    # SovrenResponse
-  }
-}
-
-
-# Under Query Variables GraphQL-Playground
-{
-  "userName": "test1"
-}
-
-```
-
-##### Mutation
-
-```shell
-mutation($userName: String!, $SovrenResponse: SovrenResponseInput) {
-  addUser(input: { userName: $userName, SovrenResponse: $SovrenResponse }) {
-    userName
-  }
-}
-
-# Under Query Variables GraphQL-Playground
-{
-  "userName": "test1",
-  "SovrenResponse": {
-    "Info": {
-      "Code": "Success",
-     "CustomerDetails": {
-      "AccountId": "1345",
-      "Name": "Test",
-      "MaximumConcurrentRequests": 10
-    }
-    }
-  }
-}
-
 ```
 
 ##### Before connecting to the client. Run

@@ -1,11 +1,11 @@
-type Query {
-  getUser(userName: String!): User
-  queryUser(first: Int, offset: Int): [User]
-}
+# type Query {
+#   getUser(userName: String!): User
+#   queryUser(first: Int, offset: Int): [User]
+# }
 
-type Mutation {
-  addUser(input: AddUserInput!): User
-}
+# type Mutation {
+#   addUser(input: AddUserInput!): User
+# }
 
 type User {
   userName: String!

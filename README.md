@@ -13,12 +13,12 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
 
 ```
 
-node version in use v14.15.5
+node version in use v14.16.1
 
 ```shell
-$ nvm install 14.15.5  #if not installed
+$ nvm install 14.16.1  #if not installed
 
-$ nvm use  14.15.5 #manually switch to node version
+$ nvm use  14.16.1 #manually switch to node version
 ```
 
 Setup nvm [Deeper Shell Integration for NVM](https://github.com/nvm-sh/nvm#deeper-shell-integration) - Automatically call `nvm use`

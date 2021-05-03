@@ -1,153 +1,155 @@
 type Query {
-  getOccupation(id: ID!): Occupation
-  queryOccupation(first: Int, offset: Int): [Occupation]
-  queryConnectPeople(first: Int, offset: Int): [ConnectPeople]
-  queryJobDescription(first: Int, offset: Int): [JobDescription]
-  queryExperience(first: Int, offset: Int): [Experience]
-  querySocialMedia(first: Int, offset: Int): [SocialMedia]
+  occupation(id: ID!): Occupation
+  occupations: [Occupation]
+  # queryConnectPeople(first: Int, offset: Int): [ConnectPeople]
+  # queryJobDescription(first: Int, offset: Int): [JobDescription]
+  # queryExperience(first: Int, offset: Int): [Experience]
+  # querySocialMedia(first: Int, offset: Int): [SocialMedia]
 }
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
-  addConnectPeople(input: ConnectPeopleInput!): ConnectPeople
-  addSocialMedia(input: SocialMediaInput!): SocialMedia
-  addExperience(input: ExperienceInput!): Experience
-  addJobDescription(input: JobDescriptionInput!): JobDescription
+  # addConnectPeople(input: ConnectPeopleInput!): ConnectPeople
+  # addSocialMedia(input: SocialMediaInput!): SocialMedia
+  # addExperience(input: ExperienceInput!): Experience
+  # addJobDescription(input: JobDescriptionInput!): JobDescription
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
-  updateConnectPeople(id: ID!, input: UpdateConnectPeople!): ConnectPeople
-  updateSocialMedia(id: ID!, input: UpdateSocialMedia!): SocialMedia
-  updateExperience(id: ID!, input: UpdateExperienceInput!): Experience
+  # updateConnectPeople(id: ID!, input: UpdateConnectPeople!): ConnectPeople
+  # updateSocialMedia(id: ID!, input: UpdateSocialMedia!): SocialMedia
+  # updateExperience(id: ID!, input: UpdateExperienceInput!): Experience
+
+  deleteOccupation(id: ID!): Occupation
 }
 
 type Occupation {
   id: ID!
   name: String
   description: String
-  connectPeople: [ConnectPeople]
-  jobDescription: [JobDescription]
-  experience: [Experience]
+  # connectPeople: [ConnectPeople]
+  # jobDescription: [JobDescription]
+  # experience: [Experience]
 }
 
-type ConnectPeople {
-  id: ID!
-  name: String
-  description: String
-  profilePic: String
-  socialMedia: [SocialMedia]
-  occupationType: Occupation
-}
+# type ConnectPeople {
+#   id: ID!
+#   name: String
+#   description: String
+#   profilePic: String
+#   socialMedia: [SocialMedia]
+#   occupationType: Occupation
+# }
 
-type SocialMedia {
-  id: ID!
-  type: String
-  url: String
-  accountHolder: ConnectPeople
-}
+# type SocialMedia {
+#   id: ID!
+#   type: String
+#   url: String
+#   accountHolder: ConnectPeople
+# }
 
-type JobDescription {
-  id: ID!
-  roles: [Roles]
-  skills1: [Skills1]
-  requirements: [Requirements]
-  occupationType: Occupation
-}
+# type JobDescription {
+#   id: ID!
+#   roles: [Roles]
+#   skills1: [Skills1]
+#   requirements: [Requirements]
+#   occupationType: Occupation
+# }
 
-type Roles {
-  id: ID!
-  role: String
-}
+# type Roles {
+#   id: ID!
+#   role: String
+# }
 
-type Skills1 {
-  id: ID!
-  skill1: String
-}
+# type Skills1 {
+#   id: ID!
+#   skill1: String
+# }
 
-type Requirements {
-  id: ID!
-  requirement: String
-}
+# type Requirements {
+#   id: ID!
+#   requirement: String
+# }
 
-type Experience {
-  id: ID!
-  url: String
-  description: String
-  type: String
-  occupationType: Occupation
-}
+# type Experience {
+#   id: ID!
+#   url: String
+#   description: String
+#   type: String
+#   occupationType: Occupation
+# }
 
 input AddOccupationInput {
   name: String
   description: String
-  connectPeople: [ConnectPeopleInput]
-  jobDescription: [JobDescriptionInput]
-  experience: [ExperienceInput]
+  # connectPeople: [ConnectPeopleInput]
+  # jobDescription: [JobDescriptionInput]
+  # experience: [ExperienceInput]
 }
 
-input ConnectPeopleInput {
-  name: String
-  description: String
-  profilePic: String
-  socialMedia: [SocialMediaInput]
-  occupationType: ParentID
-}
+# input ConnectPeopleInput {
+#   name: String
+#   description: String
+#   profilePic: String
+#   socialMedia: [SocialMediaInput]
+#   occupationType: ParentID
+# }
 
-input UpdateConnectPeople {
-  name: String
-  description: String
-  profilePic: String
-  socialMedia: [SocialMediaInput]
-}
+# input UpdateConnectPeople {
+#   name: String
+#   description: String
+#   profilePic: String
+#   socialMedia: [SocialMediaInput]
+# }
 
-input SocialMediaInput {
-  type: String
-  url: String
-  accountHolder: ParentID
-}
+# input SocialMediaInput {
+#   type: String
+#   url: String
+#   accountHolder: ParentID
+# }
 
-input UpdateSocialMedia {
-  type: String
-  url: String
-}
+# input UpdateSocialMedia {
+#   type: String
+#   url: String
+# }
 
-input JobDescriptionInput {
-  roles: [RoleInput]
-  skills1: [Skills1Input]
-  requirements: [RequirementInput]
-  occupationType: ParentID
-}
+# input JobDescriptionInput {
+#   roles: [RoleInput]
+#   skills1: [Skills1Input]
+#   requirements: [RequirementInput]
+#   occupationType: ParentID
+# }
 
-input UpdateJobDescriptionInput {
-  roles: [RoleInput]
-  skills1: [Skills1Input]
-  requirements: [RequirementInput]
-}
+# input UpdateJobDescriptionInput {
+#   roles: [RoleInput]
+#   skills1: [Skills1Input]
+#   requirements: [RequirementInput]
+# }
 
-input RoleInput {
-  role: String
-}
+# input RoleInput {
+#   role: String
+# }
 
-input Skills1Input {
-  skill1: String
-}
+# input Skills1Input {
+#   skill1: String
+# }
 
-input RequirementInput {
-  requirement: String
-}
+# input RequirementInput {
+#   requirement: String
+# }
 
-input ExperienceInput {
-  url: String
-  description: String
-  type: String
-  occupationType: ParentID
-}
+# input ExperienceInput {
+#   url: String
+#   description: String
+#   type: String
+#   occupationType: ParentID
+# }
 
-input UpdateExperienceInput {
-  url: String
-  description: String
-  type: String
-}
+# input UpdateExperienceInput {
+#   url: String
+#   description: String
+#   type: String
+# }
 
-input ParentID {
-  id: ID
-}
+# input ParentID {
+#   id: ID
+# }

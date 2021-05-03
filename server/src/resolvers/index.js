@@ -1,13 +1,11 @@
-// // const { buildQuery } = require("./query");
-// // const { buildMutation } = require("./mutation");
-// // const { getDgSchema } = require("../dgraph/index.js");
+const { buildQuery } = require("./query");
+const { buildMutation } = require("./mutation");
 
-// async function buildResolvers() {
-//   // const dg = await getDgSchema();
-//   // return {
-//   //   // Query: buildQuery(dg),
-//   //   // Mutation: buildMutation(dg),
-//   // };
-// }
+async function buildResolvers() {
+  return {
+    Query: buildQuery(),
+    Mutation: buildMutation(),
+  };
+}
 
-// exports.buildResolvers = buildResolvers;
+exports.buildResolvers = buildResolvers;

@@ -1,12 +1,12 @@
 require("graphql-import-node/register");
 const typeDefs = require("./typeDefs.js");
 const { makeExecutableSchema } = require("apollo-server-express");
-// const { buildResolvers } = require("./resolvers/index.js");
+const { buildResolvers } = require("./resolvers/index.js");
 
 async function buildSchema() {
   return makeExecutableSchema({
     typeDefs,
-    // resolvers: await buildResolvers(),
+    resolvers: await buildResolvers(),
   });
 }
 

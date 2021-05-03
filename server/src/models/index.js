@@ -1,3 +1,4 @@
 const { Occupation } = require("./Occupation");
+const { ConnectPeople } = require("./ConnectPeople");
 
-module.exports = { Occupation };
+module.exports = { Occupation, ConnectPeople };

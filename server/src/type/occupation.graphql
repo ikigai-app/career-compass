@@ -1,7 +1,7 @@
 type Query {
   occupation(id: ID!): Occupation
   occupations: [Occupation]
-  # queryConnectPeople(first: Int, offset: Int): [ConnectPeople]
+  connectPeoples: [ConnectPeople]
   # queryJobDescription(first: Int, offset: Int): [JobDescription]
   # queryExperience(first: Int, offset: Int): [Experience]
   # querySocialMedia(first: Int, offset: Int): [SocialMedia]
@@ -9,7 +9,7 @@ type Query {
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
-  # addConnectPeople(input: ConnectPeopleInput!): ConnectPeople
+  addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
   # addSocialMedia(input: SocialMediaInput!): SocialMedia
   # addExperience(input: ExperienceInput!): Experience
   # addJobDescription(input: JobDescriptionInput!): JobDescription
@@ -20,25 +20,25 @@ type Mutation {
   # updateExperience(id: ID!, input: UpdateExperienceInput!): Experience
 
   deleteOccupation(id: ID!): Occupation
+  deleteConnectPeople(id: ID!): ConnectPeople
 }
 
 type Occupation {
-  id: ID!
-  name: String
-  description: String
-  # connectPeople: [ConnectPeople]
+  _id: ID!
+  name: String!
+  description: String!
+  connectPeople: [ConnectPeople]
   # jobDescription: [JobDescription]
   # experience: [Experience]
 }
 
-# type ConnectPeople {
-#   id: ID!
-#   name: String
-#   description: String
-#   profilePic: String
-#   socialMedia: [SocialMedia]
-#   occupationType: Occupation
-# }
+type ConnectPeople {
+  _id: ID!
+  name: String
+  description: String
+  profilePic: String
+  # socialMedia: [SocialMedia]
+}
 
 # type SocialMedia {
 #   id: ID!
@@ -79,20 +79,20 @@ type Occupation {
 # }
 
 input AddOccupationInput {
-  name: String
-  description: String
+  name: String!
+  description: String!
   # connectPeople: [ConnectPeopleInput]
   # jobDescription: [JobDescriptionInput]
   # experience: [ExperienceInput]
 }
 
-# input ConnectPeopleInput {
-#   name: String
-#   description: String
-#   profilePic: String
-#   socialMedia: [SocialMediaInput]
-#   occupationType: ParentID
-# }
+input ConnectPeopleInput {
+  name: String
+  description: String
+  profilePic: String
+  # socialMedia: [SocialMediaInput]
+  # occupationID: ID
+}
 
 # input UpdateConnectPeople {
 #   name: String

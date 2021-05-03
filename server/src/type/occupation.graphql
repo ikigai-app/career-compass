@@ -2,15 +2,15 @@ type Query {
   occupation(id: ID!): Occupation
   occupations: [Occupation]
   connectPeoples: [ConnectPeople]
+  socialMedia: [SocialMedia]
   # queryJobDescription(first: Int, offset: Int): [JobDescription]
   # queryExperience(first: Int, offset: Int): [Experience]
-  # querySocialMedia(first: Int, offset: Int): [SocialMedia]
 }
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
   addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
-  # addSocialMedia(input: SocialMediaInput!): SocialMedia
+  addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
   # addExperience(input: ExperienceInput!): Experience
   # addJobDescription(input: JobDescriptionInput!): JobDescription
 
@@ -21,6 +21,7 @@ type Mutation {
 
   deleteOccupation(id: ID!): Occupation
   deleteConnectPeople(id: ID!): ConnectPeople
+  deleteSocialMedia(id: ID!): SocialMedia
 }
 
 type Occupation {
@@ -37,15 +38,14 @@ type ConnectPeople {
   name: String
   description: String
   profilePic: String
-  # socialMedia: [SocialMedia]
+  socialMedia: [SocialMedia]
 }
 
-# type SocialMedia {
-#   id: ID!
-#   type: String
-#   url: String
-#   accountHolder: ConnectPeople
-# }
+type SocialMedia {
+  _id: ID!
+  type: String!
+  url: String!
+}
 
 # type JobDescription {
 #   id: ID!
@@ -101,11 +101,10 @@ input ConnectPeopleInput {
 #   socialMedia: [SocialMediaInput]
 # }
 
-# input SocialMediaInput {
-#   type: String
-#   url: String
-#   accountHolder: ParentID
-# }
+input SocialMediaInput {
+  type: String!
+  url: String!
+}
 
 # input UpdateSocialMedia {
 #   type: String

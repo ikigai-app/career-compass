@@ -48,10 +48,10 @@ const BlogVideoComponent = ({ data }) => {
 
   return (
     <VideoContainer>
-      {/* <YoutubePlayer
+      <YoutubePlayer
         height={Platform.OS === "web" ? 200 : 200}
         videoId={"a2rcgzludDU"}
-      /> */}
+      />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <VideoDescription>Video Description</VideoDescription>
         <DeleteIcon />

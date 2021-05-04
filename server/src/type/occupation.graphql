@@ -19,9 +19,9 @@ type Mutation {
   # updateSocialMedia(id: ID!, input: UpdateSocialMedia!): SocialMedia
   # updateExperience(id: ID!, input: UpdateExperienceInput!): Experience
 
-  deleteOccupation(id: ID!): Occupation
-  deleteConnectPeople(id: ID!): ConnectPeople
-  deleteSocialMedia(id: ID!): SocialMedia
+  deleteOccupation(id: ID!): Boolean
+  deleteConnectPeople(id: ID!, parentID: ID!): Boolean
+  # deleteSocialMedia(id: ID!): Boolean
 }
 
 type Occupation {

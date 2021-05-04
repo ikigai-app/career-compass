@@ -29,12 +29,28 @@ function buildMutation() {
       });
     },
 
-    deleteOccupation: async (root, { id }) => {
-      return new Promise((resolve, reject) => {
-        Occupation.findByIdAndDelete(id).exec((err, res) => {
-          err ? reject(err) : resolve(res);
+    deleteOccupation: async (_, { id }) => {
+      try {
+        const occupationDel = await Occupation.findByIdAndRemove(id).exec();
+
+        const connectedPeople = await ConnectPeople.find({
+          occupationID: { $in: id },
+        }).exec();
+
+        connectedPeople.map(async (connect) => {
+          const socialDel = await SocialMedia.deleteMany({
+            _id: connect.socialMedia,
+          });
         });
-      });
+
+        await ConnectPeople.deleteMany({
+          _id: occupationDel.connectPeople,
+        });
+
+        return true;
+      } catch (e) {
+        throw new Error(e.message);
+      }
     },
 
     addConnectPeople: async (root, { input, id }, context, info) => {
@@ -42,7 +58,6 @@ function buildMutation() {
         name: input.name,
         description: input.description,
         profilePic: input.profilePic,
-        // socialMedia: input.socialMedia,
         occupationID: id,
       });
 
@@ -69,12 +84,18 @@ function buildMutation() {
       }
     },
 
-    deleteConnectPeople: async (root, { id }) => {
-      return new Promise((resolve, reject) => {
-        ConnectPeople.findByIdAndDelete(id).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+    deleteConnectPeople: async (root, { id, parentID }) => {
+      try {
+        await ConnectPeople.findByIdAndRemove(id).exec();
+        await Occupation.findByIdAndUpdate(
+          parentID,
+          { $pull: { connectPeople: id } },
+          { new: true }
+        ).exec();
+        return true;
+      } catch (e) {
+        throw new Error(e.message);
+      }
     },
 
     addSocialMedia: async (root, { input, id }) => {
@@ -107,13 +128,13 @@ function buildMutation() {
       }
     },
 
-    deleteSocialMedia: async (root, { id }) => {
-      return new Promise((resolve, reject) => {
-        SocialMedia.findByIdAndDelete(id).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
-    },
+    // deleteSocialMedia: async (root, { id }) => {
+    //   return new Promise((resolve, reject) => {
+    //     SocialMedia.findByIdAndDelete(id).exec((err, res) => {
+    //       err ? reject(err) : resolve(res);
+    //     });
+    //   });
+    // },
   };
 }
 

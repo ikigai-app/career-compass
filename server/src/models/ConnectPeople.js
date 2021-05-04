@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const connectPeopleSchema = new mongoose.Schema({
   occupationID: {
-    type: String,
+    type: Schema.Types.ObjectId,
     require: true,
   },
   name: {

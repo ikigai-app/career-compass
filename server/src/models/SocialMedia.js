@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const socialMediaSchema = new mongoose.Schema({
   type: {
@@ -9,6 +10,10 @@ const socialMediaSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  personID: {
+    type: Schema.Types.ObjectId,
+    require: true,
   },
 });
 

@@ -62,18 +62,6 @@ function buildMutation() {
         occupation.connectPeople.push(result._id);
         await occupation.save();
 
-        // Occupation.findOneAndUpdate(
-        //   { _id: id },
-        //   { $push: { connectPeople: newPeople } },
-        //   function (error, success) {
-        //     if (error) {
-        //       console.log(error);
-        //     } else {
-        //       console.log("success", success);
-        //     }
-        //   }
-        // );
-
         return result;
       } catch (error) {
         console.log(error);
@@ -93,6 +81,7 @@ function buildMutation() {
       const newSocialMedia = await new SocialMedia({
         type: input.type,
         url: input.url,
+        personID: id,
       });
 
       try {

@@ -44,6 +44,7 @@ type ConnectPeople {
 
 type SocialMedia {
   _id: ID!
+  personID: ID!
   type: String
   url: String
 }

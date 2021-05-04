@@ -79,9 +79,7 @@ function buildQuery() {
       }
     },
 
-    connectPeople: async (root, args, context, info) => {
-      // return await ConnectPeople.find({}).populate().exec();
-
+    connectPeople: async () => {
       try {
         const people = await ConnectPeople.find({}).populate().exec();
         const data = [];
@@ -104,7 +102,7 @@ function buildQuery() {
       }
     },
 
-    socialMedia: async (root, args, context, info) => {
+    socialMedia: async () => {
       return await SocialMedia.find({}).populate().exec();
     },
   };

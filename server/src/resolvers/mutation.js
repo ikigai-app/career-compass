@@ -102,15 +102,13 @@ function buildMutation() {
           });
         });
 
-        console.log("res", result);
-
         const person = await ConnectPeople.findById(id);
 
         if (!person) {
           throw new Error("Person not found.");
         }
 
-        person.socialMedia.push(newSocialMedia);
+        person.socialMedia.push(result._id);
         await person.save();
 
         return result;

@@ -3,37 +3,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const connectPeopleSchema = new mongoose.Schema({
+  occupationID: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
-    required: false,
   },
   description: {
     type: String,
-    required: false,
   },
   profilePic: String,
   socialMedia: [
     {
-      type: Schema.Types.Mixed,
+      type: Schema.Types.ObjectId,
       ref: "SocialMedia",
     },
   ],
 });
 
-const ConnectPeople = mongoose.model("ConnectPeople", connectPeopleSchema);
+const ConnectPeople = mongoose.model("connectpeople", connectPeopleSchema);
 
-const socialMediaSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-  },
-  url: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
-
-const SocialMedia = mongoose.model("SocialMedia", socialMediaSchema);
-
-module.exports = { ConnectPeople, SocialMedia };
+module.exports = { ConnectPeople };

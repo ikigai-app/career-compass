@@ -1,7 +1,7 @@
 type Query {
   occupation(id: ID!): Occupation
   occupations: [Occupation]
-  connectPeoples: [ConnectPeople]
+  connectPeople: [ConnectPeople]
   socialMedia: [SocialMedia]
   # queryJobDescription(first: Int, offset: Int): [JobDescription]
   # queryExperience(first: Int, offset: Int): [Experience]
@@ -28,23 +28,24 @@ type Occupation {
   _id: ID!
   name: String!
   description: String!
-  connectPeople: [ConnectPeople]
+  connectPeople: [ConnectPeople!]
   # jobDescription: [JobDescription]
   # experience: [Experience]
 }
 
 type ConnectPeople {
   _id: ID!
+  occupationID: ID!
   name: String
   description: String
   profilePic: String
-  socialMedia: [SocialMedia]
+  socialMedia: [SocialMedia!]
 }
 
 type SocialMedia {
   _id: ID!
-  type: String!
-  url: String!
+  type: String
+  url: String
 }
 
 # type JobDescription {
@@ -90,8 +91,8 @@ input ConnectPeopleInput {
   name: String
   description: String
   profilePic: String
-  # socialMedia: [SocialMediaInput]
-  # occupationID: ID
+  socialMedia: [SocialMediaInput]
+  # occupationID: ID!
 }
 
 # input UpdateConnectPeople {

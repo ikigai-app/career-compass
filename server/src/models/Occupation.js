@@ -12,12 +12,12 @@ const occupationSchema = new mongoose.Schema({
   },
   connectPeople: [
     {
-      type: Schema.Types.Mixed,
+      type: Schema.Types.ObjectId,
       ref: "ConnectPeople",
     },
   ],
 });
 
-const Occupation = mongoose.model("Occupation", occupationSchema);
+const Occupation = mongoose.model("occupation", occupationSchema);
 
 module.exports = { Occupation };

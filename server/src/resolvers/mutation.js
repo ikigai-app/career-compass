@@ -1,20 +1,23 @@
-// const { GraphQLSchema, SelectionSetNode, Kind } = require("graphql");
-// const { delegateToSchema, WrapQuery } = require("apollo-server-express");
 const { Occupation } = require("../models/Occupation");
-const { ConnectPeople, SocialMedia } = require("../models/ConnectPeople");
+const { ConnectPeople } = require("../models/ConnectPeople");
+const { SocialMedia } = require("../models/SocialMedia");
 
 function buildMutation() {
   return {
-    addOccupation: async (root, args, context, info) => {
+    addOccupation: async (root, args) => {
       const occupation = new Occupation({
         name: args.input.name,
         description: args.input.description,
       });
-      await occupation.save();
-      return occupation;
+
+      return new Promise((resolve, reject) => {
+        occupation.save((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
     },
 
-    updateOccupation: async (root, args, context, info) => {
+    updateOccupation: async (root, args) => {
       return new Promise((resolve, reject) => {
         Occupation.findByIdAndUpdate(
           args.id,
@@ -26,7 +29,7 @@ function buildMutation() {
       });
     },
 
-    deleteOccupation: async (root, { id }, context, info) => {
+    deleteOccupation: async (root, { id }) => {
       return new Promise((resolve, reject) => {
         Occupation.findByIdAndDelete(id).exec((err, res) => {
           err ? reject(err) : resolve(res);
@@ -39,6 +42,8 @@ function buildMutation() {
         name: input.name,
         description: input.description,
         profilePic: input.profilePic,
+        // socialMedia: input.socialMedia,
+        occupationID: id,
       });
 
       try {
@@ -54,7 +59,7 @@ function buildMutation() {
           throw new Error("Occupation not found.");
         }
 
-        occupation.connectPeople.push(newPeople);
+        occupation.connectPeople.push(result._id);
         await occupation.save();
 
         // Occupation.findOneAndUpdate(
@@ -76,7 +81,7 @@ function buildMutation() {
       }
     },
 
-    deleteConnectPeople: async (root, { id }, context, info) => {
+    deleteConnectPeople: async (root, { id }) => {
       return new Promise((resolve, reject) => {
         ConnectPeople.findByIdAndDelete(id).exec((err, res) => {
           err ? reject(err) : resolve(res);
@@ -84,7 +89,7 @@ function buildMutation() {
       });
     },
 
-    addSocialMedia: async (root, { input, id }, context, info) => {
+    addSocialMedia: async (root, { input, id }) => {
       const newSocialMedia = await new SocialMedia({
         type: input.type,
         url: input.url,
@@ -96,6 +101,8 @@ function buildMutation() {
             err ? reject(err) : resolve(res);
           });
         });
+
+        console.log("res", result);
 
         const person = await ConnectPeople.findById(id);
 
@@ -113,13 +120,13 @@ function buildMutation() {
       }
     },
 
-    // deleteConnectPeople: async (root, { id }, context, info) => {
-    //   return new Promise((resolve, reject) => {
-    //     ConnectPeople.findByIdAndDelete(id).exec((err, res) => {
-    //       err ? reject(err) : resolve(res);
-    //     });
-    //   });
-    // },
+    deleteSocialMedia: async (root, { id }) => {
+      return new Promise((resolve, reject) => {
+        SocialMedia.findByIdAndDelete(id).exec((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
+    },
   };
 }
 

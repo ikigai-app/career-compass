@@ -29,6 +29,7 @@ async function startApolloServer() {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
   });
 
   await new Promise((resolve) =>

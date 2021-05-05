@@ -4,15 +4,15 @@ type Query {
   getConnectedPeople(occupationID: ID!): [ConnectPeople]
   connectPeople: [ConnectPeople]
   socialMedia: [SocialMedia]
-  # queryJobDescription(first: Int, offset: Int): [JobDescription]
-  # queryExperience(first: Int, offset: Int): [Experience]
+  experience: [Experience]
+  # jobDescription: [JobDescription]
 }
 
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
   addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
   addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
-  # addExperience(input: ExperienceInput!): Experience
+  addExperience(input: ExperienceInput!): Experience
   # addJobDescription(input: JobDescriptionInput!): JobDescription
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
@@ -29,9 +29,9 @@ type Occupation {
   _id: ID!
   name: String!
   description: String!
-  connectPeople: [ConnectPeople!]
-  # jobDescription: [JobDescription]
-  # experience: [Experience]
+  connectPeople: [ConnectPeople]!
+  experience: [Experience]!
+  # jobDescription: [JobDescription]!
 }
 
 type ConnectPeople {
@@ -48,6 +48,14 @@ type SocialMedia {
   personID: ID!
   type: String
   url: String
+}
+
+type Experience {
+  _id: ID!
+  occupationID: ID!
+  type: String!
+  url: String!
+  description: String
 }
 
 # type JobDescription {
@@ -73,14 +81,6 @@ type SocialMedia {
 #   requirement: String
 # }
 
-# type Experience {
-#   id: ID!
-#   url: String
-#   description: String
-#   type: String
-#   occupationType: Occupation
-# }
-
 input AddOccupationInput {
   name: String!
   description: String!
@@ -99,6 +99,12 @@ input ConnectPeopleInput {
 input SocialMediaInput {
   type: String!
   url: String!
+}
+
+input ExperienceInput {
+  url: String!
+  type: String!
+  description: String
 }
 
 # input UpdateSocialMedia {
@@ -129,17 +135,4 @@ input SocialMediaInput {
 
 # input RequirementInput {
 #   requirement: String
-# }
-
-# input ExperienceInput {
-#   url: String
-#   description: String
-#   type: String
-
-# }
-
-# input UpdateExperienceInput {
-#   url: String
-#   description: String
-#   type: String
 # }

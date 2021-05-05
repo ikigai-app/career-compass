@@ -16,6 +16,18 @@ const occupationSchema = new mongoose.Schema({
       ref: "ConnectPeople",
     },
   ],
+  experience: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Experience",
+    },
+  ],
+  // jobDescription: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "JobDescription",
+  //   },
+  // ],
 });
 
 const Occupation = mongoose.model("occupation", occupationSchema);

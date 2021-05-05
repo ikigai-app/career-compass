@@ -84,6 +84,18 @@ function buildMutation() {
       }
     },
 
+    updateConnectedPeople: async (root, args) => {
+      return new Promise((resolve, reject) => {
+        ConnectPeople.findByIdAndUpdate(
+          args.id,
+          { $set: { ...args.input } },
+          { new: true }
+        ).exec((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
+    },
+
     deleteConnectPeople: async (root, { id, parentID }) => {
       try {
         const peopleDel = await ConnectPeople.findByIdAndRemove(id).exec();

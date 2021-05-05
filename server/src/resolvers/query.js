@@ -79,6 +79,31 @@ function buildQuery() {
       }
     },
 
+    getConnectedPeople: async (_, { occupationID }) => {
+      try {
+        const people = await ConnectPeople.find({ occupationID: occupationID })
+          .populate()
+          .exec();
+        const data = [];
+        await Promise.all(
+          people.map(async (item) => {
+            const social = await SocialMedia.find({
+              _id: { $in: item.socialMedia },
+            }).exec();
+
+            data.push({
+              ...item.toObject(),
+              socialMedia: social,
+            });
+          })
+        );
+
+        return data;
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    },
+
     connectPeople: async () => {
       try {
         const people = await ConnectPeople.find({}).populate().exec();

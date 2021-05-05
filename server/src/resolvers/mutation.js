@@ -287,67 +287,39 @@ function buildMutation() {
       }
     },
 
-    updateJobDescription: async (_, { id, input }) => {
-      const job = await JobDescription.find({ _id: id }).populate().exec();
+    updateJobDescription: async (_, { jobDescriptionID, input }) => {
+      try {
+        const job = await JobDescription.find({ _id: jobDescriptionID })
+          .populate()
+          .exec();
 
-      if (input.type === "roles") {
-        let role = { _id: input.id, role: input.value };
+        const { type, id, value } = input;
 
-        let roles = job[0].roles;
+        let newArray = job[0][type];
 
-        let foundIndex = roles.findIndex((x) => x._id == role._id);
-        roles[foundIndex] = role;
+        let obj = "";
 
-        return new Promise((resolve, reject) => {
-          JobDescription.findByIdAndUpdate(
-            id,
-            { $set: { roles: roles } },
-            { new: true }
-          ).exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-        });
-      }
+        if (type === "roles") {
+          obj = { _id: id, role: value };
+        } else if (type === "skills1") {
+          obj = { _id: id, skill1: value };
+        } else if (type === "requirements") {
+          obj = { _id: id, requirement: value };
+        }
 
-      if (input.type === "skills1") {
-        let skill = { _id: input.id, skill1: input.value };
+        let foundIndex = newArray.findIndex((x) => x._id == obj._id);
+        newArray[foundIndex] = obj;
 
-        let skills = job[0].skills1;
+        const result = await JobDescription.findByIdAndUpdate(
+          jobDescriptionID,
+          { $set: { [type]: newArray } },
+          { new: true }
+        ).exec();
 
-        let foundIndex = skills.findIndex((x) => x._id == skill._id);
-        skills[foundIndex] = skill;
-
-        return new Promise((resolve, reject) => {
-          JobDescription.findByIdAndUpdate(
-            id,
-            { $set: { skills1: skills } },
-            { new: true }
-          ).exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-        });
-      }
-
-      if (input.type === "requirements") {
-        let requirement = { _id: input.id, requirement: input.value };
-
-        let requirements = job[0].requirements;
-
-        let foundIndex = requirements.findIndex(
-          (x) => x._id == requirement._id
-        );
-
-        requirements[foundIndex] = requirement;
-
-        return new Promise((resolve, reject) => {
-          JobDescription.findByIdAndUpdate(
-            id,
-            { $set: { requirements: requirement } },
-            { new: true }
-          ).exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-        });
+        return result;
+      } catch (error) {
+        console.log(error);
+        throw error;
       }
     },
 

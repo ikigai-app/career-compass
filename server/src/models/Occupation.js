@@ -22,12 +22,12 @@ const occupationSchema = new mongoose.Schema({
       ref: "Experience",
     },
   ],
-  // jobDescription: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "JobDescription",
-  //   },
-  // ],
+  jobDescription: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "JobDescription",
+    },
+  ],
 });
 
 const Occupation = mongoose.model("occupation", occupationSchema);

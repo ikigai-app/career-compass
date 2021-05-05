@@ -3,6 +3,7 @@ const {
   ConnectPeople,
   SocialMedia,
   Experience,
+  JobDescription,
 } = require("../models");
 
 function buildQuery() {
@@ -154,6 +155,10 @@ function buildQuery() {
 
     experience: async () => {
       return await Experience.find({}).populate().exec();
+    },
+
+    jobDescription: async () => {
+      return await JobDescription.find({}).populate().exec();
     },
   };
 }

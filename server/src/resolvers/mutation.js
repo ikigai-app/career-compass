@@ -3,6 +3,7 @@ const {
   ConnectPeople,
   SocialMedia,
   Experience,
+  JobDescription,
 } = require("../models");
 
 function buildMutation() {
@@ -14,11 +15,43 @@ function buildMutation() {
         description: args.input.description,
       });
 
-      return new Promise((resolve, reject) => {
-        occupation.save((err, res) => {
-          err ? reject(err) : resolve(res);
+      // return new Promise((resolve, reject) => {
+      //   occupation.save((err, res) => {
+      //     err ? reject(err) : resolve(res);
+      //   });
+      // });
+
+      try {
+        const result = await new Promise((resolve, reject) => {
+          occupation.save((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
         });
-      });
+
+        const description = await new JobDescription({
+          occupationID: result._id,
+        });
+
+        const resultJobDescription = await new Promise((resolve, reject) => {
+          description.save((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+
+        const checkOccupation = await Occupation.findById(result._id);
+
+        if (!checkOccupation) {
+          throw new Error("Occupation not found.");
+        }
+
+        checkOccupation.jobDescription.push(resultJobDescription._id);
+        await checkOccupation.save();
+
+        return result;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
 
     updateOccupation: async (root, args) => {
@@ -220,6 +253,53 @@ function buildMutation() {
         throw new Error(e.message);
       }
     },
+
+    // jobDescription
+
+    addJobDescription: async (root, { id, input }) => {
+      let data = "";
+
+      if (input.type === "roles") {
+        data = { role: input.value };
+      } else if (input.type === "skills1") {
+        data = { skill1: input.value };
+      } else if (input.type === "requirements") {
+        data = { requirement: input.value };
+      }
+
+      try {
+        const jobDescription = await JobDescription.findById(id);
+
+        if (!jobDescription) {
+          throw new Error("JobDescription not found.");
+        } else {
+          if (input.type === "roles") {
+            jobDescription.roles.push(data);
+          } else if (input.type === "skills1") {
+            jobDescription.skills1.push(data);
+          } else if (input.type === "requirements") {
+            jobDescription.requirements.push(data);
+          }
+          await jobDescription.save();
+          return jobDescription;
+        }
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+
+    // updateJobDescription: async (root, args) => {
+    //   return new Promise((resolve, reject) => {
+    //     JobDescription.findByIdAndUpdate(
+    //       args.id,
+    //       { $set: { ...args.input } },
+    //       { new: true }
+    //     ).exec((err, res) => {
+    //       err ? reject(err) : resolve(res);
+    //     });
+    //   });
+    // },
   };
 }
 

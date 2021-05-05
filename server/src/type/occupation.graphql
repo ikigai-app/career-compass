@@ -6,7 +6,7 @@ type Query {
   socialMedia: [SocialMedia]
   getExperience(occupationID: ID!): [Experience]
   experience: [Experience]
-  # jobDescription: [JobDescription]
+  jobDescription: [JobDescription]
 }
 
 type Mutation {
@@ -14,17 +14,23 @@ type Mutation {
   addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
   addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
   addExperience(id: ID!, input: ExperienceInput!): Experience
-  # addJobDescription(input: JobDescriptionInput!): JobDescription
+  addJobDescription(id: ID!, input: JobDescriptionInput!): JobDescription
+  # addRole(id: ID!, input: JobDescriptionInput!): JobDescription
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
   updateConnectedPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
   # updateSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
   updateExperience(id: ID!, input: ExperienceInput!): Experience
+  updateJobDescription(
+    id: ID!
+    input: UpdateJobDescriptionInput!
+  ): JobDescription
 
   deleteOccupation(id: ID!): Boolean
   deleteConnectPeople(id: ID!, parentID: ID!): Boolean
   deleteSocialMedia(id: ID!): Boolean
   deleteExperience(id: ID!, parentID: ID!): Boolean
+  deleteJobDescription(id: ID!, parentID: ID!): Boolean
 }
 
 type Occupation {
@@ -33,7 +39,7 @@ type Occupation {
   description: String!
   connectPeople: [ConnectPeople]!
   experience: [Experience]!
-  # jobDescription: [JobDescription]!
+  jobDescription: [JobDescription]!
 }
 
 type ConnectPeople {
@@ -60,35 +66,32 @@ type Experience {
   description: String
 }
 
-# type JobDescription {
-#   id: ID!
-#   roles: [Roles]
-#   skills1: [Skills1]
-#   requirements: [Requirements]
-#   occupationType: Occupation
-# }
+type JobDescription {
+  _id: ID!
+  occupationID: ID!
+  roles: [Roles]
+  skills1: [Skills1]
+  requirements: [Requirements]
+}
 
-# type Roles {
-#   id: ID!
-#   role: String
-# }
+type Roles {
+  _id: ID!
+  role: String
+}
 
-# type Skills1 {
-#   id: ID!
-#   skill1: String
-# }
+type Skills1 {
+  _id: ID!
+  skill1: String
+}
 
-# type Requirements {
-#   id: ID!
-#   requirement: String
-# }
+type Requirements {
+  _id: ID!
+  requirement: String
+}
 
 input AddOccupationInput {
   name: String
   description: String
-  # connectPeople: [ConnectPeopleInput]
-  # jobDescription: [JobDescriptionInput]
-  # experience: [ExperienceInput]
 }
 
 input ConnectPeopleInput {
@@ -109,21 +112,35 @@ input ExperienceInput {
   description: String
 }
 
-# input JobDescriptionInput {
-#   roles: [RoleInput]
-#   skills1: [Skills1Input]
-#   requirements: [RequirementInput]
-#   occupationType: ParentID
-# }
+input JobDescriptionInput {
+  # roles: [RoleInput]
+  # skills1: [Skills1Input]
+  # requirements: [RequirementInput]
+  value: String
+  # type: String!
+  type: descriptionType
+}
 
-# input RoleInput {
-#   role: String
-# }
+input UpdateJobDescriptionInput {
+  roles: [RoleInput]
+  skills1: [Skills1Input]
+  requirements: [RequirementInput]
+}
 
-# input Skills1Input {
-#   skill1: String
-# }
+input RoleInput {
+  role: String
+}
 
-# input RequirementInput {
-#   requirement: String
-# }
+input Skills1Input {
+  skill1: String
+}
+
+input RequirementInput {
+  requirement: String
+}
+
+enum descriptionType {
+  roles
+  skills1
+  requirements
+}

@@ -167,8 +167,8 @@ function buildQuery() {
       return await Experience.find({}).populate().exec();
     },
 
-    jobDescription: async () => {
-      return await JobDescription.find({}).populate().exec();
+    jobDescription: async (_, { id }) => {
+      return await JobDescription.find({ _id: id }).populate().exec();
     },
   };
 }

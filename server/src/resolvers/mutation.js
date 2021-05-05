@@ -15,12 +15,6 @@ function buildMutation() {
         description: args.input.description,
       });
 
-      // return new Promise((resolve, reject) => {
-      //   occupation.save((err, res) => {
-      //     err ? reject(err) : resolve(res);
-      //   });
-      // });
-
       try {
         const result = await new Promise((resolve, reject) => {
           occupation.save((err, res) => {
@@ -86,6 +80,10 @@ function buildMutation() {
 
         await Experience.deleteMany({
           _id: occupationDel.experience,
+        });
+
+        await JobDescription.deleteMany({
+          _id: occupationDel.jobDescription,
         });
 
         return true;
@@ -289,17 +287,95 @@ function buildMutation() {
       }
     },
 
-    // updateJobDescription: async (root, args) => {
-    //   return new Promise((resolve, reject) => {
-    //     JobDescription.findByIdAndUpdate(
-    //       args.id,
-    //       { $set: { ...args.input } },
-    //       { new: true }
-    //     ).exec((err, res) => {
-    //       err ? reject(err) : resolve(res);
-    //     });
-    //   });
-    // },
+    updateJobDescription: async (_, { id, input }) => {
+      const job = await JobDescription.find({ _id: id }).populate().exec();
+
+      if (input.type === "roles") {
+        let role = { _id: input.id, role: input.value };
+
+        let roles = job[0].roles;
+
+        let foundIndex = roles.findIndex((x) => x._id == role._id);
+        roles[foundIndex] = role;
+
+        return new Promise((resolve, reject) => {
+          JobDescription.findByIdAndUpdate(
+            id,
+            { $set: { roles: roles } },
+            { new: true }
+          ).exec((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+      }
+
+      if (input.type === "skills1") {
+        let skill = { _id: input.id, skill1: input.value };
+
+        let skills = job[0].skills1;
+
+        let foundIndex = skills.findIndex((x) => x._id == skill._id);
+        skills[foundIndex] = skill;
+
+        return new Promise((resolve, reject) => {
+          JobDescription.findByIdAndUpdate(
+            id,
+            { $set: { skills1: skills } },
+            { new: true }
+          ).exec((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+      }
+
+      if (input.type === "requirements") {
+        let requirement = { _id: input.id, requirement: input.value };
+
+        let requirements = job[0].requirements;
+
+        let foundIndex = requirements.findIndex(
+          (x) => x._id == requirement._id
+        );
+
+        requirements[foundIndex] = requirement;
+
+        return new Promise((resolve, reject) => {
+          JobDescription.findByIdAndUpdate(
+            id,
+            { $set: { requirements: requirement } },
+            { new: true }
+          ).exec((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+      }
+    },
+
+    deleteJobDescription: async (_, { jobDescriptionID, input }) => {
+      try {
+        const job = await JobDescription.find({ _id: jobDescriptionID })
+          .populate()
+          .exec();
+
+        const { type, id } = input;
+
+        let newArray = job[0][type];
+
+        const filterArr = newArray.filter(function (item) {
+          return String(item._id) !== id;
+        });
+
+        await JobDescription.findByIdAndUpdate(
+          jobDescriptionID,
+          { $set: { [type]: filterArr } },
+          { new: true }
+        ).exec();
+
+        return true;
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    },
   };
 }
 

@@ -6,7 +6,7 @@ type Query {
   socialMedia: [SocialMedia]
   getExperience(occupationID: ID!): [Experience]
   experience: [Experience]
-  jobDescription: [JobDescription]
+  jobDescription(id: ID!): [JobDescription]
 }
 
 type Mutation {
@@ -30,7 +30,10 @@ type Mutation {
   deleteConnectPeople(id: ID!, parentID: ID!): Boolean
   deleteSocialMedia(id: ID!): Boolean
   deleteExperience(id: ID!, parentID: ID!): Boolean
-  deleteJobDescription(id: ID!, parentID: ID!): Boolean
+  deleteJobDescription(
+    jobDescriptionID: ID!
+    input: UpdateJobDescriptionInput!
+  ): Boolean
 }
 
 type Occupation {
@@ -113,18 +116,14 @@ input ExperienceInput {
 }
 
 input JobDescriptionInput {
-  # roles: [RoleInput]
-  # skills1: [Skills1Input]
-  # requirements: [RequirementInput]
   value: String
-  # type: String!
   type: descriptionType
 }
 
 input UpdateJobDescriptionInput {
-  roles: [RoleInput]
-  skills1: [Skills1Input]
-  requirements: [RequirementInput]
+  value: String
+  type: descriptionType
+  id: ID!
 }
 
 input RoleInput {

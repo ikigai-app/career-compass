@@ -3,7 +3,6 @@ type Query {
   occupations: [Occupation]
   getConnectedPeople(occupationID: ID!): [ConnectPeople]
   connectPeople: [ConnectPeople]
-  socialMedia: [SocialMedia]
   getExperience(occupationID: ID!): [Experience]
   experience: [Experience]
   jobDescription(id: ID!): [JobDescription]
@@ -12,7 +11,7 @@ type Query {
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
   addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
-  addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
+  addSocialMedia(id: ID!, input: SocialMediaInput!): ConnectPeople
   addExperience(id: ID!, input: ExperienceInput!): Experience
   addJobDescription(id: ID!, input: JobDescriptionInput!): JobDescription
 
@@ -27,7 +26,7 @@ type Mutation {
 
   deleteOccupation(id: ID!): Boolean
   deleteConnectPeople(id: ID!, parentID: ID!): Boolean
-  deleteSocialMedia(id: ID!): Boolean
+  deleteSocialMedia(id: ID!, personID: ID!): Boolean
   deleteExperience(id: ID!, parentID: ID!): Boolean
   deleteJobDescription(
     jobDescriptionID: ID!
@@ -50,7 +49,7 @@ type ConnectPeople {
   name: String
   description: String
   profilePic: String
-  socialMedia: [SocialMedia]!
+  socialMedia: [SocialMedia]
 }
 
 type SocialMedia {
@@ -100,7 +99,7 @@ input ConnectPeopleInput {
   name: String
   description: String
   profilePic: String
-  # socialMedia: [SocialMediaInput]
+  socialMedia: [SocialMediaInput]
 }
 
 input SocialMediaInput {

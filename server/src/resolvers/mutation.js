@@ -1,7 +1,6 @@
 const {
   Occupation,
   ConnectPeople,
-  SocialMedia,
   Experience,
   JobDescription,
 } = require("../models");
@@ -39,6 +38,7 @@ function buildMutation() {
         }
 
         checkOccupation.jobDescription.push(resultJobDescription._id);
+
         await checkOccupation.save();
 
         return result;
@@ -63,16 +63,6 @@ function buildMutation() {
     deleteOccupation: async (_, { id }) => {
       try {
         const occupationDel = await Occupation.findByIdAndRemove(id).exec();
-
-        const connectedPeople = await ConnectPeople.find({
-          occupationID: { $in: id },
-        }).exec();
-
-        connectedPeople.map(async (connect) => {
-          const socialDel = await SocialMedia.deleteMany({
-            _id: connect.socialMedia,
-          });
-        });
 
         await ConnectPeople.deleteMany({
           _id: occupationDel.connectPeople,
@@ -138,16 +128,13 @@ function buildMutation() {
 
     deleteConnectPeople: async (root, { id, parentID }) => {
       try {
-        const peopleDel = await ConnectPeople.findByIdAndRemove(id).exec();
+        await ConnectPeople.findByIdAndRemove(id).exec();
+
         await Occupation.findByIdAndUpdate(
           parentID,
           { $pull: { connectPeople: id } },
           { new: true }
         ).exec();
-
-        await SocialMedia.deleteMany({
-          _id: peopleDel.socialMedia,
-        });
 
         return true;
       } catch (e) {
@@ -156,38 +143,38 @@ function buildMutation() {
     },
 
     addSocialMedia: async (root, { input, id }) => {
-      const newSocialMedia = await new SocialMedia({
-        type: input.type,
-        url: input.url,
-        personID: id,
-      });
-
       try {
-        const result = await new Promise((resolve, reject) => {
-          newSocialMedia.save((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-        });
-
         const person = await ConnectPeople.findById(id);
+
+        const data = {
+          type: input.type,
+          url: input.url,
+        };
 
         if (!person) {
           throw new Error("Person not found.");
+        } else {
+          person.socialMedia.push(data);
+          await person.save();
         }
 
-        person.socialMedia.push(result._id);
-        await person.save();
-
-        return result;
+        return person;
       } catch (error) {
         console.log(error);
         throw error;
       }
     },
 
-    deleteSocialMedia: async (_, { id }) => {
+    deleteSocialMedia: async (_, { id, personID }) => {
       try {
-        await SocialMedia.findByIdAndRemove(id).exec();
+        const person = await ConnectPeople.findById({ _id: personID })
+          .populate()
+          .exec();
+
+        person.socialMedia.pull(id);
+
+        person.save();
+
         return true;
       } catch (e) {
         throw new Error(e.message);

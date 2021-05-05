@@ -253,31 +253,24 @@ function buildMutation() {
     },
 
     // jobDescription
-
     addJobDescription: async (root, { id, input }) => {
-      let data = "";
-
-      if (input.type === "roles") {
-        data = { role: input.value };
-      } else if (input.type === "skills1") {
-        data = { skill1: input.value };
-      } else if (input.type === "requirements") {
-        data = { requirement: input.value };
-      }
-
       try {
         const jobDescription = await JobDescription.findById(id);
+        let data = "";
+
+        if (input.type === "roles") {
+          data = { role: input.value };
+        } else if (input.type === "skills1") {
+          data = { skill1: input.value };
+        } else if (input.type === "requirements") {
+          data = { requirement: input.value };
+        }
 
         if (!jobDescription) {
           throw new Error("JobDescription not found.");
         } else {
-          if (input.type === "roles") {
-            jobDescription.roles.push(data);
-          } else if (input.type === "skills1") {
-            jobDescription.skills1.push(data);
-          } else if (input.type === "requirements") {
-            jobDescription.requirements.push(data);
-          }
+          jobDescription[input.type].push(data);
+
           await jobDescription.save();
           return jobDescription;
         }
@@ -289,13 +282,13 @@ function buildMutation() {
 
     updateJobDescription: async (_, { jobDescriptionID, input }) => {
       try {
-        const job = await JobDescription.find({ _id: jobDescriptionID })
+        const job = await JobDescription.findById({ _id: jobDescriptionID })
           .populate()
           .exec();
 
         const { type, id, value } = input;
 
-        let newArray = job[0][type];
+        let newArray = job[type];
 
         let obj = "";
 
@@ -325,23 +318,13 @@ function buildMutation() {
 
     deleteJobDescription: async (_, { jobDescriptionID, input }) => {
       try {
-        const job = await JobDescription.find({ _id: jobDescriptionID })
+        const job = await JobDescription.findById({ _id: jobDescriptionID })
           .populate()
           .exec();
 
-        const { type, id } = input;
+        job[input.type].pull(input.id);
 
-        let newArray = job[0][type];
-
-        const filterArr = newArray.filter(function (item) {
-          return String(item._id) !== id;
-        });
-
-        await JobDescription.findByIdAndUpdate(
-          jobDescriptionID,
-          { $set: { [type]: filterArr } },
-          { new: true }
-        ).exec();
+        job.save();
 
         return true;
       } catch (e) {

@@ -51,6 +51,10 @@ function buildMutation() {
           _id: occupationDel.connectPeople,
         });
 
+        await Experience.deleteMany({
+          _id: occupationDel.experience,
+        });
+
         return true;
       } catch (e) {
         throw new Error(e.message);
@@ -187,6 +191,33 @@ function buildMutation() {
       } catch (error) {
         console.log(error);
         throw error;
+      }
+    },
+
+    updateExperience: async (root, args) => {
+      return new Promise((resolve, reject) => {
+        Experience.findByIdAndUpdate(
+          args.id,
+          { $set: { ...args.input } },
+          { new: true }
+        ).exec((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
+    },
+
+    deleteExperience: async (root, { id, parentID }) => {
+      try {
+        await Experience.findByIdAndRemove(id).exec();
+        await Occupation.findByIdAndUpdate(
+          parentID,
+          { $pull: { experience: id } },
+          { new: true }
+        ).exec();
+
+        return true;
+      } catch (e) {
+        throw new Error(e.message);
       }
     },
   };

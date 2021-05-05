@@ -15,7 +15,6 @@ type Mutation {
   addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
   addExperience(id: ID!, input: ExperienceInput!): Experience
   addJobDescription(id: ID!, input: JobDescriptionInput!): JobDescription
-  # addRole(id: ID!, input: JobDescriptionInput!): JobDescription
 
   updateOccupation(id: ID!, input: AddOccupationInput!): Occupation
   updateConnectedPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople

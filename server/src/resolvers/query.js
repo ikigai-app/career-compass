@@ -37,12 +37,17 @@ function buildQuery() {
           _id: { $in: occupation.experience },
         }).exec();
 
+        const jobDescription = await JobDescription.find({
+          _id: { $in: occupation.jobDescription },
+        }).exec();
+
         const occupationData = occupation.toObject();
 
         return {
           ...occupationData,
           connectPeople: people,
           experience: experience,
+          jobDescription: jobDescription,
         };
       } catch (e) {
         throw new Error(e.message);
@@ -66,6 +71,10 @@ function buildQuery() {
               _id: { $in: item.experience },
             }).exec();
 
+            const jobDescription = await JobDescription.find({
+              _id: { $in: item.jobDescription },
+            }).exec();
+
             await Promise.all(
               connectedPeople.map(async (connect) => {
                 const social = await SocialMedia.find({
@@ -85,6 +94,7 @@ function buildQuery() {
               ...item.toObject(),
               connectPeople: people,
               experience: experience,
+              jobDescription: jobDescription,
             });
           })
         );

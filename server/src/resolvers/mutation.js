@@ -1,9 +1,13 @@
-const { Occupation } = require("../models/Occupation");
-const { ConnectPeople } = require("../models/ConnectPeople");
-const { SocialMedia } = require("../models/SocialMedia");
+const {
+  Occupation,
+  ConnectPeople,
+  SocialMedia,
+  Experience,
+} = require("../models");
 
 function buildMutation() {
   return {
+    //occupation
     addOccupation: async (root, args) => {
       const occupation = new Occupation({
         name: args.input.name,
@@ -53,6 +57,7 @@ function buildMutation() {
       }
     },
 
+    //connectPeople
     addConnectPeople: async (root, { input, id }, context, info) => {
       const newPeople = await new ConnectPeople({
         name: input.name,
@@ -151,6 +156,37 @@ function buildMutation() {
         return true;
       } catch (e) {
         throw new Error(e.message);
+      }
+    },
+
+    addExperience: async (root, { id, input }, context, info) => {
+      const experience = await new Experience({
+        type: input.type,
+        description: input.description,
+        url: input.url,
+        occupationID: id,
+      });
+
+      try {
+        const result = await new Promise((resolve, reject) => {
+          experience.save((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+
+        const occupation = await Occupation.findById(id);
+
+        if (!occupation) {
+          throw new Error("Occupation not found.");
+        }
+
+        occupation.experience.push(result._id);
+        await occupation.save();
+
+        return result;
+      } catch (error) {
+        console.log(error);
+        throw error;
       }
     },
   };

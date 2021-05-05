@@ -1,6 +1,9 @@
-const { Occupation } = require("../models/Occupation");
-const { ConnectPeople } = require("../models/ConnectPeople");
-const { SocialMedia } = require("../models/SocialMedia");
+const {
+  Occupation,
+  ConnectPeople,
+  SocialMedia,
+  Experience,
+} = require("../models");
 
 function buildQuery() {
   return {
@@ -11,6 +14,7 @@ function buildQuery() {
         const connectedPeople = await ConnectPeople.find({
           _id: { $in: occupation.connectPeople },
         }).exec();
+
         const people = [];
 
         await Promise.all(
@@ -28,11 +32,16 @@ function buildQuery() {
           })
         );
 
+        const experience = await Experience.find({
+          _id: { $in: occupation.experience },
+        }).exec();
+
         const occupationData = occupation.toObject();
 
         return {
           ...occupationData,
           connectPeople: people,
+          experience: experience,
         };
       } catch (e) {
         throw new Error(e.message);
@@ -47,8 +56,13 @@ function buildQuery() {
         await Promise.all(
           occupations.map(async (item) => {
             const people = [];
+
             const connectedPeople = await ConnectPeople.find({
               _id: { $in: item.connectPeople },
+            }).exec();
+
+            const experience = await Experience.find({
+              _id: { $in: item.experience },
             }).exec();
 
             await Promise.all(
@@ -69,6 +83,7 @@ function buildQuery() {
             allOccupations.push({
               ...item.toObject(),
               connectPeople: people,
+              experience: experience,
             });
           })
         );
@@ -129,6 +144,16 @@ function buildQuery() {
 
     socialMedia: async () => {
       return await SocialMedia.find({}).populate().exec();
+    },
+
+    getExperience: async (_, { occupationID }) => {
+      return await Experience.find({ occupationID: occupationID })
+        .populate()
+        .exec();
+    },
+
+    experience: async () => {
+      return await Experience.find({}).populate().exec();
     },
   };
 }

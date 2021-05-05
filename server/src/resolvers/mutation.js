@@ -86,12 +86,17 @@ function buildMutation() {
 
     deleteConnectPeople: async (root, { id, parentID }) => {
       try {
-        await ConnectPeople.findByIdAndRemove(id).exec();
+        const peopleDel = await ConnectPeople.findByIdAndRemove(id).exec();
         await Occupation.findByIdAndUpdate(
           parentID,
           { $pull: { connectPeople: id } },
           { new: true }
         ).exec();
+
+        await SocialMedia.deleteMany({
+          _id: peopleDel.socialMedia,
+        });
+
         return true;
       } catch (e) {
         throw new Error(e.message);
@@ -128,13 +133,14 @@ function buildMutation() {
       }
     },
 
-    // deleteSocialMedia: async (root, { id }) => {
-    //   return new Promise((resolve, reject) => {
-    //     SocialMedia.findByIdAndDelete(id).exec((err, res) => {
-    //       err ? reject(err) : resolve(res);
-    //     });
-    //   });
-    // },
+    deleteSocialMedia: async (_, { id }) => {
+      try {
+        await SocialMedia.findByIdAndRemove(id).exec();
+        return true;
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    },
   };
 }
 

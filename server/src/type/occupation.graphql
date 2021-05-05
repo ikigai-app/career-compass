@@ -21,7 +21,7 @@ type Mutation {
 
   deleteOccupation(id: ID!): Boolean
   deleteConnectPeople(id: ID!, parentID: ID!): Boolean
-  # deleteSocialMedia(id: ID!): Boolean
+  deleteSocialMedia(id: ID!): Boolean
 }
 
 type Occupation {
@@ -39,7 +39,7 @@ type ConnectPeople {
   name: String
   description: String
   profilePic: String
-  socialMedia: [SocialMedia!]
+  socialMedia: [SocialMedia]!
 }
 
 type SocialMedia {

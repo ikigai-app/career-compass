@@ -26,6 +26,14 @@ const GET_EXPERIENCE = gql`
   }
 `;
 
+const ADD_EXP = gql`
+  mutation addExperience($id: ID!, $input: ExperienceInput!) {
+    addExperience(id: $id, input: $input) {
+      _id
+    }
+  }
+`;
+
 const PlusCircleIcon = (props) => (
   <IconButton
     iconType={"FontAwesome5"}
@@ -38,19 +46,36 @@ const PlusCircleIcon = (props) => (
   />
 );
 
-const Experience = ({ id }) => {
-  const { loading, error, data, refetch } = useQuery(GET_EXPERIENCE, {
-    variables: { occupationID: id },
-    fetchPolicy: "no-cache",
+const InputContainer = ({ id, refetch, hideInput }) => {
+  const [type, setType] = useState("Select Type");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
+
+  const [addExperience] = useMutation(ADD_EXP, {
+    onCompleted({ addExperience }) {
+      if (addExperience) {
+        refetch();
+      }
+    },
   });
 
-  const [type, setType] = useState("Select Type");
-  const [visibleInput, setVisibleInput] = useState(true);
+  const addExp = async () => {
+    // console.log("id", id, type, description, url);
+    await addExperience({
+      variables: {
+        id: id,
+        input: {
+          url: url,
+          description: description,
+          type: type,
+        },
+      },
+    });
 
-  if (loading) return <Loader />;
-  if (error) return <Text>Error :(</Text>;
+    hideInput();
+  };
 
-  const InputContainer = () => (
+  return (
     <InputRootContainer>
       <Input
         placeholder={"Description"}
@@ -62,8 +87,8 @@ const Experience = ({ id }) => {
           padding: 7,
           paddingLeft: 10,
         }}
-        // onChangeText={onChangeSocialName}
-        // value={socialName}
+        onChangeText={(text) => setDescription(text)}
+        value={description}
       />
       <Input
         placeholder={"URL"}
@@ -77,8 +102,8 @@ const Experience = ({ id }) => {
           marginTop: Platform.OS === "web" ? 0 : 10,
           marginLeft: Platform.OS === "web" ? 10 : 0,
         }}
-        // onChangeText={onChangeSocialName}
-        // value={socialName}
+        onChangeText={(text) => setUrl(text)}
+        value={url}
       />
       <View
         style={{
@@ -114,11 +139,23 @@ const Experience = ({ id }) => {
         />
       </View>
 
-      <AddButton onPress={() => setVisibleInput(true)}>
+      <AddButton onPress={addExp}>
         <AddText>ADD</AddText>
       </AddButton>
     </InputRootContainer>
   );
+};
+
+const Experience = ({ id }) => {
+  const [visibleInput, setVisibleInput] = useState(false);
+
+  const { loading, error, data, refetch } = useQuery(GET_EXPERIENCE, {
+    variables: { occupationID: id },
+    fetchPolicy: "no-cache",
+  });
+
+  if (loading) return <Loader />;
+  if (error) return <Text>Error :(</Text>;
 
   const renderVideoComponent = ({ item }) => (
     <BlogVideoComponent data={item} refetch={refetch} />
@@ -150,15 +187,19 @@ const Experience = ({ id }) => {
         )}
       </View>
       {visibleInput ? (
+        <InputContainer
+          refetch={refetch}
+          id={id}
+          hideInput={() => setVisibleInput(false)}
+        />
+      ) : (
         <View
           style={{
             marginTop: 30,
           }}
         >
-          <PlusCircleIcon onPress={() => setVisibleInput(false)} />
+          <PlusCircleIcon onPress={() => setVisibleInput(true)} />
         </View>
-      ) : (
-        <InputContainer />
       )}
     </RootView>
   );

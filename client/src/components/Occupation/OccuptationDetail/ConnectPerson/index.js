@@ -6,10 +6,9 @@ import {
   Image,
   Platform,
   FlatList,
-  Touchable,
   TouchableOpacity,
 } from "react-native";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import {
   RootView,
   PersonCardContainer,
@@ -32,6 +31,24 @@ import {
   PlusCircleIcon,
   PlusCircleAddIcon,
 } from "./IconButton";
+import Loader from "../../../common/Loader";
+
+const GET_CONNECTED_PEOPLE = gql`
+  query getConnectedPeople($occupationID: ID!) {
+    getConnectedPeople(occupationID: $occupationID) {
+      _id
+      name
+      description
+      profilePic
+      occupationID
+      socialMedia {
+        _id
+        type
+        url
+      }
+    }
+  }
+`;
 
 const UPDATE_CONNECT_PEOPLE = gql`
   mutation updateConnectPeople($id: ID!, $input: UpdateConnectPeople!) {
@@ -52,9 +69,9 @@ const ADD_SOCIAL_MEDIA = gql`
 `;
 
 const ADD_CONNECT_PEOPLE = gql`
-  mutation addConnectPeople($input: ConnectPeopleInput!) {
-    addConnectPeople(input: $input) {
-      id
+  mutation addConnectPeople($id: ID!, $input: ConnectPeopleInput!) {
+    addConnectPeople(id: $id, input: $input) {
+      _id
       name
       description
     }
@@ -122,7 +139,7 @@ const PersonCard = ({ item, refetch }) => {
   const updateName = async () => {
     await updateConnectPeople({
       variables: {
-        id: item.id.toString(),
+        id: item._id,
         input: {
           name: name,
         },
@@ -134,7 +151,7 @@ const PersonCard = ({ item, refetch }) => {
   const updateDescription = async () => {
     await updateConnectPeople({
       variables: {
-        id: item.id.toString(),
+        id: item._id,
         input: {
           description: description,
         },
@@ -150,7 +167,7 @@ const PersonCard = ({ item, refetch }) => {
           url: socialUrl,
           type: socialName,
           accountHolder: {
-            id: item.id.toString(),
+            id: item._id,
           },
         },
       },
@@ -228,12 +245,9 @@ const PersonCard = ({ item, refetch }) => {
         </DescriptionContainer>
         <IconContainer>
           <IconContainerChild>
+            {/* {console.log("socialMedia", socialMedia)} */}
             {socialMedia.map((social) => (
-              <LinkUrl
-                name={social.type}
-                url={social.url}
-                key={social.id.toString()}
-              />
+              <LinkUrl name={social.type} url={social.url} key={social._id} />
             ))}
           </IconContainerChild>
           {socialInputVisible ? (
@@ -325,16 +339,16 @@ const InputComponent = ({ setVisibleInput, parentId, refetch }) => {
   const addNewPerson = async () => {
     await addConnectPeople({
       variables: {
+        id: parentId,
         input: {
           name: name,
           description: description,
-          socialMedia: {
-            url: socialUrl,
-            type: socialName,
-          },
-          occupationType: {
-            id: parentId.toString(),
-          },
+          socialMedia: [
+            {
+              url: socialUrl,
+              type: socialName,
+            },
+          ],
         },
       },
     });
@@ -381,7 +395,7 @@ const InputComponent = ({ setVisibleInput, parentId, refetch }) => {
           style={{
             fontSize: 14,
             color: "white",
-            // fontWeight: 600
+            fontWeight: "600",
           }}
         >
           ADD
@@ -391,24 +405,19 @@ const InputComponent = ({ setVisibleInput, parentId, refetch }) => {
   );
 };
 
-const ConnectPersonCard = ({ data, refetch }) => {
-  const { getOccupation } = data;
+const ConnectPersonCard = ({ id }) => {
+  const { loading, error, data, refetch } = useQuery(GET_CONNECTED_PEOPLE, {
+    variables: { occupationID: id },
+    fetchPolicy: "no-cache",
+  });
+
   const [visibleInput, setVisibleInput] = useState(false);
-  const [peopleData, setPeopleData] = useState(
-    data.getOccupation.connectPeople
-  );
+
   const renderItem = ({ item }) => <PersonCard item={item} refetch={refetch} />;
 
-  useEffect(() => {
-    if (data) {
-      const { connectPeople } = data.getOccupation;
-      setPeopleData(connectPeople);
-    }
-  }, [data]);
+  if (loading) return <Loader />;
 
-  if (!peopleData) {
-    return <View />;
-  }
+  console.log(data);
 
   return (
     <RootView>
@@ -422,17 +431,18 @@ const ConnectPersonCard = ({ data, refetch }) => {
 
       <FlatList
         style={{ marginBottom: 20 }}
-        data={peopleData}
+        data={data.getConnectedPeople}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
-        extraData={peopleData}
+        extraData={data.getConnectedPeople}
       />
 
       {visibleInput ? (
         <InputComponent
           setVisibleInput={setVisibleInput}
-          parentId={getOccupation.id}
+          // parentId={getOccupation.id}
+          parentId={id}
           refetch={refetch}
         />
       ) : (

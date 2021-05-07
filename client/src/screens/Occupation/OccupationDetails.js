@@ -18,31 +18,31 @@ const GET_OCCUPATION = gql`
       _id
       name
       description
-      connectPeople {
-        _id
-        name
-        description
-        socialMedia {
-          _id
-          url
-          type
-        }
-      }
-      jobDescription {
-        _id
-        roles {
-          _id
-          role
-        }
-        requirements {
-          _id
-          requirement
-        }
-        skills1 {
-          _id
-          skill1
-        }
-      }
+      # connectPeople {
+      #   _id
+      #   name
+      #   description
+      #   socialMedia {
+      #     _id
+      #     url
+      #     type
+      #   }
+      # }
+      # jobDescription {
+      #   _id
+      #   roles {
+      #     _id
+      #     role
+      #   }
+      #   requirements {
+      #     _id
+      #     requirement
+      #   }
+      #   skills1 {
+      #     _id
+      #     skill1
+      #   }
+      # }
     }
   }
 `;
@@ -63,7 +63,11 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
           <TopCard data={data} />
-          {/* <ConnectPersonCard data={data} refetch={() => refetch()} />
+          <ConnectPersonCard
+            id={data.occupation._id}
+            //  refetch={() => refetch()}
+          />
+          {/*
           <SalaryCard />
           <JobDescription data={data} refetch={() => refetch()} />
           <Experience /> */}
@@ -79,7 +83,10 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
         {/* <JobDescription data={data} refetch={() => refetch()} /> */}
         {/* <Experience /> */}
       </LeftSectionWeb>
-      {/* <ConnectPersonCard data={data} refetch={() => refetch()} /> */}
+      <ConnectPersonCard
+        id={data.occupation._id}
+        // refetch={() => refetch()}
+      />
     </RootView>
   );
 };

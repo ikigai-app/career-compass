@@ -88,6 +88,7 @@ function buildMutation() {
         name: input.name,
         description: input.description,
         profilePic: input.profilePic,
+        socialMedia: input.socialMedia,
         occupationID: id,
       });
 

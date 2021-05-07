@@ -80,6 +80,12 @@ const ADD_CONNECT_PEOPLE = gql`
   }
 `;
 
+const DELETE_CONNECTED_PERSON = gql`
+  mutation deleteConnectPeople($id: ID!, $parentID: ID!) {
+    deleteConnectPeople(id: $id, parentID: $parentID)
+  }
+`;
+
 const LinkUrl = (props) => {
   return (
     <LinkBtnContainer
@@ -94,7 +100,7 @@ const LinkUrl = (props) => {
   );
 };
 
-const PersonCard = ({ item, refetch }) => {
+const PersonCard = ({ item, parentId, refetch }) => {
   const [name, setName] = useState(item.name);
   const [editName, setEditName] = useState(false);
 
@@ -120,6 +126,13 @@ const PersonCard = ({ item, refetch }) => {
       if (addSocialMedia) {
         refetch();
       }
+    },
+  });
+
+  const [deleteConnectPeople] = useMutation(DELETE_CONNECTED_PERSON, {
+    onCompleted() {
+      console.log("check......");
+      refetch();
     },
   });
 
@@ -169,6 +182,15 @@ const PersonCard = ({ item, refetch }) => {
     setEditDescription(false);
   };
 
+  const deletePerson = async () => {
+    await deleteConnectPeople({
+      variables: {
+        id: item._id,
+        parentID: parentId,
+      },
+    });
+  };
+
   const addSocialAccounts = async () => {
     await addSocialMedia({
       variables: {
@@ -187,7 +209,7 @@ const PersonCard = ({ item, refetch }) => {
   return (
     <PersonCardContainer>
       <View style={{ position: "absolute", right: 5, bottom: 10 }}>
-        <DeleteIcon />
+        <DeleteIcon onPress={() => deletePerson()} />
       </View>
       <View>
         <Image
@@ -422,7 +444,9 @@ const ConnectPersonCard = ({ id }) => {
 
   const [visibleInput, setVisibleInput] = useState(false);
 
-  const renderItem = ({ item }) => <PersonCard item={item} refetch={refetch} />;
+  const renderItem = ({ item }) => (
+    <PersonCard item={item} parentId={id} refetch={refetch} />
+  );
 
   if (loading) return <Loader />;
 

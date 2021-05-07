@@ -89,13 +89,6 @@ const PersonCard = ({ item, refetch }) => {
   const [socialUrl, setSocialUrl] = useState("");
   const [updateConnectPeople] = useMutation(UPDATE_CONNECT_PEOPLE);
 
-  useEffect(() => {
-    if (item) {
-      const { socialMedia } = item;
-      setSocialMedia(socialMedia);
-    }
-  }, [item]);
-
   const [addSocialMedia] = useMutation(ADD_SOCIAL_MEDIA, {
     onCompleted({ addSocialMedia }) {
       if (addSocialMedia) {
@@ -103,6 +96,13 @@ const PersonCard = ({ item, refetch }) => {
       }
     },
   });
+
+  useEffect(() => {
+    if (item) {
+      const { socialMedia } = item;
+      setSocialMedia(socialMedia);
+    }
+  }, [item]);
 
   const onChangeName = (text) => {
     setName(text);

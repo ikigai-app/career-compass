@@ -19,13 +19,12 @@ import {
   SearchButtonContainer,
   CircularButtonContainer,
 } from "../../styles/Occupation/RootScreen";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import Loader from "../../components/common/Loader";
 import Modal from "modal-react-native-web";
 import Input from "../../components/common/TextInput";
 
 const windowWidth = Dimensions.get("window").width;
-// const windowHeight = Dimensions.get("window").height;
 
 const GET_OCCUPATION = gql`
   query {
@@ -37,17 +36,48 @@ const GET_OCCUPATION = gql`
   }
 `;
 
+const ADD_OCCUPATION = gql`
+  mutation addOccupation($input: AddOccupationInput!) {
+    addOccupation(input: $input) {
+      _id
+      name
+    }
+  }
+`;
+
 export default function OccupationScreen({ route, navigation }) {
-  const { loading, error, data } = useQuery(GET_OCCUPATION, {});
+  const { loading, error, data, refetch } = useQuery(GET_OCCUPATION, {
+    fetchPolicy: "no-cache",
+  });
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  // if (loading) return <Text>Loading...</Text>;
+  const [addOccupation] = useMutation(ADD_OCCUPATION, {
+    onCompleted({ addOccupation }) {
+      if (addOccupation) {
+        refetch();
+      }
+    },
+  });
+
   if (loading) {
     return <Loader />;
   }
+
   if (error) return <Text>Error :(</Text>;
+
+  const createOccupation = async () => {
+    await addOccupation({
+      variables: {
+        input: {
+          name: name,
+          description: description,
+        },
+      },
+    });
+    setModalVisible(false);
+  };
 
   const renderCard = ({ item }) => (
     <Card
@@ -153,7 +183,7 @@ export default function OccupationScreen({ route, navigation }) {
                     borderRadius: 4,
                     width: 100,
                   }}
-                  // onPress={() => setModalVisible(false)}
+                  onPress={() => createOccupation()}
                 >
                   <Text
                     style={{
@@ -167,15 +197,6 @@ export default function OccupationScreen({ route, navigation }) {
                   </Text>
                 </TouchableOpacity>
               </View>
-
-              {/* <TouchableHighlight
-                onPress={() => {
-                  // this.setModalVisible(!this.state.modalVisible);
-                  setModalVisible(false);
-                }}
-              >
-                <Text>Hide Modal</Text>
-              </TouchableHighlight> */}
             </View>
           </View>
         </Modal>
@@ -196,9 +217,6 @@ export default function OccupationScreen({ route, navigation }) {
               alignItems: "center",
               backgroundColor: "rgba(100, 100, 100, 0.5)",
             }}
-            // onPress={() => {
-            //   setModalVisible(false);
-            // }}
           >
             <View
               style={{
@@ -273,6 +291,7 @@ export default function OccupationScreen({ route, navigation }) {
                     borderRadius: 4,
                     width: 100,
                   }}
+                  onPress={() => createOccupation()}
                 >
                   <Text
                     style={{

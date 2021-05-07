@@ -109,7 +109,7 @@ input SocialMediaInput {
 
 input ExperienceInput {
   url: String
-  type: String
+  type: experienceType
   description: String
 }
 
@@ -140,4 +140,9 @@ enum descriptionType {
   roles
   skills1
   requirements
+}
+
+enum experienceType {
+  blog
+  video
 }

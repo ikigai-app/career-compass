@@ -61,11 +61,9 @@ const UPDATE_CONNECT_PEOPLE = gql`
 `;
 
 const ADD_SOCIAL_MEDIA = gql`
-  mutation addSocialMedia($input: SocialMediaInput!) {
-    addSocialMedia(input: $input) {
-      id
-      type
-      url
+  mutation addSocialMedia($id: ID!, $input: SocialMediaInput!) {
+    addSocialMedia(id: $id, input: $input) {
+      _id
     }
   }
 `;
@@ -131,7 +129,6 @@ const PersonCard = ({ item, parentId, refetch }) => {
 
   const [deleteConnectPeople] = useMutation(DELETE_CONNECTED_PERSON, {
     onCompleted() {
-      console.log("check......");
       refetch();
     },
   });
@@ -194,12 +191,10 @@ const PersonCard = ({ item, parentId, refetch }) => {
   const addSocialAccounts = async () => {
     await addSocialMedia({
       variables: {
+        id: item._id,
         input: {
           url: socialUrl,
           type: socialName,
-          accountHolder: {
-            id: item._id,
-          },
         },
       },
     });

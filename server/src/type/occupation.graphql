@@ -11,7 +11,7 @@ type Query {
 type Mutation {
   addOccupation(input: AddOccupationInput!): Occupation
   addConnectPeople(id: ID!, input: ConnectPeopleInput!): ConnectPeople
-  addSocialMedia(id: ID!, input: SocialMediaInput!): ConnectPeople
+  addSocialMedia(id: ID!, input: SocialMediaInput!): SocialMedia
   addExperience(id: ID!, input: ExperienceInput!): Experience
   addJobDescription(id: ID!, input: JobDescriptionInput!): JobDescription
 

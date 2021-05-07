@@ -143,7 +143,7 @@ function buildMutation() {
       }
     },
 
-    addSocialMedia: async (root, { input, id }) => {
+    addSocialMedia: async (_, { id, input }) => {
       try {
         const person = await ConnectPeople.findById(id);
 
@@ -154,10 +154,10 @@ function buildMutation() {
 
         if (!person) {
           throw new Error("Person not found.");
-        } else {
-          person.socialMedia.push(data);
-          await person.save();
         }
+
+        person.socialMedia.push(data);
+        await person.save();
 
         return person;
       } catch (error) {

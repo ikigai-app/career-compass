@@ -11,13 +11,13 @@ import {
   SearchButtonContainer,
   CircularButtonContainer,
 } from "../../styles/Occupation/RootScreen";
-
 import { useQuery, gql } from "@apollo/client";
+import Loader from "../../components/common/Loader";
 
 const GET_OCCUPATION = gql`
-  query queryOccupation {
-    queryOccupation {
-      id
+  query {
+    occupations {
+      _id
       name
       description
     }
@@ -35,11 +35,16 @@ export default function OccupationScreen({ route, navigation }) {
       title={item.name}
       onPress={() => {
         navigation.navigate("OccupationDetails", {
-          id: item.id,
+          id: item._id,
         });
       }}
     />
   );
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <RootView>
       <SearchBarContainer>
@@ -54,11 +59,11 @@ export default function OccupationScreen({ route, navigation }) {
       </SearchBarContainer>
       <FlatListContainer>
         <FlatList
-          data={data.queryOccupation}
+          data={data.occupations}
           renderItem={renderCard}
           numColumns={Platform.OS === "web" ? 3 : 0}
           //   horizontal={Platform.OS === "web" ? false : false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id}
           ItemSeparatorComponent={() => (
             <View style={{ marginBottom: Platform.OS === "web" ? 40 : 10 }} />
           )}

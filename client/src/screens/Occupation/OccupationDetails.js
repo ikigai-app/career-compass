@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, Text } from "react-native";
+import { useQuery, gql } from "@apollo/client";
 import ConnectPersonCard from "../../components/Occupation/OccuptationDetail/ConnectPerson";
 import Experience from "../../components/Occupation/OccuptationDetail/Experience";
 import JobDescription from "../../components/Occupation/OccuptationDetail/JobDescription";
@@ -9,36 +10,36 @@ import {
   RootView,
   LeftSectionWeb,
 } from "../../styles/Occupation/DetailsScreen";
-import { useQuery, gql } from "@apollo/client";
+import Loader from "../../components/common/Loader";
 
 const GET_OCCUPATION = gql`
-  query getOccupation($id: ID!) {
-    getOccupation(id: $id) {
-      id
+  query occupation($id: ID!) {
+    occupation(id: $id) {
+      _id
       name
       description
       connectPeople {
-        id
+        _id
         name
         description
         socialMedia {
-          id
+          _id
           url
           type
         }
       }
       jobDescription {
-        id
+        _id
         roles {
-          id
+          _id
           role
         }
         requirements {
-          id
+          _id
           requirement
         }
         skills1 {
-          id
+          _id
           skill1
         }
       }
@@ -54,21 +55,18 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
     fetchPolicy: "no-cache",
   });
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) return <Loader />;
   if (error) return <Text>Error :(</Text>;
-
-  // console.log("refetch.....", data);
 
   if (Platform.OS === "android" || Platform.OS === "ios") {
     return (
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
           <TopCard data={data} />
-          <ConnectPersonCard data={data} refetch={() => refetch()} />
+          {/* <ConnectPersonCard data={data} refetch={() => refetch()} />
           <SalaryCard />
-
           <JobDescription data={data} refetch={() => refetch()} />
-          <Experience />
+          <Experience /> */}
         </RootView>
       </ScrollView>
     );
@@ -77,11 +75,11 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
     <RootView>
       <LeftSectionWeb>
         <TopCard data={data} />
-        <SalaryCard />
-        <JobDescription data={data} refetch={() => refetch()} />
-        <Experience />
+        {/* <SalaryCard /> */}
+        {/* <JobDescription data={data} refetch={() => refetch()} /> */}
+        {/* <Experience /> */}
       </LeftSectionWeb>
-      <ConnectPersonCard data={data} refetch={() => refetch()} />
+      {/* <ConnectPersonCard data={data} refetch={() => refetch()} /> */}
     </RootView>
   );
 };

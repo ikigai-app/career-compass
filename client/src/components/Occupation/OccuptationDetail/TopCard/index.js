@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Platform } from "react-native";
 import {
   RootView,
   TitleContainer,
@@ -12,7 +11,7 @@ import { gql, useMutation } from "@apollo/client";
 const UPDATE_INFORMATION = gql`
   mutation updateOccupation($id: ID!, $input: AddOccupationInput!) {
     updateOccupation(id: $id, input: $input) {
-      id
+      _id
       name
       description
     }
@@ -44,10 +43,10 @@ const EditIcon = (props) => (
 );
 
 const TopCard = ({ data }) => {
-  const [title, setTitle] = useState(data.getOccupation.name);
+  const [title, setTitle] = useState(data.occupation.name);
   const [editTitleIcon, setEditTitleIcon] = useState(false);
   const [descriptionText, setDescription] = useState(
-    data.getOccupation.description
+    data.occupation.description
   );
   const [editDescriptionIcon, setEditDescriptionIcon] = useState(false);
 
@@ -55,7 +54,7 @@ const TopCard = ({ data }) => {
 
   useEffect(() => {
     if (data) {
-      const { name, description } = data.getOccupation;
+      const { name, description } = data.occupation;
       setTitle(name);
       setDescription(description);
     }
@@ -72,7 +71,7 @@ const TopCard = ({ data }) => {
   const updateTitle = async () => {
     await updateOccupation({
       variables: {
-        id: data.getOccupation.id.toString(),
+        id: data.occupation._id,
         input: {
           name: title,
         },
@@ -84,7 +83,7 @@ const TopCard = ({ data }) => {
   const updateDescription = async () => {
     await updateOccupation({
       variables: {
-        id: data.getOccupation.id.toString(),
+        id: data.occupation._id,
         input: {
           description: descriptionText,
         },

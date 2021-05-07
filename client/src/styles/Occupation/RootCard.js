@@ -10,6 +10,7 @@ export const RootContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 6px;
+  position: relative;
 `;
 
 export const Title = styled.Text`

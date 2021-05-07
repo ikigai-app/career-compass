@@ -45,6 +45,12 @@ const ADD_OCCUPATION = gql`
   }
 `;
 
+const DELETE_OCCUPATION = gql`
+  mutation deleteOccupation($id: ID!) {
+    deleteOccupation(id: $id)
+  }
+`;
+
 export default function OccupationScreen({ route, navigation }) {
   const { loading, error, data, refetch } = useQuery(GET_OCCUPATION, {
     fetchPolicy: "no-cache",
@@ -52,6 +58,13 @@ export default function OccupationScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const [deleteOccupation] = useMutation(DELETE_OCCUPATION, {
+    onCompleted({}) {
+      refetch();
+    },
+  });
 
   const [addOccupation] = useMutation(ADD_OCCUPATION, {
     onCompleted({ addOccupation }) {
@@ -79,6 +92,14 @@ export default function OccupationScreen({ route, navigation }) {
     setModalVisible(false);
   };
 
+  const deleteOcc = async (id) => {
+    await deleteOccupation({
+      variables: {
+        id: id,
+      },
+    });
+  };
+
   const renderCard = ({ item }) => (
     <Card
       title={item.name}
@@ -87,8 +108,17 @@ export default function OccupationScreen({ route, navigation }) {
           id: item._id,
         });
       }}
+      onDelete={() => {
+        deleteOcc(item._id);
+      }}
     />
   );
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  };
 
   return (
     <RootView>
@@ -330,6 +360,10 @@ export default function OccupationScreen({ route, navigation }) {
           ItemSeparatorComponent={() => (
             <View style={{ marginBottom: Platform.OS === "web" ? 40 : 10 }} />
           )}
+          refreshing={refreshing}
+          onRefresh={() => {
+            onRefresh();
+          }}
         />
       </FlatListContainer>
       {Platform.OS == "web" ? (

@@ -63,14 +63,13 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
       <ScrollView nestedScrollEnabled={true}>
         <RootView>
           <TopCard data={data} />
-          <ConnectPersonCard
-            id={data.occupation._id}
-            //  refetch={() => refetch()}
-          />
-          {/*
+          <ConnectPersonCard id={data.occupation._id} />
           <SalaryCard />
+          {/*
+         
           <JobDescription data={data} refetch={() => refetch()} />
-          <Experience /> */}
+          */}
+          <Experience />
         </RootView>
       </ScrollView>
     );
@@ -79,14 +78,11 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
     <RootView>
       <LeftSectionWeb>
         <TopCard data={data} />
-        {/* <SalaryCard /> */}
+        <SalaryCard />
         {/* <JobDescription data={data} refetch={() => refetch()} /> */}
-        {/* <Experience /> */}
+        <Experience />
       </LeftSectionWeb>
-      <ConnectPersonCard
-        id={data.occupation._id}
-        // refetch={() => refetch()}
-      />
+      <ConnectPersonCard id={data.occupation._id} />
     </RootView>
   );
 };

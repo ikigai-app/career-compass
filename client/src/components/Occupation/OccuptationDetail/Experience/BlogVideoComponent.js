@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { View, Platform, Text, TouchableOpacity } from "react-native";
-// import YoutubePlayer from "react-native-youtube-iframe";
+import YoutubePlayer from "react-native-youtube-iframe";
 import * as Linking from "expo-linking";
 import {
   BlogContainer,
@@ -48,10 +48,10 @@ const BlogVideoComponent = ({ data }) => {
 
   return (
     <VideoContainer>
-      {/* <YoutubePlayer
+      <YoutubePlayer
         height={Platform.OS === "web" ? 200 : 200}
         videoId={"a2rcgzludDU"}
-      /> */}
+      />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <VideoDescription>Video Description</VideoDescription>
         <DeleteIcon />

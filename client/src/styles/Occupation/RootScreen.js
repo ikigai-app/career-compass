@@ -12,11 +12,11 @@ export const RootView = styled.View`
 `;
 
 export const FlatListContainer = styled.View`
+  flex: 1;
   width: ${Platform.OS === "web" ? `100%` : `100%`};
   justify-content: center;
   align-content: center;
   margin-top: ${Platform.OS === "web" ? `35px` : `10px`};
-  flex: 1;
 `;
 
 export const SearchBarContainer = styled.View`

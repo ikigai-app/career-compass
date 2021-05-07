@@ -6,7 +6,7 @@ import {
 
 const CircularButton = (props) => {
   return (
-    <TouchableContainer>
+    <TouchableContainer onPress={props.onPress}>
       <TouchableText>+</TouchableText>
     </TouchableContainer>
   );

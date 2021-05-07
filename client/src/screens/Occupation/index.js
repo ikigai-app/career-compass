@@ -1,5 +1,13 @@
-import React from "react";
-import { View, Text, FlatList, Platform } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Platform,
+  TouchableOpacity,
+  Modal as ModalMobile,
+  Dimensions,
+} from "react-native";
 import Button from "../../components/common/Button";
 import CircularButton from "../../components/common/Button/CircularButton";
 import Card from "../../components/Occupation/Card/RootCard";
@@ -13,6 +21,11 @@ import {
 } from "../../styles/Occupation/RootScreen";
 import { useQuery, gql } from "@apollo/client";
 import Loader from "../../components/common/Loader";
+import Modal from "modal-react-native-web";
+import Input from "../../components/common/TextInput";
+
+const windowWidth = Dimensions.get("window").width;
+// const windowHeight = Dimensions.get("window").height;
 
 const GET_OCCUPATION = gql`
   query {
@@ -26,8 +39,14 @@ const GET_OCCUPATION = gql`
 
 export default function OccupationScreen({ route, navigation }) {
   const { loading, error, data } = useQuery(GET_OCCUPATION, {});
+  const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-  if (loading) return <Text>Loading...</Text>;
+  // if (loading) return <Text>Loading...</Text>;
+  if (loading) {
+    return <Loader />;
+  }
   if (error) return <Text>Error :(</Text>;
 
   const renderCard = ({ item }) => (
@@ -41,17 +60,242 @@ export default function OccupationScreen({ route, navigation }) {
     />
   );
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <RootView>
+      {Platform.OS === "web" ? (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onDismiss={() => {
+            // alert("Modal has been closed.");
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(100, 100, 100, 0.1)",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#fff",
+                height: 320,
+                width: 480,
+                flexDirection: "column",
+                paddingHorizontal: 30,
+                paddingTop: 70,
+              }}
+            >
+              <Input
+                placeholder={"Name"}
+                style={{
+                  fontSize: 16,
+                  lineHeight: 32,
+                  borderWidth: 1,
+                  color: "black",
+                  fontWeight: "bold",
+                  padding: 4,
+                }}
+                onChangeText={(text) => setName(text)}
+                value={name}
+              />
+              <Input
+                placeholder={"Description"}
+                style={{
+                  marginTop: 20,
+                  fontSize: 16,
+                  lineHeight: 32,
+                  borderWidth: 1,
+                  color: "black",
+                  fontWeight: "bold",
+                  padding: 4,
+                }}
+                onChangeText={(text) => setDescription(text)}
+                value={description}
+              />
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 50,
+                  justifyContent: "space-around",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "crimson",
+                    padding: 10,
+                    borderRadius: 4,
+                    width: 100,
+                  }}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: 600,
+                      textAlign: "center",
+                    }}
+                  >
+                    CANCEL
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "green",
+                    padding: 10,
+                    borderRadius: 4,
+                    width: 100,
+                  }}
+                  // onPress={() => setModalVisible(false)}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: 600,
+                      textAlign: "center",
+                    }}
+                  >
+                    ADD
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* <TouchableHighlight
+                onPress={() => {
+                  // this.setModalVisible(!this.state.modalVisible);
+                  setModalVisible(false);
+                }}
+              >
+                <Text>Hide Modal</Text>
+              </TouchableHighlight> */}
+            </View>
+          </View>
+        </Modal>
+      ) : (
+        <ModalMobile
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            // Alert.alert("Modal has been closed.");
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(100, 100, 100, 0.5)",
+            }}
+            // onPress={() => {
+            //   setModalVisible(false);
+            // }}
+          >
+            <View
+              style={{
+                backgroundColor: "#fff",
+                height: 320,
+                width: windowWidth - 20,
+                flexDirection: "column",
+                paddingHorizontal: 20,
+                paddingTop: 70,
+              }}
+            >
+              <Input
+                placeholder={"Name"}
+                style={{
+                  fontSize: 16,
+                  lineHeight: 32,
+                  borderWidth: 1,
+                  color: "black",
+                  fontWeight: "bold",
+                  padding: 4,
+                }}
+                onChangeText={(text) => setName(text)}
+                value={name}
+              />
+              <Input
+                placeholder={"Description"}
+                style={{
+                  marginTop: 20,
+                  fontSize: 16,
+                  lineHeight: 32,
+                  borderWidth: 1,
+                  color: "black",
+                  fontWeight: "bold",
+                  padding: 4,
+                }}
+                onChangeText={(text) => setDescription(text)}
+                value={description}
+              />
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 50,
+                  justifyContent: "space-around",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "crimson",
+                    padding: 10,
+                    borderRadius: 4,
+                    width: 100,
+                  }}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "700",
+                      textAlign: "center",
+                    }}
+                  >
+                    CANCEL
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "green",
+                    padding: 10,
+                    borderRadius: 4,
+                    width: 100,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "700",
+                      textAlign: "center",
+                    }}
+                  >
+                    ADD
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ModalMobile>
+      )}
+
       <SearchBarContainer>
         <SearchBar />
         {Platform.OS == "web" ? (
           <SearchButtonContainer>
-            <Button text="CREATE" onPress={() => console.log("test")} />
+            <Button text="CREATE" onPress={() => setModalVisible(true)} />
           </SearchButtonContainer>
         ) : (
           <View />
@@ -73,7 +317,7 @@ export default function OccupationScreen({ route, navigation }) {
         <View />
       ) : (
         <CircularButtonContainer>
-          <CircularButton />
+          <CircularButton onPress={() => setModalVisible(true)} />
         </CircularButtonContainer>
       )}
     </RootView>

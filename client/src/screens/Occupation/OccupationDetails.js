@@ -69,7 +69,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
          
           <JobDescription data={data} refetch={() => refetch()} />
           */}
-          <Experience />
+          <Experience id={data.occupation._id} />
         </RootView>
       </ScrollView>
     );
@@ -80,7 +80,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
         <TopCard data={data} />
         <SalaryCard />
         {/* <JobDescription data={data} refetch={() => refetch()} /> */}
-        <Experience />
+        <Experience id={data.occupation._id} />
       </LeftSectionWeb>
       <ConnectPersonCard id={data.occupation._id} />
     </RootView>

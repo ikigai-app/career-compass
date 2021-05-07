@@ -26,7 +26,7 @@ export const VideoDescription = styled.Text`
 export const BlogContainer = styled.View`
   width: ${Platform.OS === "web" ? `350` : `auto`};
   background-color: #f5f5f5;
-  height: ${Platform.OS === "web" ? `auto` : `200px`};
+  height: ${Platform.OS === "web" ? `240px` : `200px`};
   justify-content: center;
   position: relative;
 `;

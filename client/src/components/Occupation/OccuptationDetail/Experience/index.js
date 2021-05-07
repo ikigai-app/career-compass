@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FlatList, Platform, TextInput, View } from "react-native";
+import { FlatList, Platform, View } from "react-native";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import Header from "../../../common/Header";
 import {
   RootView,
@@ -11,30 +12,19 @@ import BlogVideoComponent from "./BlogVideoComponent";
 import Input from "../../../common/TextInput";
 import RNPickerSelect from "react-native-picker-select";
 import IconButton from "../../../common/IconsButton";
+import Loader from "../../../common/Loader";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    text: "First Item",
-    type: "video",
-  },
-
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba3",
-    text: "Test Item",
-    type: "blog",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba2",
-    text: "Test Item",
-    type: "blog",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba1",
-    text: "Test Item",
-    type: "video",
-  },
-];
+const GET_EXPERIENCE = gql`
+  query getExperience($occupationID: ID!) {
+    getExperience(occupationID: $occupationID) {
+      _id
+      type
+      description
+      url
+      occupationID
+    }
+  }
+`;
 
 const PlusCircleIcon = (props) => (
   <IconButton
@@ -48,9 +38,17 @@ const PlusCircleIcon = (props) => (
   />
 );
 
-const Experience = () => {
+const Experience = ({ id }) => {
+  const { loading, error, data, refetch } = useQuery(GET_EXPERIENCE, {
+    variables: { occupationID: id },
+    fetchPolicy: "no-cache",
+  });
+
   const [type, setType] = useState("Select Type");
   const [visibleInput, setVisibleInput] = useState(true);
+
+  if (loading) return <Loader />;
+  if (error) return <Text>Error :(</Text>;
 
   const InputContainer = () => (
     <InputRootContainer>
@@ -102,7 +100,6 @@ const Experience = () => {
               borderRadius: 8,
               height: 45,
               fontSize: 14,
-
               marginBottom: 10,
               color: "#8a8a8a",
             },
@@ -123,7 +120,9 @@ const Experience = () => {
     </InputRootContainer>
   );
 
-  const renderVideoComponent = ({ item }) => <BlogVideoComponent data={item} />;
+  const renderVideoComponent = ({ item }) => (
+    <BlogVideoComponent data={item} refetch={refetch} />
+  );
 
   return (
     <RootView>
@@ -131,9 +130,9 @@ const Experience = () => {
       <View style={{ marginTop: 40 }}>
         {Platform.OS === "web" ? (
           <FlatList
-            data={DATA}
+            data={data.getExperience}
             renderItem={renderVideoComponent}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item._id}
             numColumns={2}
             ItemSeparatorComponent={() => <View style={{ margin: 10 }} />}
             columnWrapperStyle={{
@@ -143,9 +142,9 @@ const Experience = () => {
           />
         ) : (
           <FlatList
-            data={DATA}
+            data={data.getExperience}
             renderItem={renderVideoComponent}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item._id}
             ItemSeparatorComponent={() => <View style={{ margin: 10 }} />}
           />
         )}

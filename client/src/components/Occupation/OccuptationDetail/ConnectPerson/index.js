@@ -51,9 +51,11 @@ const GET_CONNECTED_PEOPLE = gql`
 `;
 
 const UPDATE_CONNECT_PEOPLE = gql`
-  mutation updateConnectPeople($id: ID!, $input: UpdateConnectPeople!) {
-    updateConnectPeople(id: $id, input: $input) {
+  mutation updateConnectedPeople($id: ID!, $input: ConnectPeopleInput!) {
+    updateConnectedPeople(id: $id, input: $input) {
+      _id
       name
+      description
     }
   }
 `;
@@ -104,7 +106,14 @@ const PersonCard = ({ item, refetch }) => {
 
   const [socialName, setSocialName] = useState("");
   const [socialUrl, setSocialUrl] = useState("");
-  const [updateConnectPeople] = useMutation(UPDATE_CONNECT_PEOPLE);
+
+  const [updateConnectedPeople] = useMutation(UPDATE_CONNECT_PEOPLE, {
+    onCompleted({ updateConnectedPeople }) {
+      if (updateConnectedPeople) {
+        refetch();
+      }
+    },
+  });
 
   const [addSocialMedia] = useMutation(ADD_SOCIAL_MEDIA, {
     onCompleted({ addSocialMedia }) {
@@ -137,7 +146,7 @@ const PersonCard = ({ item, refetch }) => {
   };
 
   const updateName = async () => {
-    await updateConnectPeople({
+    await updateConnectedPeople({
       variables: {
         id: item._id,
         input: {
@@ -149,7 +158,7 @@ const PersonCard = ({ item, refetch }) => {
   };
 
   const updateDescription = async () => {
-    await updateConnectPeople({
+    await updateConnectedPeople({
       variables: {
         id: item._id,
         input: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Platform, ScrollView, Text } from "react-native";
 import { useQuery, gql } from "@apollo/client";
 import ConnectPersonCard from "../../components/Occupation/OccuptationDetail/ConnectPerson";
@@ -18,31 +18,9 @@ const GET_OCCUPATION = gql`
       _id
       name
       description
-      # connectPeople {
-      #   _id
-      #   name
-      #   description
-      #   socialMedia {
-      #     _id
-      #     url
-      #     type
-      #   }
-      # }
-      # jobDescription {
-      #   _id
-      #   roles {
-      #     _id
-      #     role
-      #   }
-      #   requirements {
-      #     _id
-      #     requirement
-      #   }
-      #   skills1 {
-      #     _id
-      #     skill1
-      #   }
-      # }
+      jobDescription {
+        _id
+      }
     }
   }
 `;
@@ -65,10 +43,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
           <TopCard data={data} />
           <ConnectPersonCard id={data.occupation._id} />
           <SalaryCard />
-          {/*
-         
-          <JobDescription data={data} refetch={() => refetch()} />
-          */}
+          <JobDescription id={data.occupation.jobDescription} />
           <Experience id={data.occupation._id} />
         </RootView>
       </ScrollView>
@@ -79,7 +54,7 @@ const OccupationDetailsScreen = ({ route, navigation }) => {
       <LeftSectionWeb>
         <TopCard data={data} />
         <SalaryCard />
-        {/* <JobDescription data={data} refetch={() => refetch()} /> */}
+        <JobDescription id={data.occupation.jobDescription} />
         <Experience id={data.occupation._id} />
       </LeftSectionWeb>
       <ConnectPersonCard id={data.occupation._id} />

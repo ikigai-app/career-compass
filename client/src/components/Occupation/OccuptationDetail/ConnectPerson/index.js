@@ -445,8 +445,6 @@ const ConnectPersonCard = ({ id }) => {
 
   if (loading) return <Loader />;
 
-  console.log(data);
-
   return (
     <RootView>
       <Header text={"CONNECT WITH PEOPLE"} />
@@ -458,7 +456,9 @@ const ConnectPersonCard = ({ id }) => {
       />
 
       <FlatList
-        style={{ marginBottom: 20 }}
+        style={{
+          marginBottom: 20,
+        }}
         data={data.getConnectedPeople}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
@@ -469,7 +469,6 @@ const ConnectPersonCard = ({ id }) => {
       {visibleInput ? (
         <InputComponent
           setVisibleInput={setVisibleInput}
-          // parentId={getOccupation.id}
           parentId={id}
           refetch={refetch}
         />

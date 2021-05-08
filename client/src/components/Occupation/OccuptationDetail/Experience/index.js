@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Platform, View } from "react-native";
+import { FlatList, Platform, View, Text } from "react-native";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import Header from "../../../common/Header";
 import {

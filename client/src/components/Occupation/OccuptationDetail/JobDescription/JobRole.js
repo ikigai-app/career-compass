@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, Platform } from "react-native";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import {
   RootFlatListContainer,
   FlatListHeader,
@@ -15,22 +16,89 @@ import {
 } from "./common/IconButton";
 import { Bullet } from "./common/Bullet";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    text: "First Item",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bb",
-    text: "Second Item",
-  },
-];
+const ADD_ROLE = gql`
+  mutation addJobDescription($id: ID!, $input: JobDescriptionInput!) {
+    addJobDescription(id: $id, input: $input) {
+      _id
+      roles {
+        _id
+        role
+      }
+    }
+  }
+`;
 
-const InputComponent = (props) => {
-  const { data } = props;
+const UPDATE_ROLE = gql`
+  mutation updateJobDescription(
+    $jobDescriptionID: ID!
+    $input: UpdateJobDescriptionInput!
+  ) {
+    updateJobDescription(jobDescriptionID: $jobDescriptionID, input: $input) {
+      _id
+      roles {
+        _id
+        role
+      }
+    }
+  }
+`;
+
+const DELETE_ROLE = gql`
+  mutation deleteJobDescription(
+    $jobDescriptionID: ID!
+    $input: UpdateJobDescriptionInput!
+  ) {
+    deleteJobDescription(jobDescriptionID: $jobDescriptionID, input: $input)
+  }
+`;
+
+const InputComponent = ({ data, id, refetch }) => {
   const [selectedID, setSelectedID] = useState("");
   const [editText, setEditText] = useState(false);
   const [text, setText] = useState(data.role);
+
+  const [updateJobDescription] = useMutation(UPDATE_ROLE, {
+    onCompleted({ updateJobDescription }) {
+      if (updateJobDescription) {
+        refetch();
+        setSelectedID("");
+        setEditText(false);
+      }
+    },
+  });
+
+  const [deleteJobDescription] = useMutation(DELETE_ROLE, {
+    onCompleted() {
+      refetch();
+      setSelectedID("");
+      setEditText(false);
+    },
+  });
+
+  const deleteRole = async () => {
+    await deleteJobDescription({
+      variables: {
+        jobDescriptionID: id,
+        input: {
+          type: "roles",
+          id: selectedID,
+        },
+      },
+    });
+  };
+
+  const updateRole = async () => {
+    await updateJobDescription({
+      variables: {
+        jobDescriptionID: id,
+        input: {
+          type: "roles",
+          value: text,
+          id: selectedID,
+        },
+      },
+    });
+  };
 
   return (
     <InputContainer>
@@ -40,7 +108,7 @@ const InputComponent = (props) => {
         style={{
           flex: 1,
           fontSize: 15,
-          borderWidth: editText && selectedID === data.id ? 1 : 0,
+          borderWidth: editText && selectedID === data._id ? 1 : 0,
           color: "dimgray",
           padding: 10,
           maxHeight: 65,
@@ -52,23 +120,22 @@ const InputComponent = (props) => {
         editable={editText}
         value={text}
       />
-      {editText && selectedID === data.id ? (
+      {editText && selectedID === data._id ? (
         <View style={{ flexDirection: "row" }}>
           <CheckIcon
             onPress={() => {
-              setEditText(false);
-              setSelectedID("");
+              updateRole();
             }}
           />
           <View style={{ marginLeft: 10 }}>
-            <DeleteIcon />
+            <DeleteIcon onPress={() => deleteRole()} />
           </View>
         </View>
       ) : (
         <EditIcon
           onPress={() => {
             setEditText(true);
-            setSelectedID(data.id);
+            setSelectedID(data._id);
           }}
         />
       )}
@@ -78,6 +145,28 @@ const InputComponent = (props) => {
 
 const NewInputComponent = (props) => {
   const [role, setRole] = useState("");
+
+  const [addJobDescription] = useMutation(ADD_ROLE, {
+    onCompleted({ addJobDescription }) {
+      if (addJobDescription) {
+        props.refetch();
+      }
+    },
+  });
+
+  const addRole = async () => {
+    await addJobDescription({
+      variables: {
+        id: props.id,
+        input: {
+          type: "roles",
+          value: role,
+        },
+      },
+    });
+
+    props.hideInput();
+  };
 
   return (
     <InputContainer>
@@ -96,19 +185,18 @@ const NewInputComponent = (props) => {
         onChangeText={(text) => setRole(text)}
         value={role}
       />
-      <CheckIcon onPress={props.onPress} />
+      <CheckIcon onPress={addRole} />
     </InputContainer>
   );
 };
 
 const JobRole = ({ data, refetch }) => {
-  const { jobDescription } = data.getOccupation;
+  const { _id, roles } = data;
   const [visibleInput, setVisibleInput] = useState(true);
-  const [rolesData, setRolesData] = useState(jobDescription[0].roles);
 
-  const renderItem = ({ item }) => <InputComponent data={item} />;
-
-  console.log("cchck", rolesData);
+  const renderItem = ({ item }) => (
+    <InputComponent data={item} id={_id} refetch={refetch} />
+  );
 
   return (
     <RootFlatListContainer>
@@ -116,11 +204,12 @@ const JobRole = ({ data, refetch }) => {
         <FlatListHeaderText>ROLES</FlatListHeaderText>
       </FlatListHeader>
       <FlatList
-        data={rolesData}
+        data={roles}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        // extraData={editText}
+        keyExtractor={(item) => item._id}
+        extraData={roles}
       />
+
       {visibleInput ? (
         <View
           style={{ marginLeft: Platform.OS === "web" ? 0 : 1, marginTop: 7 }}
@@ -128,7 +217,11 @@ const JobRole = ({ data, refetch }) => {
           <PlusCircleIcon onPress={() => setVisibleInput(false)} />
         </View>
       ) : (
-        <NewInputComponent onPress={() => setVisibleInput(true)} />
+        <NewInputComponent
+          id={_id}
+          hideInput={() => setVisibleInput(true)}
+          refetch={refetch}
+        />
       )}
     </RootFlatListContainer>
   );

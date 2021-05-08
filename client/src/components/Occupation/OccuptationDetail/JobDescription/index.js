@@ -41,8 +41,8 @@ const JobDescription = ({ id }) => {
     <RootView>
       <Header text={"JOB DESCRIPTION"} />
       <JobRole data={data.jobDescription[0]} refetch={refetch} />
-      {/* <JobSkills data={data} refetch={refetch} /> */}
-      {/* <JobRequirements data={data} refetch={refetch} /> */}
+      {/* <JobSkills data={data.jobDescription[0]} refetch={refetch} /> */}
+      <JobRequirements data={data.jobDescription[0]} refetch={refetch} />
     </RootView>
   );
 };

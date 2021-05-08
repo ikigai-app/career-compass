@@ -104,7 +104,7 @@ const InputComponent = ({ data, id, refetch }) => {
     <InputContainer>
       <Bullet />
       <Input
-        placeholder={"Name"}
+        placeholder={"Role"}
         style={{
           flex: 1,
           fontSize: 15,

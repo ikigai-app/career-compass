@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, Platform } from "react-native";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import {
   RootFlatListContainer,
   FlatListHeader,
@@ -15,28 +16,99 @@ import {
 } from "./common/IconButton";
 import { Bullet } from "./common/Bullet";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    text: "First Item",
-  },
-];
+const ADD_SKILL = gql`
+  mutation addJobDescription($id: ID!, $input: JobDescriptionInput!) {
+    addJobDescription(id: $id, input: $input) {
+      _id
+      skills1 {
+        _id
+        skill1
+      }
+    }
+  }
+`;
 
-const InputComponent = (props) => {
-  const { data } = props;
+const UPDATE_SKILL = gql`
+  mutation updateJobDescription(
+    $jobDescriptionID: ID!
+    $input: UpdateJobDescriptionInput!
+  ) {
+    updateJobDescription(jobDescriptionID: $jobDescriptionID, input: $input) {
+      _id
+      skills1 {
+        _id
+        skill1
+      }
+    }
+  }
+`;
+
+const DELETE_ROLE = gql`
+  mutation deleteJobDescription(
+    $jobDescriptionID: ID!
+    $input: UpdateJobDescriptionInput!
+  ) {
+    deleteJobDescription(jobDescriptionID: $jobDescriptionID, input: $input)
+  }
+`;
+
+const InputComponent = ({ data, id, refetch }) => {
   const [selectedID, setSelectedID] = useState("");
   const [editText, setEditText] = useState(false);
-  const [text, setText] = useState("Sample  One");
+  const [text, setText] = useState(data.skill1);
+
+  const [updateJobDescription] = useMutation(UPDATE_SKILL, {
+    onCompleted({ updateJobDescription }) {
+      if (updateJobDescription) {
+        refetch();
+        setSelectedID("");
+        setEditText(false);
+      }
+    },
+  });
+
+  const [deleteJobDescription] = useMutation(DELETE_ROLE, {
+    onCompleted() {
+      refetch();
+      setSelectedID("");
+      setEditText(false);
+    },
+  });
+
+  const deleteSkill = async () => {
+    await deleteJobDescription({
+      variables: {
+        jobDescriptionID: id,
+        input: {
+          type: "skills1",
+          id: selectedID,
+        },
+      },
+    });
+  };
+
+  const updateSkill = async () => {
+    await updateJobDescription({
+      variables: {
+        jobDescriptionID: id,
+        input: {
+          type: "skills1",
+          value: text,
+          id: selectedID,
+        },
+      },
+    });
+  };
 
   return (
     <InputContainer>
       <Bullet />
       <Input
-        placeholder={"Name"}
+        placeholder={"Skill"}
         style={{
           flex: 1,
           fontSize: 15,
-          borderWidth: editText && selectedID === data.id ? 1 : 0,
+          borderWidth: editText && selectedID === data._id ? 1 : 0,
           color: "dimgray",
           padding: 10,
           maxHeight: 65,
@@ -48,23 +120,22 @@ const InputComponent = (props) => {
         editable={editText}
         value={text}
       />
-      {editText && selectedID === data.id ? (
+      {editText && selectedID === data._id ? (
         <View style={{ flexDirection: "row" }}>
           <CheckIcon
             onPress={() => {
-              setEditText(false);
-              setSelectedID("");
+              updateSkill();
             }}
           />
           <View style={{ marginLeft: 10 }}>
-            <DeleteIcon />
+            <DeleteIcon onPress={() => deleteSkill()} />
           </View>
         </View>
       ) : (
         <EditIcon
           onPress={() => {
             setEditText(true);
-            setSelectedID(props.data.id);
+            setSelectedID(data._id);
           }}
         />
       )}
@@ -75,10 +146,32 @@ const InputComponent = (props) => {
 const NewInputComponent = (props) => {
   const [skill, setSkill] = useState("");
 
+  const [addJobDescription] = useMutation(ADD_SKILL, {
+    onCompleted({ addJobDescription }) {
+      if (addJobDescription) {
+        props.refetch();
+      }
+    },
+  });
+
+  const addSkill = async () => {
+    await addJobDescription({
+      variables: {
+        id: props.id,
+        input: {
+          type: "skills1",
+          value: skill,
+        },
+      },
+    });
+
+    props.hideInput();
+  };
+
   return (
     <InputContainer>
       <TextInput
-        placeholder={"Add Skill"}
+        placeholder={"Skill"}
         style={{
           flex: 1,
           fontSize: 15,
@@ -92,27 +185,31 @@ const NewInputComponent = (props) => {
         onChangeText={(text) => setSkill(text)}
         value={skill}
       />
-      <CheckIcon onPress={props.onPress} />
+      <CheckIcon onPress={addSkill} />
     </InputContainer>
   );
 };
 
-const JobSkill = () => {
+const JobSkills = ({ data, refetch }) => {
+  const { _id, skills1 } = data;
   const [visibleInput, setVisibleInput] = useState(true);
 
-  const renderItem = ({ item }) => <InputComponent data={item} />;
+  const renderItem = ({ item }) => (
+    <InputComponent data={item} id={_id} refetch={refetch} />
+  );
 
   return (
     <RootFlatListContainer>
       <FlatListHeader>
-        <FlatListHeaderText>SKILL</FlatListHeaderText>
+        <FlatListHeaderText>SKILLS</FlatListHeaderText>
       </FlatListHeader>
       <FlatList
-        data={DATA}
+        data={skills1}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        // extraData={editText}
+        keyExtractor={(item) => item._id}
+        extraData={skills1}
       />
+
       {visibleInput ? (
         <View
           style={{ marginLeft: Platform.OS === "web" ? 0 : 1, marginTop: 7 }}
@@ -120,10 +217,14 @@ const JobSkill = () => {
           <PlusCircleIcon onPress={() => setVisibleInput(false)} />
         </View>
       ) : (
-        <NewInputComponent onPress={() => setVisibleInput(true)} />
+        <NewInputComponent
+          id={_id}
+          hideInput={() => setVisibleInput(true)}
+          refetch={refetch}
+        />
       )}
     </RootFlatListContainer>
   );
 };
 
-export default JobSkill;
+export default JobSkills;

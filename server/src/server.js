@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 const cors = require("cors");
 const { buildSchema } = require("./schema.js");
-const { SERVER_PORT } = require("../config");
+const { SERVER_PORT, CONNECTIONSTRING } = require("../config");
 const { models } = require("./models");
 
 async function startApolloServer() {
@@ -25,12 +25,16 @@ async function startApolloServer() {
 
   server.applyMiddleware({ app });
 
-  await mongoose.connect("mongodb://localhost:27017/careerCompassDB", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+  await mongoose.connect(
+    // "mongodb://localhost:27017/careerCompassDB"
+    process.env.CONNECTIONSTRING || CONNECTIONSTRING,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    }
+  );
 
   await new Promise((resolve) =>
     app.listen({ port: `${process.env.SERVER_PORT || SERVER_PORT}` }, resolve)

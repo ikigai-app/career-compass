@@ -13,20 +13,16 @@
 Download the docker if not installed from following [link](https://www.docker.com/products/docker-desktop)
 
 ```shell
+# development mode
+$ docker-compose -f docker-compose.dev.yml  up --build
+
+# production mode
 $ docker-compose up -d --build
 # -d run the container in detached mode (in the background)
+
 ```
 
-In case of localhost port issue
-
-```shell
-$ docker network ls
-
-$ docker network inspect <NETWORK_ID or NAME/>
-# take dgraph alpha server IP and pass it to .env DGRAPH_HOST
-```
-
-##### Before connecting to the client. Run
+##### Before connecting to the client (dev mode) . Run
 
 ```shell
 $ ngrok http http://localhost:4000

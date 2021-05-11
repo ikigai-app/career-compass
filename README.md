@@ -36,7 +36,8 @@ Ngrok exposes local servers behind NATs and firewalls to the public internet ove
 
 Install Expo GO Client app to test the app [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) [iOS](https://apps.apple.com/us/app/expo-go/id982107779)
 
-Scan the QR code and run the app.
+Scan the QR code and run the app. Project page: https://expo.io/@manish-2021/career-compass .
+
 <img src="./QR.png" alt="QRcode"/>
 
 ### Server

@@ -25,16 +25,12 @@ async function startApolloServer() {
 
   server.applyMiddleware({ app });
 
-  await mongoose.connect(
-    // "mongodb://localhost:27017/careerCompassDB"
-    process.env.CONNECTIONSTRING || CONNECTIONSTRING,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-    }
-  );
+  await mongoose.connect(process.env.CONNECTIONSTRING || CONNECTIONSTRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  });
 
   await new Promise((resolve) =>
     app.listen({ port: `${process.env.SERVER_PORT || SERVER_PORT}` }, resolve)
@@ -44,6 +40,7 @@ async function startApolloServer() {
       process.env.SERVER_PORT || SERVER_PORT
     }${server.graphqlPath}`
   );
+
   return { server, app };
 }
 

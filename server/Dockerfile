@@ -11,6 +11,9 @@ RUN npm install --production
 
 COPY . .
 
-EXPOSE 4000 
+EXPOSE 8080 
 
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
+RUN npm install pm2 -g
+
+CMD ["pm2-runtime", "src/server.js"]

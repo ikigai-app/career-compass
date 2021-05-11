@@ -5,14 +5,16 @@ services:
       context: .
       network: host
     ports:
-      - 80:8080
+      - 4000:4000
     environment:
-      - SERVER_PORT=8080
-      - CONNECTIONSTRING=mongodb://mongo:27017/careerCompassDB
+      - SERVER_PORT=4000
+      - CONNECTIONSTRING=mongodb://mongo:27017/careerCompassDBDev
     volumes:
       - ./:/app
     expose:
-      - "8080"
+      - "4000"
+
+    command: "npm run dev"
 
   mongo:
     image: mongo:4.4.5

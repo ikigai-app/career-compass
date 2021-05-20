@@ -105,5 +105,8 @@ docker-compose up -d --build
 
 #check docker image
 docker ps
+
+#stop
+docker stop <container-name/id>
 ```
 

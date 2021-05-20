@@ -1,5 +1,13 @@
 # Career Compass App
 
+### Module
+
+- [Sovren API using Dgraph](https://github.com/ikigai-app/career-compass/tree/sovren-schema) - sovren-schema
+- [Occupation using Dgraph](https://github.com/ikigai-app/career-compass/commits/occupation-module) - occupation-module
+- [Occupation using MongoDB](https://github.com/ikigai-app/career-compass/commits/occupation-module-mongoDB) - occupation-module-mongoDB
+
+
+
 ### [NVM](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 ```shell
